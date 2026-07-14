@@ -14,7 +14,7 @@ export default function AboutPage() {
       <section className="page-hero">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80&auto=format&fit=crop"
+          src="/assets/old-site/WhatsApp-Image-2024-05-18-at-5.51.39-PM.jpeg"
           alt="Krishna Home Studio luxury showroom design"
           className="page-hero__bg"
         />
@@ -47,7 +47,7 @@ export default function AboutPage() {
             <div className={styles.storyImageWrap}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="https://images.unsplash.com/photo-1620626011761-996317702519?w=900&q=80&auto=format&fit=crop"
+                src="/assets/old-site/IMG-20230520-WA0126-1.jpg"
                 alt="Luxury washbasin and gold faucet layout"
                 className={styles.storyImage}
               />

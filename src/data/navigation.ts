@@ -40,7 +40,14 @@ export const navItems: NavItem[] = [
       { label: "Spa & Wellness", href: "/bathware/spa-wellness" },
     ],
   },
-  { label: "Hardware", href: "/hardware" },
+  {
+    label: "Hardware",
+    href: "/hardware",
+    children: [
+      { label: "Architectural Hardware", href: "/hardware" },
+      { label: "Safe Essentials", href: "/safe-essentials" },
+    ],
+  },
   { label: "Clientele", href: "/clientele" },
   { label: "Media", href: "/media" },
   { label: "Contact", href: "/contact" },

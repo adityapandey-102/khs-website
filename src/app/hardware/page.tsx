@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowRight, Lock, Key, Eye, HelpCircle } from "lucide-react";
 import { hardwareCategories } from "@/data/categories";
 import styles from "./hardware.module.css";
 
@@ -20,7 +18,7 @@ export default function HardwarePage() {
       <section className="page-hero">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80&auto=format&fit=crop"
+          src="/assets/old-site/Krishna-Home-Studio-Hardware-1-1024x576.png"
           alt="Premium architectural hardware and fittings"
           className="page-hero__bg"
         />

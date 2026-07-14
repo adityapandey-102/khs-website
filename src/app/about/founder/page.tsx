@@ -14,7 +14,7 @@ export default function FounderPage() {
       <section className="page-hero">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=1920&q=80&auto=format&fit=crop"
+          src="/assets/old-site/IMG_20240513_135506-e1721041513878.jpg"
           alt="Executive vision page banner"
           className="page-hero__bg"
         />
@@ -35,7 +35,7 @@ export default function FounderPage() {
               <div className={styles.imageWrap}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80&auto=format&fit=crop"
+                  src="/assets/old-site/IMG_20240513_135506-e1721041513878.jpg"
                   alt="Prakash Choudhary CEO & Co-founder"
                   className={styles.founderImg}
                 />

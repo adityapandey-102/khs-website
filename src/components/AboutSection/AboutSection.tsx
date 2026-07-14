@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FeaturedProducts } from "@/components/HomeExtras/HomeExtras";
 import styles from "./AboutSection.module.css";
 
 export default function AboutSection() {
@@ -9,7 +10,7 @@ export default function AboutSection() {
         <div className={styles.aboutImageWrap}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="https://images.unsplash.com/photo-1620626011761-996317702519?w=900&q=80&auto=format&fit=crop"
+            src="/assets/old-site/WhatsApp-Image-2024-05-18-at-5.51.39-PM.jpeg"
             alt="Luxurious bathroom design by Krishna Home Studio"
             className={styles.aboutImage}
           />
@@ -67,6 +68,7 @@ export default function AboutSection() {
           <Link href="/about" className="btn-ghost" id="about-section-cta">
             Discover Our Story
           </Link>
+          <FeaturedProducts />
         </div>
       </div>
     </section>

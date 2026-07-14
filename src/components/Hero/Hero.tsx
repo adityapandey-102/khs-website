@@ -14,8 +14,7 @@ const slides = [
       "Premium bathware solutions for discerning homeowners — where world-class brands meet impeccable design.",
     primaryCta: { label: "Explore Bathware", href: "/bathware" },
     secondaryCta: { label: "Discover More", href: "/about" },
-    image: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1920&q=80&auto=format&fit=crop",
-    imageFallback: "https://krishnahomestudio.com/wp-content/uploads/2024/04/shower-faucets.jpg",
+    image: "/assets/old-site/Untitled-design-19.png",
   },
   {
     id: "hardware",
@@ -25,8 +24,7 @@ const slides = [
       "Transforming living spaces through innovative hardware — from sophisticated door handles to modern security systems.",
     primaryCta: { label: "Explore Hardware", href: "/hardware" },
     secondaryCta: { label: "Our Story", href: "/about" },
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80&auto=format&fit=crop",
-    imageFallback: "https://krishnahomestudio.com/wp-content/uploads/2024/04/door-handle.jpg",
+    image: "/assets/old-site/Krishna-Home-Studio-Hardware-1-1024x576.png",
   },
   {
     id: "spa",
@@ -36,8 +34,7 @@ const slides = [
       "Whirlpool bathtubs, steam generators and aromatherapy systems — because luxury begins at home.",
     primaryCta: { label: "Explore Spa & Wellness", href: "/bathware/spa-wellness" },
     secondaryCta: { label: "Contact Us", href: "/contact" },
-    image: "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=1920&q=80&auto=format&fit=crop",
-    imageFallback: "https://krishnahomestudio.com/wp-content/uploads/2024/04/spa-wellness.jpg",
+    image: "/assets/old-site/massage-therapy-1731456_1280-1024x768.jpg",
   },
 ];
 
@@ -83,9 +80,6 @@ export default function Hero() {
             className={styles.slideImage}
             src={slide.image}
             alt={slide.title}
-            onError={(e) => {
-              (e.target as HTMLImageElement).src = slide.imageFallback;
-            }}
           />
           <div className={styles.slideOverlay} />
           <div className={styles.slideOverlayBottom} />

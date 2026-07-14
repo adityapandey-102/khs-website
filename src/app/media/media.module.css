@@ -44,6 +44,12 @@
   margin-bottom: 1.5rem;
 }
 
+.iconWrap img {
+  max-height: 52px;
+  max-width: 180px;
+  object-fit: contain;
+}
+
 .publicationName {
   font-family: var(--font-serif);
   font-size: 1.5rem;

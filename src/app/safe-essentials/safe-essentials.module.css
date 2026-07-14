@@ -1,0 +1,72 @@
+.page {
+  background: var(--color-off-white);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+}
+
+.copy {
+  color: var(--color-text-muted);
+  font-weight: 300;
+  line-height: 1.85;
+  margin-bottom: 1.1rem;
+}
+
+.imageCard {
+  background: var(--color-charcoal);
+  border: 1px solid var(--color-border);
+  padding: 0.75rem;
+}
+
+.imageCard img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.ctaRow {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: var(--spacing-2xl);
+}
+
+.featureCard {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  color: var(--color-charcoal);
+  padding: 1.25rem;
+}
+
+.featureCard svg {
+  color: var(--color-gold);
+  flex-shrink: 0;
+}
+
+.featureCard span {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+  .grid,
+  .featureGrid {
+    grid-template-columns: 1fr;
+  }
+}

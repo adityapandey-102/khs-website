@@ -19,9 +19,13 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://krishnahomestudio.com/wp-content/uploads/2024/04/cropped-khs-logo.webp",
+        url: "/assets/brand/khs-logo.png",
       },
     ],
+  },
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
   },
 };
 

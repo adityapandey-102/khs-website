@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle2 } from "lucide-react";
 import styles from "./contact.module.css";
 
@@ -26,7 +25,7 @@ export default function ContactPage() {
       <section className="page-hero">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80&auto=format&fit=crop"
+          src="/assets/old-site/WhatsApp-Image-2024-05-18-at-5.51.39-PM.jpeg"
           alt="Contact Krishna Home Studio"
           className="page-hero__bg"
         />
@@ -159,6 +158,24 @@ export default function ContactPage() {
                 <a href={hardwareMapUrl} target="_blank" rel="noopener noreferrer" className={styles.mapLink}>
                   Open in Google Maps <ArrowRight size={14} />
                 </a>
+              </div>
+
+              <div className={styles.infoCard}>
+                <h3 className={styles.infoCardTitle}>Jaquar Authorised Dealer</h3>
+                <div className={styles.infoList}>
+                  <div className={styles.infoItem}>
+                    <MapPin size={18} className={styles.icon} />
+                    <span>285/2, Bagalur to Yelahanka Main Road, near Bagalur Vegetable Market, Bengaluru, Karnataka 562149</span>
+                  </div>
+                  <div className={styles.infoItem}>
+                    <Phone size={18} className={styles.icon} />
+                    <a href="tel:8147393477">+91 81473 93477</a>
+                  </div>
+                  <div className={styles.infoItem}>
+                    <Mail size={18} className={styles.icon} />
+                    <a href="mailto:support@krishnahomestudio.com">support@krishnahomestudio.com</a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

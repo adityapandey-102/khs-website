@@ -21,12 +21,9 @@ export default function Footer() {
           <Link href="/" className={styles.brandLogo}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="https://krishnahomestudio.com/wp-content/uploads/2024/04/cropped-khs-logo.webp"
+              src="/assets/brand/khs-logo.png"
               alt="Krishna Home Studio Logo"
               className={styles.logoImg}
-              onError={(e) => {
-                (e.target as HTMLImageElement).style.display = "none";
-              }}
             />
             <div className={styles.logoText}>
               <span className={styles.logoTextMain}>Krishna Home Studio</span>
@@ -34,7 +31,7 @@ export default function Footer() {
             </div>
           </Link>
           <p className={styles.brandDesc}>
-            Bengaluru's trusted showroom for premium bathroom fittings, sanitaryware, designer vanities, and high-end architectural hardware. Sourcing luxury and durability since 2018.
+            Bengaluru&apos;s trusted showroom for premium bathroom fittings, sanitaryware, designer vanities, and high-end architectural hardware. Sourcing luxury and durability since 2018.
           </p>
           <div className={styles.socialRow}>
             <a
@@ -84,6 +81,7 @@ export default function Footer() {
             <Link href="/bathware/vanity-mirrors" id="footer-cat-vanity">Vanities & Mirrors</Link>
             <Link href="/bathware/spa-wellness" id="footer-cat-spa">Spa & Wellness</Link>
             <Link href="/hardware" id="footer-cat-hardware">Architectural Hardware</Link>
+            <Link href="/safe-essentials" id="footer-cat-safe">Safe Essentials</Link>
           </div>
         </div>
 
@@ -114,6 +112,18 @@ export default function Footer() {
               <div className={styles.contactDetail}>
                 <Phone size={14} className={styles.contactIcon} />
                 <a href="tel:7892507179" id="footer-phone-hardware">+91 78925 07179</a>
+              </div>
+            </div>
+
+            <div className={styles.contactBlock}>
+              <span className={styles.showroomName}>Jaquar Authorised Dealer</span>
+              <div className={styles.contactDetail}>
+                <MapPin size={14} className={styles.contactIcon} />
+                <span>285/2, Bagalur to Yelahanka Main Road, near Bagalur Vegetable Market, Bengaluru 562149</span>
+              </div>
+              <div className={styles.contactDetail}>
+                <Phone size={14} className={styles.contactIcon} />
+                <a href="tel:8147393477">+91 81473 93477</a>
               </div>
             </div>
 

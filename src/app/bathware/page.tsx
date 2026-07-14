@@ -13,7 +13,7 @@ export default function BathwareHubPage() {
       <section className="page-hero">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1920&q=80&auto=format&fit=crop"
+          src="/assets/old-site/Untitled-design-19.png"
           alt="Premium luxury bathware showcase"
           className="page-hero__bg"
         />

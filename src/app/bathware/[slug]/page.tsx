@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Check, ArrowLeft, Phone } from "lucide-react";
+import { Check, ArrowLeft } from "lucide-react";
 import { bathwareCategories } from "@/data/categories";
 import styles from "./category.module.css";
 
@@ -72,7 +72,7 @@ const categoryHighlights: Record<string, string[]> = {
     "Handmade Double-Bowl Stainless Steel Sinks",
     "Quartz / Granite Composite Silent Sinks",
     "Pull-out Spring Kitchen Faucets",
-    "360° Rotatable Swivel Spouts",
+    "360-degree Rotatable Swivel Spouts",
     "Smart Sensor Touchless Kitchen Taps"
   ],
   "shower-enclosures": [

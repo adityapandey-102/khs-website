@@ -1,0 +1,118 @@
+export const brandLogos = [
+  { name: "Jaquar", image: "/assets/old-site/jaquar.webp" },
+  { name: "Kohler", image: "/assets/old-site/kohler-e1719934015203.webp" },
+  { name: "Parryware", image: "/assets/old-site/Parryware.webp" },
+  { name: "Roca", image: "/assets/old-site/Roca-Logo.png" },
+  { name: "Hindware", image: "/assets/old-site/hindware-collection-new1.png" },
+  { name: "Hafele", image: "/assets/old-site/Hafele.png" },
+  { name: "AO Smith", image: "/assets/old-site/AO-Smith.png" },
+  { name: "Grundfos", image: "/assets/old-site/Grundfos.png" },
+  { name: "Vitra", image: "/assets/old-site/Vitra.png" },
+  { name: "Toto", image: "/assets/old-site/Toto.png" },
+  { name: "Franke", image: "/assets/old-site/images.png" },
+  { name: "Bathsense", image: "/assets/old-site/download.png" },
+  { name: "3M", image: "/assets/old-site/3m.png" },
+  { name: "Aagna", image: "/assets/old-site/Aagna-e1719836171938.png" },
+  { name: "Aquant", image: "/assets/old-site/Aquant.png" },
+  { name: "Artize", image: "/assets/old-site/Artize-e1719835619121.png" },
+  { name: "Brizzio", image: "/assets/old-site/Brizzio-e1719836033872.png" },
+  { name: "Dazzle", image: "/assets/old-site/DAZZLE.jpg" },
+  { name: "Decor", image: "/assets/old-site/Decor-e1719835832479.jpeg" },
+  { name: "Euroqo", image: "/assets/old-site/Euroqo.png" },
+  { name: "Glocera", image: "/assets/old-site/Glocera.png" },
+  { name: "Honey Works", image: "/assets/old-site/Honey-works-e1719835573390.jpeg" },
+  { name: "Magick Woods", image: "/assets/old-site/Magick-Woods.png" },
+  { name: "Matteo", image: "/assets/old-site/Matteo.jpg" },
+  { name: "Ospana", image: "/assets/old-site/Ospana.png" },
+  { name: "Oyster", image: "/assets/old-site/Oyster.png" },
+  { name: "Reflex", image: "/assets/old-site/Reflex.png" },
+  { name: "Safari", image: "/assets/old-site/Safari.png" },
+  { name: "Saint-Gobain", image: "/assets/old-site/Saint-Gobain-e1719835692766.png" },
+  { name: "Toyo", image: "/assets/old-site/Toyo.png" },
+  { name: "Vantage", image: "/assets/old-site/Vantage.png" },
+  { name: "WaterScience", image: "/assets/old-site/Waterscience.png" },
+  { name: "Watertec", image: "/assets/old-site/watertec.png" },
+  { name: "Zero B", image: "/assets/old-site/Zero-B.png" },
+];
+
+export const featuredProducts = [
+  {
+    title: "Shower & Faucets",
+    image: "/assets/old-site/Untitled-design-18.png",
+    href: "/bathware/shower-faucets",
+  },
+  {
+    title: "Countertop Basin",
+    image: "/assets/old-site/pexels-julie-aagaard-2207894-768x1024.jpg",
+    href: "/bathware/countertop-basin",
+  },
+  {
+    title: "Bathroom Accessories",
+    image: "/assets/old-site/Untitled-design-12.png",
+    href: "/bathware/bath-accessories",
+  },
+  {
+    title: "Architectural Hardware",
+    image: "/assets/old-site/Krishna-Home-Studio-Hardware-1-1024x576.png",
+    href: "/hardware",
+  },
+];
+
+export const clienteleLogos = [
+  "/assets/old-site/1-1.png",
+  "/assets/old-site/2.png",
+  "/assets/old-site/3-1.png",
+  "/assets/old-site/4.png",
+  "/assets/old-site/5-1.png",
+  "/assets/old-site/6.png",
+  "/assets/old-site/7.png",
+  "/assets/old-site/8-1.png",
+  "/assets/old-site/9-1.png",
+  "/assets/old-site/10-1.png",
+  "/assets/old-site/11-1.png",
+  "/assets/old-site/12.png",
+  "/assets/old-site/13-1.png",
+  "/assets/old-site/14.png",
+  "/assets/old-site/15-1.png",
+  "/assets/old-site/16-1.png",
+  "/assets/old-site/17.png",
+  "/assets/old-site/18-1.png",
+  "/assets/old-site/19-1.png",
+  "/assets/old-site/20-1.png",
+  "/assets/old-site/21-1.png",
+  "/assets/old-site/22-1.png",
+  "/assets/old-site/23-1.png",
+  "/assets/old-site/24-1.png",
+  "/assets/old-site/25-1.png",
+];
+
+export const testimonials = [
+  {
+    name: "Neelam Singh",
+    text: "Krishna Home Studio is an absolute gem for anyone looking to elevate their home interior with top-notch sanitary products. The range of brands they offer is truly impressive, and the staff is incredibly helpful and knowledgeable.",
+  },
+  {
+    name: "Sameer Tanirwar",
+    text: "Ordered kitchen sink and crusher from Krishna Studio due to price difference in Pune and Bangalore. Mr. Prakash was patient throughout, and the transportation service was amazing.",
+  },
+  {
+    name: "Ravimurthy V B",
+    text: "The store members are the brand for the showroom. Communication with customers, satisfaction on quality, and the gamut of options to choose from are signs of the best showroom.",
+  },
+  {
+    name: "Lalit Choudhary",
+    text: "Such a good shop and good servicing staff. I bought sanitary items here and got amazing branded products in my budget, including Jaquar, Parryware, Hindware and more.",
+  },
+  {
+    name: "Gangaiah K",
+    text: "Thanks for serving me team. Even though you did not have that product, you guided me so well that I could not leave without buying anything.",
+  },
+  {
+    name: "Kishor Sundesa",
+    text: "The best part about the studio is that I found creative and new basin concepts with multiple options to choose from. The tabletop gold-white basin and customised LED mirror gave an amazing interior look.",
+  },
+  {
+    name: "N SATISH Rao",
+    text: "Excellent place to purchase bathroom fixtures and accessories. You can also purchase cleaning products for your home from here.",
+  },
+];

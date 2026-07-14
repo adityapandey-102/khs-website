@@ -28,10 +28,6 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
@@ -81,12 +77,9 @@ export default function Header() {
           <Link href="/" className={styles.logo} aria-label="Krishna Home Studio - Home">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="https://krishnahomestudio.com/wp-content/uploads/2024/04/cropped-khs-logo.webp"
+              src="/assets/brand/khs-logo.png"
               alt="Krishna Home Studio Logo"
               className={styles.logoImg}
-              onError={(e) => {
-                (e.target as HTMLImageElement).style.display = "none";
-              }}
             />
             <div className={styles.logoText}>
               <span className={styles.logoTextMain}>Krishna Home Studio</span>
@@ -192,6 +185,7 @@ export default function Header() {
                         key={child.href}
                         href={child.href}
                         className={styles.mobileSubItem}
+                        onClick={() => setMobileOpen(false)}
                       >
                         {child.label}
                       </Link>
@@ -199,7 +193,7 @@ export default function Header() {
                   </div>
                 </>
               ) : (
-                <Link href={item.href} className={styles.mobileNavLink}>
+                <Link href={item.href} className={styles.mobileNavLink} onClick={() => setMobileOpen(false)}>
                   {item.label}
                 </Link>
               )}

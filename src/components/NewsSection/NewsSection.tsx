@@ -21,6 +21,11 @@ export default function NewsSection() {
         <div className={styles.grid}>
           {newsItems.map((item) => (
             <div key={item.id} className={styles.card} id={`news-card-${item.id}`}>
+              {item.logo && (
+                <div className={styles.logoWrap}>
+                  <img src={item.logo} alt={`${item.publication} logo`} loading="lazy" />
+                </div>
+              )}
               <h3 className={styles.publicationName}>{item.publication}</h3>
               <p className={styles.publicationDesc}>
                 {item.id === "the-print" && "India's digital platform"}

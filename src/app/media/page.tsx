@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ArrowRight, Newspaper } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { newsItems } from "@/data/news";
 import styles from "./media.module.css";
 
@@ -15,7 +15,7 @@ export default function MediaPage() {
       <section className="page-hero">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80&auto=format&fit=crop"
+          src="/assets/old-site/Krishna-Home-Studio-Hardware-5.png"
           alt="Press and media coverage"
           className="page-hero__bg"
         />
@@ -39,9 +39,11 @@ export default function MediaPage() {
           <div className={styles.grid}>
             {newsItems.map((item) => (
               <div key={item.id} className={styles.card} id={`media-card-${item.id}`}>
-                <div className={styles.iconWrap}>
-                  <Newspaper size={24} />
-                </div>
+                {item.logo && (
+                  <div className={styles.iconWrap}>
+                    <img src={item.logo} alt={`${item.publication} logo`} loading="lazy" />
+                  </div>
+                )}
                 <h3 className={styles.publicationName}>{item.publication}</h3>
                 <p className={styles.publicationDesc}>
                   {item.id === "the-print" && "India's digital platform"}
