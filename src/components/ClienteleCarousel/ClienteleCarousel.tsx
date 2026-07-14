@@ -41,12 +41,12 @@ export default function ClienteleCarousel() {
 
   const next = useCallback(
     () => goTo((current + 1) % testimonials.length),
-    [current, goTo, testimonials.length]
+    [current, goTo]
   );
 
   const prev = useCallback(
     () => goTo((current - 1 + testimonials.length) % testimonials.length),
-    [current, goTo, testimonials.length]
+    [current, goTo]
   );
 
   useEffect(() => {

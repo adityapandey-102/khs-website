@@ -93,6 +93,19 @@
   border-color: var(--color-gold);
 }
 
+.philosophyList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-left: 1.1rem;
+}
+
+.philosophyItem {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
 /* Quote Section */
 .quoteSection {
   padding: var(--spacing-3xl) var(--container-padding);

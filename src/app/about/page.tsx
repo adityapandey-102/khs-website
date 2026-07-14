@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import styles from "./about.module.css";
 
@@ -17,11 +18,12 @@ export default function AboutPage() {
   return (
     <div className={styles.aboutPage}>
       <section className="page-hero">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&q=80&w=2000"
           alt="Krishna Home Studio luxury showroom design"
           className="page-hero__bg"
+          fill
+          priority
         />
         <div className="container">
           <div className="page-hero__content">
@@ -64,11 +66,12 @@ export default function AboutPage() {
               </div>
             </div>
             <div className={styles.storyImageWrap}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&q=80&w=1000"
                 alt="Luxury washbasin and gold faucet layout"
                 className={styles.storyImage}
+                width={1000}
+                height={1200}
               />
             </div>
           </div>
@@ -105,9 +108,11 @@ export default function AboutPage() {
             </div>
             <div className={styles.pillarCard}>
               <h3 className="h3" style={{ color: "var(--color-gold)", marginBottom: "1rem" }}>Our Philosophy</h3>
-              <p style={{ opacity: 0.8, fontWeight: 300, fontSize: "0.95rem" }}>
-                We believe the best interiors feel effortless. That means every choice should be thoughtful, practical, and elevated in equal measure. Our role is to guide clients through premium options without overwhelming them.
-              </p>
+              <ul className={styles.philosophyList}>
+                {philosophyPoints.map((point) => (
+                  <li key={point} className={styles.philosophyItem}>{point}</li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>

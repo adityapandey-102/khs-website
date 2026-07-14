@@ -1,32 +1,37 @@
 /* ============================================================
    GLOBAL DESIGN SYSTEM — Krishna Home Studio
-   Cinematic Dark Theme Inspired by High-End Luxury Brands
+   Layered Premium Dark Architecture
    ============================================================ */
 
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap");
 
 /* ── CSS Custom Properties ── */
 :root {
-  /* Colors - Cinematic Dark Theme */
-  --color-black: #000000;
-  --color-charcoal: #0a0a0a;
-  --color-dark: #121212;
-  --color-mid: #222222;
-  
-  --color-white: #ffffff;
-  --color-off-white: #f0f0f0;
-  
-  --color-gold: #c9a96e;
-  --color-gold-light: #e0c896;
-  --color-gold-dark: #a07840;
-  
-  --color-text: #e5e5e5;
-  --color-text-muted: #999999;
-  
-  --color-border: rgba(255, 255, 255, 0.1);
-  --color-overlay: rgba(0, 0, 0, 0.7);
+  /* Surface Depths (Layered Dark Tones) */
+  --surface-0: #0a0a0c; /* Global Body: Soft Black */
+  --surface-1: #111114; /* Deep Graphite */
+  --surface-2: #1a1a1f; /* Dark Stone */
+  --surface-glass: rgba(17, 17, 20, 0.6); /* Glassmorphism layer */
 
+  /* Accents */
+  --color-gold: #c2a36d;
+  --color-gold-hover: #d1b483;
+  
   /* Typography */
+  --color-text-primary: #f0f0f2; /* Crisp off-white */
+  --color-text-secondary: #9a9a9f; /* Muted stone gray */
+  --color-text-tertiary: #5e5e65;
+
+  /* Structural */
+  --color-border: rgba(255, 255, 255, 0.06);
+  --color-border-hover: rgba(255, 255, 255, 0.15);
+  
+  /* Shadows */
+  --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-deep: 0 10px 40px rgba(0, 0, 0, 0.8);
+  --shadow-inner: inset 0 0 80px rgba(0, 0, 0, 0.5);
+
+  /* Typography Families */
   --font-serif: "Playfair Display", Georgia, serif;
   --font-sans: "Inter", -apple-system, sans-serif;
 
@@ -37,17 +42,12 @@
   --spacing-lg: 2.5rem;
   --spacing-xl: 4rem;
   --spacing-2xl: 6rem;
-  --spacing-3xl: 9rem;
-
-  /* Border Radius */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
+  --spacing-3xl: 10rem;
 
   /* Transitions */
   --transition-fast: 0.2s ease;
-  --transition-mid: 0.4s ease;
-  --transition-slow: 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-mid: 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-slow: 1.2s cubic-bezier(0.2, 1, 0.3, 1);
 
   /* Z-index layers */
   --z-header: 1000;
@@ -76,12 +76,14 @@ html {
 
 body {
   font-family: var(--font-sans);
-  color: var(--color-text);
-  background-color: var(--color-black);
+  color: var(--color-text-primary);
+  background-color: var(--surface-0);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  /* Subtle CSS noise texture for premium depth */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
 }
 
 img {
@@ -109,49 +111,103 @@ button {
 /* ── Typography Scale ── */
 .h1 {
   font-family: var(--font-serif);
-  font-size: clamp(2.5rem, 5vw, 5rem);
-  font-weight: 400; /* Lighter weight for luxury */
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-weight: 300;
   line-height: 1.1;
   letter-spacing: -0.01em;
-  color: var(--color-white);
+  color: var(--color-text-primary);
 }
 
 .h2 {
   font-family: var(--font-serif);
-  font-size: clamp(2rem, 3.5vw, 3.5rem);
-  font-weight: 400;
-  line-height: 1.2;
+  font-size: clamp(2rem, 4vw, 3.8rem);
+  font-weight: 300;
+  line-height: 1.15;
   letter-spacing: 0em;
-  color: var(--color-white);
+  color: var(--color-text-primary);
 }
 
 .h3 {
   font-family: var(--font-serif);
-  font-size: clamp(1.4rem, 2.5vw, 2rem);
-  font-weight: 400;
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+  font-weight: 300;
   line-height: 1.3;
-  color: var(--color-white);
+  color: var(--color-text-primary);
 }
 
 .h4 {
-  font-family: var(--font-serif);
-  font-size: clamp(1.1rem, 1.8vw, 1.5rem);
-  font-weight: 400;
-  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 1.2vw, 1.1rem);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--color-text-primary);
 }
 
 .body-lg {
-  font-size: clamp(1rem, 1.2vw, 1.125rem);
-  line-height: 1.8;
+  font-size: clamp(1.05rem, 1.2vw, 1.15rem);
+  line-height: 1.9;
   font-weight: 300;
+  color: var(--color-text-secondary);
 }
 
 .label {
   font-family: var(--font-sans);
-  font-size: 0.75rem;
-  font-weight: 400; /* Muted weight */
-  letter-spacing: 0.2em; /* Wide tracking */
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.page-hero {
+  position: relative;
+  min-height: clamp(24rem, 38vw, 32rem);
+  display: flex;
+  align-items: center;
+  background: var(--surface-0);
+  overflow: hidden;
+}
+
+.page-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.25) 55%, rgba(0, 0, 0, 0.6) 100%);
+  z-index: 1;
+}
+
+.page-hero__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.58) saturate(0.85);
+}
+
+.page-hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+  padding: 2rem 0;
+}
+
+.page-hero__label {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 1rem;
+}
+
+.page-hero__title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--color-text-primary);
 }
 
 /* ── Layout Utilities ── */
@@ -170,18 +226,18 @@ button {
   padding: var(--spacing-xl) 0;
 }
 
-/* ── Gold Divider ── */
+/* ── Refined Divider ── */
 .gold-line {
-  width: 60px;
+  width: 40px;
   height: 1px;
-  background: var(--color-gold);
+  background: var(--color-border-hover);
   margin: var(--spacing-md) 0;
 }
 
 .gold-line-center {
-  width: 60px;
+  width: 40px;
   height: 1px;
-  background: var(--color-gold);
+  background: var(--color-border-hover);
   margin: var(--spacing-md) auto;
 }
 
@@ -189,65 +245,45 @@ button {
 .btn-primary {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.875rem 2.25rem;
-  background: transparent;
-  color: var(--color-white);
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 2.5rem;
+  background: var(--color-text-primary);
+  color: var(--surface-0);
   font-family: var(--font-sans);
-  font-size: 0.75rem;
-  font-weight: 500;
+  font-size: 0.7rem;
+  font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  transition: all var(--transition-fast);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  transition: all var(--transition-mid);
+  border: 1px solid var(--color-text-primary);
 }
 
 .btn-primary:hover {
-  background: var(--color-white);
-  color: var(--color-black);
-  border-color: var(--color-white);
+  background: transparent;
+  color: var(--color-text-primary);
 }
 
 .btn-outline {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.875rem 2.25rem;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 2.5rem;
   background: transparent;
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
   font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  transition: all var(--transition-fast);
+  border: 1px solid var(--color-border);
+  transition: all var(--transition-mid);
 }
 
 .btn-outline:hover {
-  color: var(--color-white);
-  border-color: rgba(255, 255, 255, 0.6);
-}
-
-.btn-ghost {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.875rem 2.25rem;
-  background: transparent;
-  color: var(--color-gold);
-  font-family: var(--font-sans);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  border: 1px solid rgba(201, 169, 110, 0.3);
-  transition: all var(--transition-fast);
-}
-
-.btn-ghost:hover {
-  background: var(--color-gold);
-  color: var(--color-black);
+  color: var(--color-text-primary);
+  border-color: var(--color-border-hover);
 }
 
 /* ── Section Title Pattern ── */
@@ -257,69 +293,22 @@ button {
 }
 
 .section-title-wrap .label {
-  color: var(--color-gold);
   display: block;
-  margin-bottom: 0.75rem;
-}
-
-.section-title-wrap .h2 {
-  color: var(--color-white);
+  margin-bottom: 1rem;
 }
 
 .section-title-wrap .gold-line-center {
-  margin-top: 1.25rem;
+  margin-top: 1.5rem;
 }
 
-/* ── Page Hero Banner ── */
-.page-hero {
-  position: relative;
-  height: 50vh;
-  min-height: 340px;
-  background: var(--color-black);
-  display: flex;
-  align-items: flex-end;
-  padding-bottom: var(--spacing-2xl);
-  overflow: hidden;
-}
-
-.page-hero__bg {
-  position: absolute;
-  inset: 0;
-  object-fit: cover;
-  opacity: 0.3;
-}
-
-.page-hero__content {
-  position: relative;
-  z-index: 1;
-}
-
-.page-hero__label {
-  color: var(--color-gold);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
-  display: block;
-}
-
-.page-hero__title {
-  font-family: var(--font-serif);
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
-  font-weight: 400;
-  color: var(--color-white);
-  line-height: 1.1;
-}
-
-/* ── Scroll Animation Base ── */
-.fade-up {
+/* ── Global Scroll Reveal Animation ── */
+.reveal-on-scroll {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(40px);
+  transition: opacity 1.2s cubic-bezier(0.2, 1, 0.3, 1), transform 1.2s cubic-bezier(0.2, 1, 0.3, 1);
 }
 
-.fade-up.visible {
+.reveal-on-scroll.visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -330,16 +319,15 @@ button {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-black);
+  background: var(--surface-0);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #333333;
-  border-radius: 3px;
+  background: var(--surface-2);
 }
 
 /* ── Selection ── */
 ::selection {
-  background: rgba(255,255,255,0.2);
-  color: var(--color-white);
+  background: var(--surface-2);
+  color: var(--color-text-primary);
 }

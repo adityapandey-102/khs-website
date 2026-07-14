@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { newsItems } from "@/data/news";
@@ -23,7 +24,7 @@ export default function NewsSection() {
             <div key={item.id} className={styles.card} id={`news-card-${item.id}`}>
               {item.logo && (
                 <div className={styles.logoWrap}>
-                  <img src={item.logo} alt={`${item.publication} logo`} loading="lazy" />
+                  <Image src={item.logo} alt={`${item.publication} logo`} width={220} height={80} />
                 </div>
               )}
               <h3 className={styles.publicationName}>{item.publication}</h3>

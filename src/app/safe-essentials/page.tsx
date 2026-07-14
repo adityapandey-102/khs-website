@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { LockKeyhole, ShieldCheck, Flame, Fingerprint } from "lucide-react";
 import styles from "./safe-essentials.module.css";
@@ -20,10 +21,12 @@ export default function SafeEssentialsPage() {
   return (
     <div className={styles.page}>
       <section className="page-hero">
-        <img
+        <Image
           src="/assets/old-site/dec23384735345.Y3JvcCwxMTUwLDkwMCwyNSww.jpg"
           alt="Safe essentials by Krishna Home Studio"
           className="page-hero__bg"
+          fill
+          priority
         />
         <div className="container">
           <div className="page-hero__content">
@@ -60,9 +63,11 @@ export default function SafeEssentialsPage() {
               </div>
             </div>
             <div className={styles.imageCard}>
-              <img
+              <Image
                 src="/assets/old-site/dec23384735345.Y3JvcCwxMTUwLDkwMCwyNSww.jpg"
                 alt="Luxury safe essentials collection"
+                width={800}
+                height={1000}
               />
             </div>
           </div>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Building2, MapPin, Quote, Star } from "lucide-react";
 import { clienteleLogos, testimonials } from "@/data/migratedContent";
@@ -38,10 +39,12 @@ export default function ClientelePage() {
   return (
     <div className={styles.clientelePage}>
       <section className="page-hero">
-        <img
+        <Image
           src="/assets/old-site/Krishna-Home-Studio-Hardware-5.png"
           alt="Krishna Home Studio clientele and awards"
           className="page-hero__bg"
+          fill
+          priority
         />
         <div className="container">
           <div className="page-hero__content">
@@ -81,7 +84,7 @@ export default function ClientelePage() {
           <div className={styles.logoGrid}>
             {clienteleLogos.map((logo, index) => (
               <div className={styles.logoCard} key={logo}>
-                <img src={logo} alt={`Clientele logo ${index + 1}`} loading="lazy" />
+                <Image src={logo} alt={`Clientele logo ${index + 1}`} width={220} height={90} />
               </div>
             ))}
           </div>
@@ -117,7 +120,7 @@ export default function ClientelePage() {
             {completedProjects.map((project) => (
               <div key={project.id} className={styles.projectCard} id={`project-${project.id}`}>
                 <div className={styles.projectImageWrap}>
-                  <img src={project.image} alt={project.title} className={styles.projectImage} />
+                  <Image src={project.image} alt={project.title} className={styles.projectImage} width={800} height={600} />
                   <div className={styles.projectOverlay} />
                 </div>
                 <div className={styles.projectContent}>

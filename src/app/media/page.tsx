@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { newsItems } from "@/data/news";
 import styles from "./media.module.css";
@@ -12,11 +13,12 @@ export default function MediaPage() {
   return (
     <div className={styles.mediaPage}>
       <section className="page-hero">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src="/assets/old-site/Krishna-Home-Studio-Hardware-5.png"
           alt="Press and media coverage"
           className="page-hero__bg"
+          fill
+          priority
         />
         <div className="container">
           <div className="page-hero__content">
@@ -63,7 +65,7 @@ export default function MediaPage() {
               <div key={item.id} className={styles.card} id={`media-card-${item.id}`}>
                 {item.logo && (
                   <div className={styles.iconWrap}>
-                    <img src={item.logo} alt={`${item.publication} logo`} loading="lazy" />
+                    <Image src={item.logo} alt={`${item.publication} logo`} width={220} height={80} />
                   </div>
                 )}
                 <h3 className={styles.publicationName}>{item.publication}</h3>

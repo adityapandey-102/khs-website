@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Play, Quote, Star } from "lucide-react";
 import { brandLogos, clienteleLogos, featuredProducts, testimonials } from "@/data/migratedContent";
@@ -9,7 +10,7 @@ export function BrandCarousel() {
       <div className={styles.marquee}>
         {[...brandLogos, ...brandLogos].map((brand, index) => (
           <div className={styles.brandLogo} key={`${brand.name}-${index}`}>
-            <img src={brand.image} alt={brand.name} loading="lazy" />
+            <Image src={brand.image} alt={brand.name} width={180} height={80} />
           </div>
         ))}
       </div>
@@ -24,7 +25,7 @@ export function FeaturedProducts() {
       <div className={styles.featuredGrid}>
         {featuredProducts.map((product) => (
           <Link href={product.href} className={styles.featuredCard} key={product.title}>
-            <img src={product.image} alt={product.title} loading="lazy" />
+            <Image src={product.image} alt={product.title} width={600} height={480} />
             <span>{product.title}</span>
           </Link>
         ))}
@@ -50,7 +51,7 @@ export function ClientelePreview() {
         <div className={styles.clientLogoGrid}>
           {clienteleLogos.map((logo, index) => (
             <div className={styles.clientLogoCard} key={logo}>
-              <img src={logo} alt={`Clientele logo ${index + 1}`} loading="lazy" />
+              <Image src={logo} alt={`Clientele logo ${index + 1}`} width={220} height={90} />
             </div>
           ))}
         </div>
