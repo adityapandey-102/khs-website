@@ -2,73 +2,53 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import styles from "./Hero.module.css";
 
 const slides = [
   {
-    id: "bathware",
-    label: "Premium Bathware",
-    title: "Enhancing Everyday Luxury",
-    description:
-      "Premium bathware solutions for discerning homeowners — where world-class brands meet impeccable design.",
-    primaryCta: { label: "Explore Bathware", href: "/bathware" },
-    secondaryCta: { label: "Discover More", href: "/about" },
-    image: "/assets/old-site/Untitled-design-19.png",
+    id: "cinematic-1",
+    tagline: "Born in Ice. Redefined by Design.",
+    cta: "Explore Bathware",
+    href: "/bathware",
+    image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&q=100&w=2000",
   },
   {
-    id: "hardware",
-    label: "Architectural Hardware",
-    title: "Where Functionality Meets Timeless Elegance",
-    description:
-      "Transforming living spaces through innovative hardware — from sophisticated door handles to modern security systems.",
-    primaryCta: { label: "Explore Hardware", href: "/hardware" },
-    secondaryCta: { label: "Our Story", href: "/about" },
-    image: "/assets/old-site/Krishna-Home-Studio-Hardware-1-1024x576.png",
+    id: "cinematic-2",
+    tagline: "Quiet Luxury. Absolute Precision.",
+    cta: "Discover Hardware",
+    href: "/hardware",
+    image: "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&q=100&w=2000",
   },
   {
-    id: "spa",
-    label: "Spa & Wellness",
-    title: "Your Home, Your Sanctuary",
-    description:
-      "Whirlpool bathtubs, steam generators and aromatherapy systems — because luxury begins at home.",
-    primaryCta: { label: "Explore Spa & Wellness", href: "/bathware/spa-wellness" },
-    secondaryCta: { label: "Contact Us", href: "/contact" },
-    image: "/assets/old-site/massage-therapy-1731456_1280-1024x768.jpg",
+    id: "cinematic-3",
+    tagline: "Sanctuaries Crafted for the Senses.",
+    cta: "Experience Wellness",
+    href: "/bathware/spa-wellness",
+    image: "https://images.unsplash.com/photo-1555543666-41f237bf3ff7?auto=format&fit=crop&q=100&w=2000",
   },
+  {
+    id: "cinematic-4",
+    tagline: "The Art of Architectural Detail.",
+    cta: "View Collections",
+    href: "/hardware",
+    image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=100&w=2000",
+  }
 ];
 
 export default function Hero() {
   const [current, setCurrent] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
 
-  const goTo = useCallback(
-    (index: number) => {
-      if (isAnimating || index === current) return;
-      setIsAnimating(true);
-      setCurrent(index);
-      setTimeout(() => setIsAnimating(false), 1200);
-    },
-    [isAnimating, current]
-  );
-
-  const next = useCallback(
-    () => goTo((current + 1) % slides.length),
-    [current, goTo]
-  );
-
-  const prev = useCallback(
-    () => goTo((current - 1 + slides.length) % slides.length),
-    [current, goTo]
-  );
+  const next = useCallback(() => {
+    setCurrent((prev) => (prev + 1) % slides.length);
+  }, []);
 
   useEffect(() => {
-    const timer = setInterval(next, 6000);
+    const timer = setInterval(next, 7000); // 7s for slow cinematic feel
     return () => clearInterval(timer);
   }, [next]);
 
   return (
-    <section className={styles.hero} aria-label="Hero banner">
+    <section className={styles.hero} aria-label="Cinematic Showcase">
       {slides.map((slide, index) => (
         <div
           key={slide.id}
@@ -77,67 +57,31 @@ export default function Hero() {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            className={styles.slideImage}
             src={slide.image}
-            alt={slide.title}
+            alt="Luxury Showcase"
+            className={styles.slideImage}
           />
-          <div className={styles.slideOverlay} />
-          <div className={styles.slideOverlayBottom} />
-
-          <div className={`container ${styles.slideContent}`}>
-            <span className={styles.slideLabel}>{slide.label}</span>
-            <h1 className={styles.slideTitle}>{slide.title}</h1>
-            <div className={styles.slideLine} />
-            <p className={styles.slideDesc}>{slide.description}</p>
-            <div className={styles.slideCtas}>
-              <Link href={slide.primaryCta.href} className="btn-primary" id={`hero-cta-primary-${slide.id}`}>
-                {slide.primaryCta.label}
-              </Link>
-              <Link href={slide.secondaryCta.href} className="btn-outline" id={`hero-cta-secondary-${slide.id}`}>
-                {slide.secondaryCta.label}
-              </Link>
-            </div>
+          <div className={styles.overlay} />
+          
+          <div className={styles.contentWrap}>
+            <h1 className={styles.headline}>{slide.tagline}</h1>
+            <Link href={slide.href} className={styles.ctaButton}>
+              {slide.cta}
+            </Link>
           </div>
         </div>
       ))}
 
-      {/* Arrow Navigation */}
-      <button
-        className={`${styles.arrowBtn} ${styles.arrowLeft}`}
-        onClick={prev}
-        aria-label="Previous slide"
-        id="hero-prev"
-      >
-        <ChevronLeft size={22} />
-      </button>
-      <button
-        className={`${styles.arrowBtn} ${styles.arrowRight}`}
-        onClick={next}
-        aria-label="Next slide"
-        id="hero-next"
-      >
-        <ChevronRight size={22} />
-      </button>
-
-      {/* Dot Navigation */}
-      <div className={styles.dots} role="tablist" aria-label="Slide navigation">
-        {slides.map((slide, index) => (
+      {/* Minimal Slider Dots */}
+      <div className={styles.indicators}>
+        {slides.map((_, index) => (
           <button
-            key={slide.id}
+            key={index}
             className={`${styles.dot} ${index === current ? styles.activeDot : ""}`}
-            onClick={() => goTo(index)}
-            aria-label={`Go to slide ${index + 1}: ${slide.label}`}
-            aria-selected={index === current}
-            role="tab"
-            id={`hero-dot-${index}`}
+            onClick={() => setCurrent(index)}
+            aria-label={`Go to slide ${index + 1}`}
           />
         ))}
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className={styles.scrollIndicator} aria-hidden="true">
-        <span>Scroll</span>
-        <div className={styles.scrollLine} />
       </div>
     </section>
   );

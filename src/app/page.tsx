@@ -1,29 +1,19 @@
 import Hero from "@/components/Hero/Hero";
 import AboutSection from "@/components/AboutSection/AboutSection";
 import CategoryGrid from "@/components/CategoryGrid/CategoryGrid";
-import AwardsSection from "@/components/AwardsSection/AwardsSection";
-import NewsSection from "@/components/NewsSection/NewsSection";
+import ClienteleCarousel from "@/components/ClienteleCarousel/ClienteleCarousel";
 import ContactSection from "@/components/ContactSection/ContactSection";
-import {
-  AwardsVideo,
-  BrandCarousel,
-  ClientelePreview,
-  TestimonialsSection,
-} from "@/components/HomeExtras/HomeExtras";
+import { BrandCarousel } from "@/components/HomeExtras/HomeExtras";
 
 export default function Home() {
   return (
-    <>
+    <main>
       <Hero />
-      <BrandCarousel />
+      <CategoryGrid title="Explore Collections" label="Curated Excellence" />
       <AboutSection />
-      <CategoryGrid title="Our Collections" label="Bathware" />
-      <AwardsSection />
-      <ClientelePreview />
-      <NewsSection />
-      <AwardsVideo />
-      <TestimonialsSection />
+      <ClienteleCarousel />
+      <BrandCarousel />
       <ContactSection />
-    </>
+    </main>
   );
 }
