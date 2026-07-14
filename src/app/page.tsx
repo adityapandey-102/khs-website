@@ -8,6 +8,7 @@ import {
   AwardsVideo,
   BrandCarousel,
   ClientelePreview,
+  FeaturedProducts,
   TestimonialsSection,
 } from "@/components/HomeExtras/HomeExtras";
 
@@ -17,6 +18,7 @@ export default function Home() {
       <Hero />
       <BrandCarousel />
       <AboutSection />
+      <FeaturedProducts />
       <CategoryGrid title="Our Collections" label="Bathware" />
       <AwardsSection />
       <ClientelePreview />

@@ -53,7 +53,7 @@ export default function FounderPage() {
               <div className="gold-line" />
               
               <blockquote className={styles.quote}>
-                "The space we reside in dictates the quality of our thought processes, relaxation, and focus. Sourcing hardware and sanitaryware should be a delightful design journey, not a compromise."
+                &quot;The space we reside in dictates the quality of our thought processes, relaxation, and focus. Sourcing hardware and sanitaryware should be a delightful design journey, not a compromise.&quot;
               </blockquote>
 
               <p className={styles.bioText}>

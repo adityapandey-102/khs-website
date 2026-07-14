@@ -38,10 +38,10 @@ export default function AboutPage() {
                 Founded in 2018 by Prakash Choudhary, Krishna Home Studio emerged from a real-world dilemma. During the construction of his own residence, Prakash experienced first-hand the challenges of sourcing high-quality, modern, and aesthetically pleasing bathroom fittings and door hardware that balanced luxury styling with reasonable pricing.
               </p>
               <p className={styles.paragraph}>
-                Recognizing a massive gap in the retail sector for value-driven luxury solutions, he launched Krishna Home Studio. Today, we are proud to be one of Bengaluru's most trusted destinations for sanitaryware, bath fittings, cabinet organizers, spa setups, and architectural hardware.
+                Recognizing a massive gap in the retail sector for value-driven luxury solutions, he launched Krishna Home Studio. Today, we are proud to be one of Bengaluru&apos;s most trusted destinations for sanitaryware, bath fittings, cabinet organizers, spa setups, and architectural hardware.
               </p>
               <p className={styles.paragraph}>
-                By working directly as authorized partners with global industry leaders like Hindware, Kohler, Grohe, Häfele, Ebco, Blum, and Hettich, we bridge the gap between premium international standards and direct consumer access, delivering state-of-the-art designs without compromise.
+                By working directly as authorized partners with global industry leaders like Hindware, Kohler, Grohe, H&auml;fele, Ebco, Blum, and Hettich, we bridge the gap between premium international standards and direct consumer access, delivering state-of-the-art designs without compromise.
               </p>
             </div>
             <div className={styles.storyImageWrap}>
@@ -73,12 +73,12 @@ export default function AboutPage() {
               </p>
             </div>
             <div className={styles.pillarCard}>
-              <h3 className="h3" style={{ color: "var(--color-gold)", marginBottom: "1rem" }}>Founder's Vision</h3>
+              <h3 className="h3" style={{ color: "var(--color-gold)", marginBottom: "1rem" }}>Founder&apos;s Vision</h3>
               <p style={{ opacity: 0.8, fontWeight: 300, fontSize: "0.95rem" }}>
-                "We don't just sell sanitaryware or hardware; we assist in building sanctuaries. Every bathroom faucet, cabinet pull, or smart door lock is a functional piece of art that forms the soul of a home."
+                &quot;We don&apos;t just sell sanitaryware or hardware; we assist in building sanctuaries. Every bathroom faucet, cabinet pull, or smart door lock is a functional piece of art that forms the soul of a home.&quot;
               </p>
               <Link href="/about/founder" className="btn-ghost" style={{ borderColor: "var(--color-gold)", color: "var(--color-gold)", marginTop: "1.5rem" }} id="btn-read-founder-story">
-                Founder's Story
+                Founder&apos;s Story
               </Link>
             </div>
           </div>

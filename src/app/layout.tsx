@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     "Bengaluru's trusted destination for premium bathroom fittings, sanitaryware, vanities, hardware and spa solutions. Discover luxury that's affordable at Krishna Home Studio.",
   keywords:
     "bathware, bathroom fittings, sanitaryware, vanity, shower, faucets, hardware, Bengaluru, Krishna Home Studio",
+  metadataBase: new URL("https://krishnahomestudio.com"),
   openGraph: {
     siteName: "Krishna Home Studio",
     locale: "en_IN",

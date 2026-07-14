@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { FeaturedProducts } from "@/components/HomeExtras/HomeExtras";
 import styles from "./AboutSection.module.css";
 
 export default function AboutSection() {
@@ -68,7 +67,6 @@ export default function AboutSection() {
           <Link href="/about" className="btn-ghost" id="about-section-cta">
             Discover Our Story
           </Link>
-          <FeaturedProducts />
         </div>
       </div>
     </section>
