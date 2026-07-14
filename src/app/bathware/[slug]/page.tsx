@@ -128,6 +128,21 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     "Expert installation guidance provided"
   ];
 
+  const categoryBrandMap: Record<string, string[]> = {
+    "shower-faucets": ["Jaquar", "Grohe", "Kohler", "Hansgrohe"],
+    "washbasins-waterclosets-urinals": ["Parryware", "Roca", "Hindware", "Toto"],
+    "countertop-basin": ["Roca", "Toto", "Duravit", "Jaquar"],
+    "standalone-basin": ["Kohler", "Roca", "Cera", "Jaquar"],
+    "vanity-mirrors": ["Hafele", "Blum", "Hettich", "Grohe"],
+    "kitchen-sinks-faucets": ["Franke", "Hindware", "Grohe", "Roca"],
+    "shower-enclosures": ["Jaquar", "Grohe", "Kohler", "Hindware"],
+    "booster-heat-pumps": ["Grundfos", "AO Smith", "Hindware", "Toto"],
+    "water-softeners-heaters": ["AO Smith", "Kent", "Roca", "Hindware"],
+    "bath-accessories": ["Jaquar", "Hindware", "Roca", "Kohler"],
+    "spa-wellness": ["Jaquar", "Kohler", "Toto", "Roca"],
+  };
+
+  const partnerBrands = categoryBrandMap[category.id] || ["Jaquar", "Kohler", "Hindware", "Roca"];
   const whatsappUrl = `https://wa.me/916362068331?text=Hi%20Krishna%20Home%20Studio%2C%20I%20am%20interested%20in%20your%20${encodeURIComponent(category.shortLabel)}%20collection.`;
 
   return (
@@ -166,10 +181,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               <div className={styles.partnerInfo}>
                 <h4 className="h4" style={{ color: "var(--color-charcoal)", marginBottom: "0.75rem" }}>Authorized Partners:</h4>
                 <div className={styles.tags}>
-                  <span className={styles.tag}>Kohler</span>
-                  <span className={styles.tag}>Grohe</span>
-                  <span className={styles.tag}>Hindware</span>
-                  <span className={styles.tag}>Jaquar</span>
+                  {partnerBrands.map((brand) => (
+                    <span key={brand} className={styles.tag}>{brand}</span>
+                  ))}
                 </div>
               </div>
             </div>
