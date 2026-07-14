@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { bathwareCategories } from "@/data/categories";
+import { hardwareCategories } from "@/data/categories";
 import { getProductsByCategory } from "@/data/products";
 import styles from "./category.module.css";
 
-// Generate Static Params for all 11 categories
+// Generate Static Params
 export async function generateStaticParams() {
-  return bathwareCategories.map((cat) => ({
+  return hardwareCategories.map((cat) => ({
     slug: cat.id,
   }));
 }
@@ -20,7 +20,7 @@ interface CategoryPageProps {
 // Generate dynamic metadata
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
   const resolvedParams = await params;
-  const category = bathwareCategories.find((c) => c.id === resolvedParams.slug);
+  const category = hardwareCategories.find((c) => c.id === resolvedParams.slug);
   if (!category) {
     return {
       title: "Category Not Found",
@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const resolvedParams = await params;
-  const category = bathwareCategories.find((c) => c.id === resolvedParams.slug);
+  const category = hardwareCategories.find((c) => c.id === resolvedParams.slug);
 
   if (!category) {
     notFound();
@@ -44,21 +44,16 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const products = getProductsByCategory(category.id);
 
   const categoryBrandMap: Record<string, string[]> = {
-    "showers-faucets": ["Artize", "Grohe", "Kohler", "Hindware"],
-    "washbasins-waterclosets-urinals": ["Parryware", "Roca", "Hindware", "Toto"],
-    "countertop-basin": ["Roca", "Toto", "Kohler", "Grohe"],
-    "standalone-basin": ["Kohler", "Roca", "Cera", "Queo"],
-    "vanity-mirrors": ["Hafele", "Blum", "Hettich", "Grohe"],
-    "kitchen-sinks-faucets": ["Franke", "Hindware", "Grohe", "Roca"],
-    "shower-enclosures": ["Jaquar", "Grohe", "Kohler", "Hindware"],
-    "booster-heat-pumps": ["Grundfos", "AO Smith", "Hindware", "Toto"],
-    "water-softeners-heaters": ["AO Smith", "Kent", "Roca", "Hindware"],
-    "bath-accessories": ["Jaquar", "Hindware", "Roca", "Kohler"],
-    "spa-wellness": ["Artize", "Kohler", "Toto", "Grohe"],
+    "door-fittings": ["Häfele", "Yale", "Dorsët", "Godrej"],
+    "smart-locks": ["Yale", "Godrej", "Häfele"],
+    "kitchen-systems": ["Blum", "Hettich", "Häfele"],
+    "wardrobe-accessories": ["Hettich", "Blum", "Häfele"],
+    "glass-hardware": ["Ozone", "Häfele", "Dorma"],
+    "sliding-systems": ["Hettich", "Blum", "Häfele"],
   };
 
-  const partnerBrands = categoryBrandMap[category.id] || ["Jaquar", "Kohler", "Hindware", "Roca"];
-  const whatsappUrl = `https://wa.me/916362068331?text=Hi%20Krishna%20Home%20Studio%2C%20I%20am%20interested%20in%20your%20${encodeURIComponent(category.shortLabel)}%20collection.`;
+  const partnerBrands = categoryBrandMap[category.id] || ["Häfele", "Blum", "Yale", "Hettich"];
+  const whatsappUrl = `https://wa.me/917892507179?text=Hi%20Krishna%20Home%20Studio%2C%20I%20am%20interested%20in%20your%20${encodeURIComponent(category.shortLabel)}%20collection.`;
 
   return (
     <div className={styles.categoryPage}>
@@ -72,7 +67,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         />
         <div className="container">
           <div className="page-hero__content">
-            <span className="page-hero__label">Bathware Collection</span>
+            <span className="page-hero__label">Architectural Hardware</span>
             <h1 className="page-hero__title">{category.shortLabel}</h1>
           </div>
         </div>
@@ -81,8 +76,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       {/* Catalog Section */}
       <section className="section">
         <div className="container">
-          <Link href="/bathware" className={styles.backBtn} id="btn-back-catalog">
-            <ArrowLeft size={14} /> Back to Bathware
+          <Link href="/hardware" className={styles.backBtn} id="btn-back-catalog-hw">
+            <ArrowLeft size={14} /> Back to Hardware
           </Link>
 
           <div className={styles.categoryIntro}>
@@ -117,7 +112,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                     </div>
 
                     <a
-                      href={`https://wa.me/916362068331?text=Hi%20Krishna%20Home%20Studio%2C%20I%20want%20to%20know%20more%20about%20the%20${encodeURIComponent(product.name)}.`}
+                      href={`https://wa.me/917892507179?text=Hi%20Krishna%20Home%20Studio%2C%20I%20want%20to%20know%20more%20about%20the%20${encodeURIComponent(product.name)}.`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn-ghost"
@@ -152,16 +147,16 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <div className="container">
           <div className={styles.ctaGrid}>
             <div className={styles.ctaTextWrap}>
-              <h3 className="h3" style={{ color: "var(--color-white)", marginBottom: "1rem" }}>Design Your Dream Space</h3>
+              <h3 className="h3" style={{ color: "var(--color-white)", marginBottom: "1rem" }}>Build with Precision</h3>
               <p style={{ opacity: 0.8, fontWeight: 300, maxWidth: "600px", lineHeight: "1.7" }}>
-                Visit our Rajajinagar showroom to view these products live, consult with our bath planners, and receive a customized quote for your construction or remodeling project.
+                Visit our Whitefield Hardware Studio to experience these precision-engineered products live. Our experts will help you select the perfect hardware for your project.
               </p>
             </div>
             <div className={styles.ctaBtns}>
-              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-primary" id="btn-cat-whatsapp">
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-primary" id="btn-cat-whatsapp-hw">
                 Inquire on WhatsApp
               </a>
-              <Link href="/contact" className="btn-outline" id="btn-cat-contact">
+              <Link href="/contact" className="btn-outline" id="btn-cat-contact-hw">
                 Contact Store
               </Link>
             </div>

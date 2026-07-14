@@ -1,85 +1,36 @@
-import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import styles from "./AboutSection.module.css";
 
 export default function AboutSection() {
   return (
-    <section className={`${styles.about} section`} id="about">
-      <div className={styles.aboutGrid}>
-        <div className={styles.aboutImageWrap}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/assets/old-site/WhatsApp-Image-2024-05-18-at-5.51.39-PM.jpeg"
-            alt="Luxurious bathroom design by Krishna Home Studio"
-            className={styles.aboutImage}
-          />
-          <div className={styles.aboutImageOverlay} />
-          <div className={styles.aboutBadge}>
-            <span className={styles.aboutBadgeYear}>2018</span>
-            <span className={styles.aboutBadgeLabel}>Established</span>
-          </div>
-        </div>
+    <section className={styles.about} id="about">
+      <div className={styles.parallaxContainer}>
+        <div className={styles.parallaxBg} />
+        <div className={styles.parallaxOverlay} />
+        
+        <div className={styles.contentWrap}>
+          <span className={styles.aboutLabel}>Our Heritage</span>
+          <h2 className={styles.aboutTitle}>
+            Elevating everyday spaces with exceptional design.
+          </h2>
+          <div className="gold-line-center" />
+          
+          <p className={styles.aboutBody}>
+            At Krishna Home Studio, we specialize in providing premium bathroom fittings and home hardware solutions that combine luxury with affordability. Established in 2018, our brand was inspired by a desire to offer high-quality, stylish products after experiencing a lack of sophisticated options in the market.
+          </p>
+          <p className={styles.aboutBody}>
+            Today, we are a trusted destination in Bengaluru for those seeking elegant, functional, and innovative home solutions, partnering with world-class manufacturers like Kohler, Grohe, Hindware, and Häfele to turn your vision into reality.
+          </p>
 
-        <div className={styles.aboutContent}>
-          <div className={styles.contentShell}>
-            <span className={styles.aboutLabel}>About Us</span>
-            <h2 className={styles.aboutTitle}>
-              Crafted spaces where <em>luxury feels effortless</em>
-            </h2>
-            <div className={styles.goldLine} />
-
-            <p className={styles.aboutBody}>
-              Krishna Home Studio began with a simple idea: premium interiors should feel
-              attainable, beautifully curated, and deeply personal. What started as a response to
-              a home construction need became a trusted destination for thoughtfully designed
-              bathware, hardware, and lifestyle solutions across Bengaluru.
-            </p>
-            <p className={styles.aboutBody}>
-              Today, we blend international design sensibility with practical guidance, helping
-              homeowners, architects, and designers discover products that elevate everyday
-              rituals without compromising on comfort or value.
-            </p>
-
-            <div className={styles.aboutBrands}>
-              <span className={styles.brandLabel}>Trusted brands:</span>
-              {['Hindware', 'Kohler', 'Grohe', 'Häfele'].map((brand) => (
-                <span key={brand} className={styles.brandTag}>{brand}</span>
-              ))}
-            </div>
-
-            <div className={styles.aboutStats}>
-              <div className={styles.statItem}>
-                <span className={styles.statNumber}>7+</span>
-                <span className={styles.statLabel}>Years of Excellence</span>
-              </div>
-              <div className={styles.statItem}>
-                <span className={styles.statNumber}>500+</span>
-                <span className={styles.statLabel}>Happy Clients</span>
-              </div>
-              <div className={styles.statItem}>
-                <span className={styles.statNumber}>3</span>
-                <span className={styles.statLabel}>Design Awards</span>
-              </div>
-            </div>
-
-            <div className={styles.ctaRow}>
-              <Link href="/about" className="btn-primary" id="about-section-cta">
-                Discover Our Story
-              </Link>
-              <Link href="/media" className={styles.mediaLink}>
-                Media & Recognition <ArrowRight size={16} />
-              </Link>
-            </div>
+          <div className={styles.founderInfo}>
+            <span className={styles.founderName}>Prakash Choudhary</span>
+            <span className={styles.founderTitle}>Founder, Krishna Home Studio</span>
           </div>
 
-          <div className={styles.featureCard}>
-            <span className={styles.featureCardLabel}>Featured in</span>
-            <h3>Press features, awards, and design-led projects</h3>
-            <p>
-              From national media features to industry recognition, our work continues to inspire
-              homeowners and design professionals alike.
-            </p>
-            <Link href="/media">Explore the story</Link>
+          <div className={styles.ctaRow}>
+            <Link href="/about" className="btn-primary" id="about-section-cta">
+              Discover Our Full Story
+            </Link>
           </div>
         </div>
       </div>
