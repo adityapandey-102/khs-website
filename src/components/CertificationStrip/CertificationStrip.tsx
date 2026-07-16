@@ -20,8 +20,8 @@ export default function CertificationStrip({ title = "Authorized Partners", bran
       </span>
       <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
         {logos.map((brand) => (
-          <div key={brand.name} className="flex h-10 w-24 items-center justify-center grayscale transition-all hover:grayscale-0">
-            <Image src={brand.image} alt={brand.name} width={96} height={40} className="max-h-10 w-auto object-contain" />
+          <div key={brand.name} className="flex h-12 w-26 items-center justify-center bg-white p-2 grayscale transition-all hover:grayscale-0">
+            <Image src={brand.image} alt={brand.name} width={96} height={40} className="max-h-8 w-auto object-contain" />
           </div>
         ))}
       </div>

@@ -124,7 +124,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </div>
 
           <div className="mx-auto mt-16 max-w-3xl">
-            <h2 className="mb-6 text-center text-2xl font-light text-primary-dark">Frequently Asked Questions</h2>
+            <h2 className="mb-6 text-center text-2xl font-light text-white">Frequently Asked Questions</h2>
             <FAQAccordion items={faqs} />
           </div>
         </div>
@@ -144,7 +144,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-gold px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-primary-dark transition-colors hover:bg-gold-hover"
+              className="bg-gold px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-gold-hover"
               id="btn-cat-whatsapp-hw"
             >
               Inquire on WhatsApp

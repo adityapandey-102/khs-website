@@ -12,7 +12,7 @@ export default function NumberedFeatureBlock({ features }: { features: NumberedF
             {String(index + 1).padStart(2, "0")}
           </span>
           <div>
-            <h3 className="mb-2 text-base font-medium text-primary-dark">{feature.title}</h3>
+            <h3 className="mb-2 text-base font-medium text-white">{feature.title}</h3>
             <p className="text-sm leading-relaxed text-gray-700">{feature.body}</p>
           </div>
         </div>

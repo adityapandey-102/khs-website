@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Building2, MapPin, Quote, Star } from "lucide-react";
-import { clienteleLogos, testimonials } from "@/data/migratedContent";
+import { brandLogos, testimonials } from "@/data/migratedContent";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import PageHero from "@/components/PageHero/PageHero";
 
 export const metadata: Metadata = {
   title: "Our Clientele",
   description:
-    "Read reviews from Krishna Home Studio customers and browse clientele logos migrated from the original website.",
+    "Read reviews from Krishna Home Studio customers and browse our authorized brand partners.",
 };
 
 const completedProjects = [
@@ -18,7 +18,7 @@ const completedProjects = [
     title: "Bathware Studio Experience",
     type: "Premium Residential Selection",
     location: "Rajajinagar, Bengaluru",
-    image: "/assets/khs/home/WhatsApp-Image-2024-05-18-at-5.51.39-PM.jpeg",
+    image: "/assets/khs/bathware/countertop-basin/IMG-20230520-WA0057.jpg",
   },
   {
     id: 2,
@@ -45,15 +45,15 @@ export default function ClientelePage() {
       <section className="border-b border-border py-12">
         <div className="container grid grid-cols-1 gap-8 text-center sm:grid-cols-3">
           <div>
-            <span className="block text-4xl font-light text-primary-dark">500+</span>
+            <span className="block text-4xl font-light text-white">500+</span>
             <span className="mt-1 block text-xs uppercase tracking-[0.15em] text-gray-400">Happy Homeowners</span>
           </div>
           <div>
-            <span className="block text-4xl font-light text-primary-dark">40+</span>
+            <span className="block text-4xl font-light text-white">40+</span>
             <span className="mt-1 block text-xs uppercase tracking-[0.15em] text-gray-400">Architects &amp; Designers</span>
           </div>
           <div>
-            <span className="block text-4xl font-light text-primary-dark">15+</span>
+            <span className="block text-4xl font-light text-white">15+</span>
             <span className="mt-1 block text-xs uppercase tracking-[0.15em] text-gray-400">Luxury Apartment Complexes</span>
           </div>
         </div>
@@ -63,15 +63,15 @@ export default function ClientelePage() {
         <div className="container">
           <div className="mb-14 text-center">
             <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
-              Clientele
+              Our Partners
             </span>
-            <h2 className="text-3xl font-light text-primary-dark sm:text-4xl">Brands, Projects and Customers We Serve</h2>
+            <h2 className="text-3xl font-light text-white sm:text-4xl">Authorized Brands We Carry</h2>
           </div>
 
           <div className="grid grid-cols-3 gap-4 sm:grid-cols-5">
-            {clienteleLogos.map((logo, index) => (
-              <div className="flex h-16 items-center justify-center bg-offwhite p-3" key={logo}>
-                <Image src={logo} alt={`Clientele logo ${index + 1}`} width={110} height={45} className="max-h-10 w-auto object-contain" />
+            {brandLogos.map((brand) => (
+              <div className="flex h-16 items-center justify-center bg-white p-3" key={brand.name}>
+                <Image src={brand.image} alt={brand.name} width={110} height={45} className="max-h-10 w-auto object-contain" />
               </div>
             ))}
           </div>
@@ -86,7 +86,7 @@ export default function ClientelePage() {
                 </div>
                 <Quote size={28} className="mb-3 text-gold/40" />
                 <p className="text-sm leading-relaxed text-gray-700">{review.text}</p>
-                <span className="mt-4 block text-sm font-medium text-primary-dark">{review.name}</span>
+                <span className="mt-4 block text-sm font-medium text-white">{review.name}</span>
               </div>
             ))}
           </div>
@@ -130,14 +130,14 @@ export default function ClientelePage() {
 
       <section className="py-20 sm:py-28">
         <div className="container mx-auto max-w-2xl text-center">
-          <h2 className="mb-5 text-3xl font-light text-primary-dark sm:text-4xl">Partner with Krishna Home Studio</h2>
+          <h2 className="mb-5 text-3xl font-light text-white sm:text-4xl">Partner with Krishna Home Studio</h2>
           <p className="mb-8 text-[0.95rem] leading-[1.85] text-gray-700">
             Are you an architect, builder, or independent interior designer looking for reliable procurement partners
             in sanitaryware, bathroom accessories, modular kitchen fittings, or electronic locking systems?
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-3 border border-primary-dark px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-dark transition-colors hover:bg-primary-dark hover:text-white"
+            className="inline-flex items-center gap-3 border border-white/30 px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-primary-dark hover:text-white"
             id="btn-client-partner"
           >
             Request Business Partnership

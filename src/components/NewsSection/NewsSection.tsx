@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Newspaper } from "lucide-react";
 import { newsItems } from "@/data/news";
 
 export default function NewsSection() {
@@ -12,11 +12,11 @@ export default function NewsSection() {
             <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
               Media &amp; Awards
             </span>
-            <h2 className="text-3xl font-light text-primary-dark sm:text-4xl">In The Press</h2>
+            <h2 className="text-3xl font-light text-white sm:text-4xl">In The Press</h2>
           </div>
           <Link
             href="/media"
-            className="inline-flex items-center gap-3 border border-primary-dark px-6 py-3 text-[0.72rem] font-semibold uppercase tracking-[0.15em] text-primary-dark transition-colors hover:bg-primary-dark hover:text-white"
+            className="inline-flex items-center gap-3 border border-white/30 px-6 py-3 text-[0.72rem] font-semibold uppercase tracking-[0.15em] text-white transition-colors hover:bg-primary-dark hover:text-white"
             id="news-view-all"
           >
             View All Coverage
@@ -25,23 +25,27 @@ export default function NewsSection() {
 
         <div className="grid grid-cols-1 gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
           {newsItems.map((item) => (
-            <div key={item.id} className="flex flex-col bg-white p-7" id={`news-card-${item.id}`}>
-              {item.logo && (
-                <div className="mb-5 flex h-12 w-fit items-center">
-                  <Image src={item.logo} alt={`${item.publication} logo`} width={120} height={48} className="max-h-12 w-auto object-contain" />
+            <div key={item.id} className="flex flex-col bg-surface p-7" id={`news-card-${item.id}`}>
+              {item.logo ? (
+                <div className="mb-5 flex h-12 w-fit items-center bg-white px-3 py-2">
+                  <Image src={item.logo} alt={`${item.publication} logo`} width={120} height={48} className="max-h-8 w-auto object-contain" />
                 </div>
+              ) : (
+                <Newspaper size={22} className="mb-5 text-gold" strokeWidth={1.5} />
               )}
-              <h3 className="mb-2 text-base font-medium text-primary-dark">{item.publication}</h3>
+              <h3 className="mb-2 text-base font-medium text-white">{item.publication}</h3>
               <p className="mb-4 flex-1 text-sm leading-relaxed text-gray-700">{item.description}</p>
-              <a
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-[0.72rem] font-semibold uppercase tracking-widest text-gold hover:underline"
-                id={`news-link-${item.id}`}
-              >
-                Open Article <ArrowRight size={12} />
-              </a>
+              {item.url && (
+                <a
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-[0.72rem] font-semibold uppercase tracking-widest text-gold hover:underline"
+                  id={`news-link-${item.id}`}
+                >
+                  Open Article <ArrowRight size={12} />
+                </a>
+              )}
             </div>
           ))}
         </div>

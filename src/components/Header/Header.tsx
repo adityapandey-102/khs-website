@@ -23,13 +23,15 @@ const featuredImage = bathwareCategories[0]?.image;
 
 export default function Header() {
   const pathname = usePathname();
+  const isHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   const [openDesktopMenu, setOpenDesktopMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMobileMenu, setOpenMobileMenu] = useState<string | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 12);
+    const handleScroll = () => setScrolled(window.scrollY > 40);
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -41,146 +43,162 @@ export default function Header() {
     };
   }, [mobileOpen]);
 
+  // Transparent overlay only makes sense floating over the home hero;
+  // every other page keeps a solid header from the start.
+  const solid = !isHome || scrolled;
+
   return (
     <>
-      {/* Utility bar */}
-      <div className="hidden bg-primary-dark text-white/70 sm:block">
-        <div className="container flex h-9 items-center justify-between text-[0.72rem] tracking-wide">
-          <div className="flex items-center gap-5">
-            <a href="tel:6362068331" className="flex items-center gap-1.5 transition-colors hover:text-gold">
-              <Phone size={11} /> Bathware: +91 63620 68331
-            </a>
-            <a href="tel:7892507179" className="hidden items-center gap-1.5 transition-colors hover:text-gold lg:flex">
-              <Phone size={11} /> Hardware: +91 78925 07179
-            </a>
-          </div>
-          <div className="flex items-center gap-4">
-            <a
-              href="https://wa.me/916362068331"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 transition-colors hover:text-gold"
-            >
-              <WhatsAppIcon /> WhatsApp Us
-            </a>
-            <Link href="/contact" className="transition-colors hover:text-gold">
-              Store Locator
-            </Link>
-            <a
-              href="https://www.instagram.com/khs_krishnahomestudio_"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-              className="transition-colors hover:text-gold"
-            >
-              <Instagram />
-            </a>
+      <div className="fixed inset-x-0 top-0 z-1000">
+        {/* Utility bar */}
+        <div className="hidden bg-primary-dark text-white/70 sm:block">
+          <div className="container flex h-9 items-center justify-between text-[0.72rem] tracking-wide">
+            <div className="flex items-center gap-5">
+              <a href="tel:6362068331" className="flex items-center gap-1.5 transition-colors hover:text-gold">
+                <Phone size={11} /> Bathware: +91 63620 68331
+              </a>
+              <a href="tel:7892507179" className="hidden items-center gap-1.5 transition-colors hover:text-gold lg:flex">
+                <Phone size={11} /> Hardware: +91 78925 07179
+              </a>
+            </div>
+            <div className="flex items-center gap-4">
+              <a
+                href="https://wa.me/916362068331"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 transition-colors hover:text-gold"
+              >
+                <WhatsAppIcon /> WhatsApp Us
+              </a>
+              <Link href="/contact" className="transition-colors hover:text-gold">
+                Store Locator
+              </Link>
+              <a
+                href="https://www.instagram.com/khs_krishnahomestudio_"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="transition-colors hover:text-gold"
+              >
+                <Instagram />
+              </a>
+            </div>
           </div>
         </div>
+
+        {/* Main header */}
+        <header
+          className={`transition-colors duration-300 ${
+            solid ? "bg-white shadow-[0_4px_24px_rgba(0,0,0,0.1)]" : "bg-transparent"
+          }`}
+          onMouseLeave={() => setOpenDesktopMenu(null)}
+        >
+          <div className="container flex h-19 items-center justify-between gap-8">
+            <Link href="/" className="flex shrink-0 items-center gap-3" aria-label="Krishna Home Studio - Home">
+              <span className="flex h-11 w-23 items-center justify-center bg-primary-dark px-2">
+                <Image src="/assets/brand/khs-logo.png" alt="Krishna Home Studio" width={112} height={50} className="h-8 w-auto object-contain" priority />
+              </span>
+              <span className="hidden flex-col leading-tight sm:flex">
+                <span className={`font-semibold tracking-wide transition-colors ${solid ? "text-primary-dark" : "text-white"}`}>
+                  Krishna Home Studio
+                </span>
+                <span className="text-[0.62rem] uppercase tracking-[0.2em] text-gold">Premium Bathware &amp; Hardware</span>
+              </span>
+            </Link>
+
+            <nav className="hidden items-center lg:flex" aria-label="Main navigation">
+              {navItems.map((item) => (
+                <div key={item.href} className="relative" onMouseEnter={() => setOpenDesktopMenu(item.label)}>
+                  <Link
+                    href={item.href}
+                    className={`flex h-19 items-center gap-1 px-4 text-[0.78rem] font-medium uppercase tracking-[0.08em] transition-colors ${
+                      pathname === item.href ? "text-gold" : solid ? "text-black hover:text-gold" : "text-white hover:text-gold"
+                    }`}
+                  >
+                    {item.label}
+                    {item.children && (
+                      <ChevronDown
+                        size={13}
+                        className={`transition-transform ${openDesktopMenu === item.label ? "rotate-180" : ""}`}
+                      />
+                    )}
+                  </Link>
+
+                  <AnimatePresence>
+                    {item.children && openDesktopMenu === item.label && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.18, ease: "easeOut" }}
+                        className="absolute left-0 top-19 z-1000 flex w-[min(90vw,760px)] overflow-hidden border border-white/10 bg-primary-dark shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
+                      >
+                        {item.label === "Bathware" && featuredImage && (
+                          <Link
+                            href="/bathware"
+                            className="group relative hidden w-70 shrink-0 overflow-hidden bg-primary-dark md:block"
+                          >
+                            <Image
+                              src={featuredImage}
+                              alt="Bathware Collection"
+                              fill
+                              sizes="280px"
+                              className="object-cover opacity-70 transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-linear-to-t from-primary-dark/90 via-primary-dark/10 to-transparent" />
+                            <div className="absolute bottom-0 left-0 p-6">
+                              <span className="text-lg font-light text-white">Bathware Collection</span>
+                              <span className="mt-2 block text-[0.7rem] uppercase tracking-[0.15em] text-gold">Explore Now →</span>
+                            </div>
+                          </Link>
+                        )}
+                        <div className="grid flex-1 grid-cols-2 gap-x-6 gap-y-1 p-6">
+                          {item.children!.map((child) => (
+                            <Link
+                              key={child.href}
+                              href={child.href}
+                              className="border-l-2 border-transparent px-3 py-2 text-[0.82rem] text-white/70 transition-colors hover:border-gold hover:bg-white/5 hover:text-gold"
+                            >
+                              {child.label}
+                            </Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ))}
+            </nav>
+
+            <div className="hidden items-center gap-3 lg:flex">
+              <a
+                href="https://wa.me/916362068331?text=Hi%20Krishna%20Home%20Studio%2C%20I%20am%20interested%20in%20your%20products."
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`border px-5 py-2.5 text-[0.72rem] font-semibold uppercase tracking-[0.15em] transition-colors ${
+                  solid
+                    ? "border-primary-dark text-primary-dark hover:bg-primary-dark hover:text-white"
+                    : "border-white text-white hover:bg-white hover:text-primary-dark"
+                }`}
+              >
+                Enquire Now
+              </a>
+            </div>
+
+            <button
+              className={`flex items-center justify-center p-2 lg:hidden ${solid ? "text-black" : "text-white"}`}
+              onClick={() => setMobileOpen(true)}
+              aria-label="Open menu"
+            >
+              <Menu size={26} />
+            </button>
+          </div>
+        </header>
       </div>
 
-      {/* Main header */}
-      <header
-        className={`sticky top-0 z-1000 bg-white transition-shadow ${
-          scrolled ? "shadow-[0_4px_24px_rgba(10,22,40,0.08)]" : ""
-        }`}
-        onMouseLeave={() => setOpenDesktopMenu(null)}
-      >
-        <div className="container flex h-[76px] items-center justify-between gap-8">
-          <Link href="/" className="flex shrink-0 items-center gap-3" aria-label="Krishna Home Studio - Home">
-            <span className="flex h-11 w-[92px] items-center justify-center bg-primary-dark px-2">
-              <Image src="/assets/brand/khs-logo.png" alt="Krishna Home Studio" width={112} height={50} className="h-8 w-auto object-contain" priority />
-            </span>
-            <span className="hidden flex-col leading-tight sm:flex">
-              <span className="font-semibold tracking-wide text-primary-dark">Krishna Home Studio</span>
-              <span className="text-[0.62rem] uppercase tracking-[0.2em] text-gold">Premium Bathware &amp; Hardware</span>
-            </span>
-          </Link>
-
-          <nav className="hidden items-center lg:flex" aria-label="Main navigation">
-            {navItems.map((item) => (
-              <div key={item.href} className="relative" onMouseEnter={() => setOpenDesktopMenu(item.label)}>
-                <Link
-                  href={item.href}
-                  className={`flex h-[76px] items-center gap-1 px-4 text-[0.78rem] font-medium uppercase tracking-[0.08em] transition-colors ${
-                    pathname === item.href ? "text-gold" : "text-black hover:text-gold"
-                  }`}
-                >
-                  {item.label}
-                  {item.children && (
-                    <ChevronDown
-                      size={13}
-                      className={`transition-transform ${openDesktopMenu === item.label ? "rotate-180" : ""}`}
-                    />
-                  )}
-                </Link>
-
-                <AnimatePresence>
-                  {item.children && openDesktopMenu === item.label && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -8 }}
-                      transition={{ duration: 0.18, ease: "easeOut" }}
-                      className="absolute left-0 top-[76px] z-1000 flex w-[min(90vw,760px)] overflow-hidden border border-border bg-white shadow-[0_20px_50px_rgba(10,22,40,0.12)]"
-                    >
-                      {item.label === "Bathware" && featuredImage && (
-                        <Link
-                          href="/bathware"
-                          className="group relative hidden w-[280px] shrink-0 overflow-hidden bg-primary-dark md:block"
-                        >
-                          <Image
-                            src={featuredImage}
-                            alt="Bathware Collection"
-                            fill
-                            sizes="280px"
-                            className="object-cover opacity-70 transition-transform duration-700 group-hover:scale-105"
-                          />
-                          <div className="absolute inset-0 bg-linear-to-t from-primary-dark/90 via-primary-dark/10 to-transparent" />
-                          <div className="absolute bottom-0 left-0 p-6">
-                            <span className="text-lg font-light text-white">Bathware Collection</span>
-                            <span className="mt-2 block text-[0.7rem] uppercase tracking-[0.15em] text-gold">Explore Now →</span>
-                          </div>
-                        </Link>
-                      )}
-                      <div className="grid flex-1 grid-cols-2 gap-x-6 gap-y-1 p-6">
-                        {item.children!.map((child) => (
-                          <Link
-                            key={child.href}
-                            href={child.href}
-                            className="border-l-2 border-transparent px-3 py-2 text-[0.82rem] text-gray-700 transition-colors hover:border-gold hover:bg-offwhite hover:text-primary-dark"
-                          >
-                            {child.label}
-                          </Link>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
-          </nav>
-
-          <div className="hidden items-center gap-3 lg:flex">
-            <a
-              href="https://wa.me/916362068331?text=Hi%20Krishna%20Home%20Studio%2C%20I%20am%20interested%20in%20your%20products."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="border border-primary-dark px-5 py-2.5 text-[0.72rem] font-semibold uppercase tracking-[0.15em] text-primary-dark transition-colors hover:bg-primary-dark hover:text-white"
-            >
-              Enquire Now
-            </a>
-          </div>
-
-          <button
-            className="flex items-center justify-center p-2 lg:hidden"
-            onClick={() => setMobileOpen(true)}
-            aria-label="Open menu"
-          >
-            <Menu size={26} />
-          </button>
-        </div>
-      </header>
+      {/* Spacer so page content isn't hidden under the fixed header, except
+          on the home page where the hero intentionally sits behind it. */}
+      {!isHome && <div className="h-19 sm:h-28" aria-hidden="true" />}
 
       {/* Mobile drawer */}
       <AnimatePresence>

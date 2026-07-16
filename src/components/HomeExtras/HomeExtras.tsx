@@ -1,15 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Play, Quote, Star } from "lucide-react";
-import { brandLogos, clienteleLogos, featuredProducts, testimonials } from "@/data/migratedContent";
+import { brandLogos, featuredProducts, testimonials } from "@/data/migratedContent";
 
 export function BrandCarousel() {
   return (
-    <section className="overflow-hidden border-y border-border bg-white py-10" aria-label="Brand partners">
-      <div className="flex w-max animate-marquee gap-14">
+    <section className="overflow-hidden border-y border-border bg-surface py-10" aria-label="Brand partners">
+      <div className="flex w-max animate-marquee gap-6">
         {[...brandLogos, ...brandLogos].map((brand, index) => (
-          <div className="flex h-14 w-[140px] shrink-0 items-center justify-center grayscale transition-all hover:grayscale-0" key={`${brand.name}-${index}`}>
-            <Image src={brand.image} alt={brand.name} width={140} height={56} className="max-h-14 w-auto object-contain" />
+          <div
+            className="flex h-16 w-37.5 shrink-0 items-center justify-center bg-white p-3 grayscale transition-all hover:grayscale-0"
+            key={`${brand.name}-${index}`}
+          >
+            <Image src={brand.image} alt={brand.name} width={130} height={50} className="max-h-10 w-auto object-contain" />
           </div>
         ))}
       </div>
@@ -51,20 +54,20 @@ export function ClientelePreview() {
         <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
           <div>
             <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
-              Clientele
+              Our Partners
             </span>
-            <h2 className="max-w-xl text-3xl font-light text-primary-dark sm:text-4xl">
+            <h2 className="max-w-xl text-3xl font-light text-white sm:text-4xl">
               Trusted by Homeowners, Designers and Project Teams
             </h2>
           </div>
-          <Link href="/clientele" className="inline-flex items-center gap-2 text-sm font-medium text-primary-dark hover:text-gold">
+          <Link href="/clientele" className="inline-flex items-center gap-2 text-sm font-medium text-white hover:text-gold">
             View Clientele <ArrowRight size={14} />
           </Link>
         </div>
-        <div className="grid grid-cols-3 gap-6 sm:grid-cols-4 lg:grid-cols-6">
-          {clienteleLogos.map((logo, index) => (
-            <div className="flex h-16 items-center justify-center bg-white p-3" key={logo}>
-              <Image src={logo} alt={`Clientele logo ${index + 1}`} width={110} height={45} className="max-h-10 w-auto object-contain" />
+        <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 lg:grid-cols-6">
+          {brandLogos.map((brand) => (
+            <div className="flex h-16 items-center justify-center bg-white p-3" key={brand.name}>
+              <Image src={brand.image} alt={brand.name} width={110} height={45} className="max-h-10 w-auto object-contain" />
             </div>
           ))}
         </div>
@@ -112,11 +115,11 @@ export function TestimonialsSection() {
           <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
             Customer Reviews
           </span>
-          <h2 className="text-3xl font-light text-primary-dark sm:text-4xl">What Our Customers Say</h2>
+          <h2 className="text-3xl font-light text-white sm:text-4xl">What Our Customers Say</h2>
         </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((review) => (
-            <article className="relative border border-border bg-white p-8" key={review.name}>
+            <article className="relative border border-border bg-surface p-8" key={review.name}>
               <Quote size={28} className="mb-4 text-gold/40" />
               <div className="mb-3 flex gap-0.5">
                 {[0, 1, 2, 3, 4].map((star) => (
@@ -124,7 +127,7 @@ export function TestimonialsSection() {
                 ))}
               </div>
               <p className="text-sm leading-relaxed text-gray-700">{review.text}</p>
-              <strong className="mt-4 block text-sm font-medium text-primary-dark">{review.name}</strong>
+              <strong className="mt-4 block text-sm font-medium text-white">{review.name}</strong>
             </article>
           ))}
         </div>

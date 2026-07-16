@@ -6,23 +6,25 @@ interface CategoryGridProps {
   title?: string;
   label?: string;
   showAll?: boolean;
+  sectionClassName?: string;
 }
 
 export default function CategoryGrid({
   title = "Our Collections",
   label = "Bathware",
   showAll = false,
+  sectionClassName = "py-20 sm:py-28",
 }: CategoryGridProps) {
   const displayCategories = showAll ? bathwareCategories : bathwareCategories.slice(0, 8);
 
   return (
-    <section className="py-20 sm:py-28" id="categories">
+    <section className={sectionClassName} id="categories">
       <div className="container">
         <div className="mb-14 text-center">
           <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
             {label}
           </span>
-          <h2 className="text-3xl font-light text-primary-dark sm:text-4xl">{title}</h2>
+          <h2 className="text-3xl font-light text-white sm:text-4xl">{title}</h2>
         </div>
 
         <div className="grid grid-cols-2 gap-px bg-border sm:grid-cols-3 lg:grid-cols-4">
@@ -30,7 +32,7 @@ export default function CategoryGrid({
             <Link
               key={cat.id}
               href={cat.href}
-              className="group relative aspect-square overflow-hidden bg-white"
+              className="group relative aspect-square overflow-hidden bg-surface"
               aria-label={`Explore ${cat.label}`}
             >
               <Image
@@ -54,7 +56,7 @@ export default function CategoryGrid({
           <div className="mt-14 text-center">
             <Link
               href="/bathware"
-              className="inline-flex items-center gap-3 border border-primary-dark px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-dark transition-colors hover:bg-primary-dark hover:text-white"
+              className="inline-flex items-center gap-3 border border-white/30 px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-primary-dark hover:text-white"
             >
               View All Categories
             </Link>

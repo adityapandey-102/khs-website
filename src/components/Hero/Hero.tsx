@@ -55,7 +55,7 @@ export default function Hero() {
   const slide = slides[current];
 
   return (
-    <section className="relative h-screen min-h-160 w-full overflow-hidden bg-primary-dark" aria-label="Showcase">
+    <section className="relative h-[85vh] min-h-140 w-full overflow-hidden bg-primary-dark" aria-label="Showcase">
       <AnimatePresence mode="sync">
         <motion.div
           key={slide.id}
@@ -93,7 +93,7 @@ export default function Hero() {
           </h1>
           <Link
             href={slide.href}
-            className="mt-8 inline-flex items-center gap-3 border border-white px-8 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-white hover:text-primary-dark"
+            className="mt-8 inline-flex items-center gap-3 border border-white px-8 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-surface hover:text-primary-dark"
           >
             {slide.cta}
           </Link>

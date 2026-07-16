@@ -58,33 +58,6 @@ export const featuredProducts = [
   },
 ];
 
-export const clienteleLogos = [
-  "/assets/khs/bathware/_hub/1-1.png",
-  "/assets/khs/about/2.png",
-  "/assets/khs/hardware/3-1.png",
-  "/assets/khs/hardware/4-1.png",
-  "/assets/khs/hardware/5-1.png",
-  "/assets/khs/hardware/6.png",
-  "/assets/khs/hardware/7.png",
-  "/assets/khs/hardware/8.png",
-  "/assets/khs/hardware/9.png",
-  "/assets/khs/hardware/10.png",
-  "/assets/khs/hardware/11.png",
-  "/assets/khs/hardware/12.png",
-  "/assets/khs/hardware/13.png",
-  "/assets/khs/hardware/14.png",
-  "/assets/khs/hardware/15.png",
-  "/assets/khs/hardware/16.png",
-  "/assets/khs/hardware/17.png",
-  "/assets/khs/hardware/18.png",
-  "/assets/khs/hardware/19.png",
-  "/assets/khs/hardware/20.png",
-  "/assets/khs/hardware/21.png",
-  "/assets/khs/hardware/22.png",
-  "/assets/khs/hardware/23.png",
-  "/assets/khs/hardware/24.png",
-  "/assets/khs/hardware/25.png",
-];
 
 export const testimonials = [
   {
