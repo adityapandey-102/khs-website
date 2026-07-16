@@ -16,20 +16,16 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <CategoryGrid
-        title="Explore Collections"
-        label="Curated Excellence"
-        sectionClassName="pt-14 pb-16 sm:pt-20 sm:pb-24"
-      />
-      <AboutSection />
-      <AwardsSection />
+      <CategoryGrid showHeading={false} sectionClassName="pt-8 pb-16 sm:pt-10 sm:pb-24" />
+      <BrandCarousel />
+      {/* <AboutSection /> */}
       <FeaturedProducts />
+      <AwardsSection />
       <AwardsVideo />
       <ClienteleCarousel />
-      <ClientelePreview />
-      <NewsSection />
-      <ContactSection />
-      <BrandCarousel />
+      {/* <ClientelePreview /> */}
+      {/* <NewsSection /> */}
+      {/* <ContactSection /> */}
     </>
   );
 }
