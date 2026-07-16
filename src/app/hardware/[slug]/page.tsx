@@ -1,165 +1,161 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import { hardwareCategories } from "@/data/categories";
-import { getProductsByCategory } from "@/data/products";
-import styles from "./category.module.css";
+import { categoryGalleries } from "@/data/categoryGalleries";
+import { pageCopy } from "@/data/pageCopy";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import PageHero from "@/components/PageHero/PageHero";
+import CertificationStrip from "@/components/CertificationStrip/CertificationStrip";
+import FAQAccordion from "@/components/FAQAccordion/FAQAccordion";
 
-// Generate Static Params
+// The real /hardware page on the old site groups its copy into six themed
+// paragraphs (architectural / kitchen / wardrobe / security / glass /
+// curtains) rather than having separate sub-pages. This maps each local
+// sub-category to the matching real paragraph instead of inventing new copy.
+const HARDWARE_COPY_INDEX: Record<string, number> = {
+  "door-handles": 4,
+  "hinges-channels": 6,
+  "cabinet-hardware": 8,
+  "security-systems": 10,
+  "glass-fittings": 12,
+};
+
+const categoryBrandMap: Record<string, string[]> = {
+  "door-handles": ["Hafele", "Godrej"],
+  "hinges-channels": ["Hafele"],
+  "security-systems": ["Godrej"],
+  "glass-fittings": ["Hafele"],
+  "cabinet-hardware": ["Hafele"],
+};
+
+// Safe Essentials has its own dedicated real page at /safe-essentials —
+// excluded here to avoid a duplicate, thinner route.
+const routableCategories = hardwareCategories.filter((c) => c.id !== "safe-essentials");
+
 export async function generateStaticParams() {
-  return hardwareCategories.map((cat) => ({
-    slug: cat.id,
-  }));
+  return routableCategories.map((cat) => ({ slug: cat.id }));
 }
 
 interface CategoryPageProps {
-  params: Promise<{ slug: string }> | { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
-// Generate dynamic metadata
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
-  const resolvedParams = await params;
-  const category = hardwareCategories.find((c) => c.id === resolvedParams.slug);
-  if (!category) {
-    return {
-      title: "Category Not Found",
-    };
-  }
+  const { slug } = await params;
+  const category = routableCategories.find((c) => c.id === slug);
+  if (!category) return { title: "Category Not Found" };
   return {
-    title: `${category.shortLabel} Collection | Krishna Home Studio`,
+    title: `${category.shortLabel} Collection`,
     description: category.description,
   };
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
-  const resolvedParams = await params;
-  const category = hardwareCategories.find((c) => c.id === resolvedParams.slug);
+  const { slug } = await params;
+  const category = routableCategories.find((c) => c.id === slug);
+  if (!category) notFound();
 
-  if (!category) {
-    notFound();
-  }
-
-  // Fetch products for this category
-  const products = getProductsByCategory(category.id);
-
-  const categoryBrandMap: Record<string, string[]> = {
-    "door-fittings": ["Häfele", "Yale", "Dorsët", "Godrej"],
-    "smart-locks": ["Yale", "Godrej", "Häfele"],
-    "kitchen-systems": ["Blum", "Hettich", "Häfele"],
-    "wardrobe-accessories": ["Hettich", "Blum", "Häfele"],
-    "glass-hardware": ["Ozone", "Häfele", "Dorma"],
-    "sliding-systems": ["Hettich", "Blum", "Häfele"],
-  };
-
-  const partnerBrands = categoryBrandMap[category.id] || ["Häfele", "Blum", "Yale", "Hettich"];
+  const gallery = categoryGalleries.hardware ?? [];
+  const paragraphIndex = HARDWARE_COPY_INDEX[category.id];
+  const realParagraph = paragraphIndex !== undefined ? pageCopy.hardware?.paragraphs[paragraphIndex] : undefined;
+  const partnerBrands = categoryBrandMap[category.id] ?? ["Hafele", "Godrej"];
   const whatsappUrl = `https://wa.me/917892507179?text=Hi%20Krishna%20Home%20Studio%2C%20I%20am%20interested%20in%20your%20${encodeURIComponent(category.shortLabel)}%20collection.`;
 
+  const faqs = [
+    {
+      question: `What brands are available in ${category.shortLabel}?`,
+      answer: `We stock ${partnerBrands.join(", ")} within this collection, alongside our full portfolio of authorized hardware partners. Visit our Hardware Studio in Rajajinagar to see the current range.`,
+    },
+    {
+      question: "Do you provide installation and after-sales support?",
+      answer:
+        "Yes — our hardware consultants assist from selection through installation and offer ongoing after-sales support.",
+    },
+    {
+      question: "Can you source custom fittings for my project?",
+      answer:
+        "Bring your cabinet plans, wardrobe blueprints, or entry door dimensions and our team will help source the exact load capacities, soft-close mechanisms, or locks to fit your needs.",
+    },
+  ];
+
   return (
-    <div className={styles.categoryPage}>
-      {/* Page Hero */}
-      <section className="page-hero">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={category.image}
-          alt={category.label}
-          className="page-hero__bg"
-        />
-        <div className="container">
-          <div className="page-hero__content">
-            <span className="page-hero__label">Architectural Hardware</span>
-            <h1 className="page-hero__title">{category.shortLabel}</h1>
-          </div>
-        </div>
-      </section>
+    <div>
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Hardware", href: "/hardware" },
+          { label: category.shortLabel },
+        ]}
+      />
+      <PageHero label="Architectural Hardware" title={category.label} image={category.image} />
 
-      {/* Catalog Section */}
-      <section className="section">
+      <section className="py-16 sm:py-24">
         <div className="container">
-          <Link href="/hardware" className={styles.backBtn} id="btn-back-catalog-hw">
-            <ArrowLeft size={14} /> Back to Hardware
-          </Link>
-
-          <div className={styles.categoryIntro}>
-            <span className="label" style={{ color: "var(--color-gold)", marginBottom: "0.5rem", display: "block" }}>Curated Selection</span>
-            <h2 className="h2" style={{ color: "var(--color-charcoal)", marginBottom: "1.5rem" }}>{category.label}</h2>
-            <div className="gold-line-center" />
-            <p className={styles.desc}>{category.description}</p>
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-[0.95rem] leading-[1.85] text-gray-700">{category.description}</p>
           </div>
 
-          {products.length > 0 ? (
-            <div className={styles.productGrid}>
-              {products.map((product) => (
-                <div key={product.id} className={styles.productCard}>
-                  <div className={styles.productImageWrap}>
-                    <span className={styles.productBrand}>{product.brand}</span>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={product.image} alt={product.name} className={styles.productImage} />
-                  </div>
-                  <div className={styles.productInfo}>
-                    <h3 className={styles.productName}>{product.name}</h3>
-                    <p className={styles.productDesc}>{product.shortDescription}</p>
-                    
-                    <div className={styles.productMeta}>
-                      <div className={styles.metaRow}>
-                        <span className={styles.metaLabel}>Features:</span>
-                        <span className={styles.metaValue}>{product.features.slice(0, 2).join(", ")}</span>
-                      </div>
-                      <div className={styles.metaRow}>
-                        <span className={styles.metaLabel}>Finishes:</span>
-                        <span className={styles.metaValue}>{product.finishes.join(", ")}</span>
-                      </div>
-                    </div>
-
-                    <a
-                      href={`https://wa.me/917892507179?text=Hi%20Krishna%20Home%20Studio%2C%20I%20want%20to%20know%20more%20about%20the%20${encodeURIComponent(product.name)}.`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-ghost"
-                      style={{ width: "100%", justifyContent: "center" }}
-                    >
-                      Request Details
-                    </a>
-                  </div>
+          {gallery.length > 0 && (
+            <div className="mt-16 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+              {gallery.map((img) => (
+                <div key={img.src} className="relative aspect-square overflow-hidden bg-offwhite">
+                  <Image
+                    src={img.src}
+                    alt={img.alt || category.label}
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                    className="object-cover transition-transform duration-500 hover:scale-105"
+                  />
                 </div>
               ))}
             </div>
-          ) : (
-            <div style={{ textAlign: "center", padding: "4rem 0", color: "var(--color-text-muted)" }}>
-              <p>We are currently updating our online catalog for this collection.</p>
-              <p>Please contact our store to view the latest products from {partnerBrands.join(", ")}.</p>
+          )}
+
+          {realParagraph && (
+            <div className="mx-auto mt-16 max-w-3xl">
+              <p className="text-[0.95rem] leading-[1.85] text-gray-700">{realParagraph}</p>
             </div>
           )}
 
-          <div className={styles.partnerInfo}>
-            <span style={{ fontSize: "0.85rem", color: "var(--color-text-muted)", fontWeight: 500 }}>AUTHORIZED PARTNERS:</span>
-            <div className={styles.tags}>
-              {partnerBrands.map((brand) => (
-                <span key={brand} className={styles.tag}>{brand}</span>
-              ))}
-            </div>
+          <div className="mx-auto mt-16 max-w-2xl">
+            <CertificationStrip brands={partnerBrands} />
+          </div>
+
+          <div className="mx-auto mt-16 max-w-3xl">
+            <h2 className="mb-6 text-center text-2xl font-light text-primary-dark">Frequently Asked Questions</h2>
+            <FAQAccordion items={faqs} />
           </div>
         </div>
       </section>
 
-      {/* CTA section */}
-      <section className="section" style={{ backgroundColor: "var(--color-charcoal)", color: "var(--color-white)" }}>
-        <div className="container">
-          <div className={styles.ctaGrid}>
-            <div className={styles.ctaTextWrap}>
-              <h3 className="h3" style={{ color: "var(--color-white)", marginBottom: "1rem" }}>Build with Precision</h3>
-              <p style={{ opacity: 0.8, fontWeight: 300, maxWidth: "600px", lineHeight: "1.7" }}>
-                Visit our Whitefield Hardware Studio to experience these precision-engineered products live. Our experts will help you select the perfect hardware for your project.
-              </p>
-            </div>
-            <div className={styles.ctaBtns}>
-              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-primary" id="btn-cat-whatsapp-hw">
-                Inquire on WhatsApp
-              </a>
-              <Link href="/contact" className="btn-outline" id="btn-cat-contact-hw">
-                Contact Store
-              </Link>
-            </div>
+      <section className="bg-primary-dark py-16 text-white sm:py-20">
+        <div className="container flex flex-col items-center justify-between gap-8 text-center lg:flex-row lg:text-left">
+          <div>
+            <h3 className="mb-3 text-2xl font-light">Build with Precision</h3>
+            <p className="max-w-lg text-sm leading-relaxed text-white/70">
+              Visit our Hardware Studio to experience these precision-engineered products live. Our experts will
+              help you select the perfect hardware for your project.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-gold px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-primary-dark transition-colors hover:bg-gold-hover"
+              id="btn-cat-whatsapp-hw"
+            >
+              Inquire on WhatsApp
+            </a>
+            <Link
+              href="/contact"
+              className="border border-white/40 px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:border-gold hover:text-gold"
+              id="btn-cat-contact-hw"
+            >
+              Contact Store
+            </Link>
           </div>
         </div>
       </section>

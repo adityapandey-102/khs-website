@@ -3,7 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Building2, MapPin, Quote, Star } from "lucide-react";
 import { clienteleLogos, testimonials } from "@/data/migratedContent";
-import styles from "./clientele.module.css";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import PageHero from "@/components/PageHero/PageHero";
 
 export const metadata: Metadata = {
   title: "Our Clientele",
@@ -17,121 +18,108 @@ const completedProjects = [
     title: "Bathware Studio Experience",
     type: "Premium Residential Selection",
     location: "Rajajinagar, Bengaluru",
-    image: "/assets/old-site/WhatsApp-Image-2024-05-18-at-5.51.39-PM.jpeg",
+    image: "/assets/khs/home/WhatsApp-Image-2024-05-18-at-5.51.39-PM.jpeg",
   },
   {
     id: 2,
     title: "Luxury Bath Concepts",
     type: "Showers, Basins and Vanities",
     location: "Bengaluru",
-    image: "/assets/old-site/Untitled-design-19.png",
+    image: "/assets/khs/about/Untitled-design-17.png",
   },
   {
     id: 3,
     title: "Hardware Studio",
     type: "Architectural Hardware",
     location: "Rajajinagar, Bengaluru",
-    image: "/assets/old-site/Krishna-Home-Studio-Hardware-1-1024x576.png",
+    image: "/assets/khs/hardware/Krishna-Home-Studio-Hardware-2.png",
   },
 ];
 
 export default function ClientelePage() {
   return (
-    <div className={styles.clientelePage}>
-      <section className="page-hero">
-        <Image
-          src="/assets/old-site/Krishna-Home-Studio-Hardware-5.png"
-          alt="Krishna Home Studio clientele and awards"
-          className="page-hero__bg"
-          fill
-          priority
-        />
-        <div className="container">
-          <div className="page-hero__content">
-            <span className="page-hero__label">Trusted Partnerships</span>
-            <h1 className="page-hero__title">Our Clientele</h1>
+    <div>
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Clientele" }]} />
+      <PageHero label="Trusted Partnerships" title="Our Clientele" image="/assets/khs/hardware/Krishna-Home-Studio-Hardware-2.png" />
+
+      <section className="border-b border-border py-12">
+        <div className="container grid grid-cols-1 gap-8 text-center sm:grid-cols-3">
+          <div>
+            <span className="block text-4xl font-light text-primary-dark">500+</span>
+            <span className="mt-1 block text-xs uppercase tracking-[0.15em] text-gray-400">Happy Homeowners</span>
+          </div>
+          <div>
+            <span className="block text-4xl font-light text-primary-dark">40+</span>
+            <span className="mt-1 block text-xs uppercase tracking-[0.15em] text-gray-400">Architects &amp; Designers</span>
+          </div>
+          <div>
+            <span className="block text-4xl font-light text-primary-dark">15+</span>
+            <span className="mt-1 block text-xs uppercase tracking-[0.15em] text-gray-400">Luxury Apartment Complexes</span>
           </div>
         </div>
       </section>
 
-      <section className="section" style={{ paddingBottom: "0" }}>
+      <section className="py-16 sm:py-24">
         <div className="container">
-          <div className={styles.statsBar}>
-            <div className={styles.statBox}>
-              <span className={styles.statNum}>500+</span>
-              <span className={styles.statLabel}>Happy Homeowners</span>
-            </div>
-            <div className={styles.statBox}>
-              <span className={styles.statNum}>40+</span>
-              <span className={styles.statLabel}>Architects & Designers</span>
-            </div>
-            <div className={styles.statBox}>
-              <span className={styles.statNum}>15+</span>
-              <span className={styles.statLabel}>Luxury Apartment Complexes</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          <div className="section-title-wrap">
-            <span className="label">Clientele</span>
-            <h2 className="h2">Brands, Projects and Customers We Serve</h2>
-            <div className="gold-line-center" />
+          <div className="mb-14 text-center">
+            <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
+              Clientele
+            </span>
+            <h2 className="text-3xl font-light text-primary-dark sm:text-4xl">Brands, Projects and Customers We Serve</h2>
           </div>
 
-          <div className={styles.logoGrid}>
+          <div className="grid grid-cols-3 gap-4 sm:grid-cols-5">
             {clienteleLogos.map((logo, index) => (
-              <div className={styles.logoCard} key={logo}>
-                <Image src={logo} alt={`Clientele logo ${index + 1}`} width={220} height={90} />
+              <div className="flex h-16 items-center justify-center bg-offwhite p-3" key={logo}>
+                <Image src={logo} alt={`Clientele logo ${index + 1}`} width={110} height={45} className="max-h-10 w-auto object-contain" />
               </div>
             ))}
           </div>
 
-          <div className={styles.testimonialsGrid}>
+          <div className="mt-20 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {testimonials.map((review) => (
-              <div key={review.name} className={styles.testimonialCard} id={`testimonial-${review.name.toLowerCase().replaceAll(" ", "-")}`}>
-                <div className={styles.ratingRow}>
+              <div key={review.name} className="border border-border p-8" id={`testimonial-${review.name.toLowerCase().replaceAll(" ", "-")}`}>
+                <div className="mb-3 flex gap-0.5">
                   {[0, 1, 2, 3, 4].map((star) => (
-                    <Star key={star} size={14} fill="var(--color-gold)" color="var(--color-gold)" />
+                    <Star key={star} size={14} className="fill-gold text-gold" />
                   ))}
                 </div>
-                <Quote className={styles.quoteIcon} size={28} />
-                <p className={styles.testimonialText}>{review.text}</p>
-                <div className={styles.reviewerInfo}>
-                  <span className={styles.reviewerName}>{review.name}</span>
-                </div>
+                <Quote size={28} className="mb-3 text-gold/40" />
+                <p className="text-sm leading-relaxed text-gray-700">{review.text}</p>
+                <span className="mt-4 block text-sm font-medium text-primary-dark">{review.name}</span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section" style={{ backgroundColor: "var(--color-charcoal)", color: "var(--color-white)" }}>
+      <section className="bg-primary-dark py-20 text-white sm:py-28">
         <div className="container">
-          <div className="section-title-wrap">
-            <span className="label" style={{ color: "var(--color-gold)" }}>Design Portfolio</span>
-            <h2 className="h2" style={{ color: "var(--color-white)" }}>Featured Work</h2>
-            <div className="gold-line-center" />
+          <div className="mb-14 text-center">
+            <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
+              Design Portfolio
+            </span>
+            <h2 className="text-3xl font-light sm:text-4xl">Featured Work</h2>
           </div>
 
-          <div className={styles.projectsGrid}>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             {completedProjects.map((project) => (
-              <div key={project.id} className={styles.projectCard} id={`project-${project.id}`}>
-                <div className={styles.projectImageWrap}>
-                  <Image src={project.image} alt={project.title} className={styles.projectImage} width={800} height={600} />
-                  <div className={styles.projectOverlay} />
-                </div>
-                <div className={styles.projectContent}>
-                  <div className={styles.projectTypeWrap}>
-                    <Building2 size={13} style={{ color: "var(--color-gold)" }} />
-                    <span className={styles.projectType}>{project.type}</span>
+              <div key={project.id} className="group relative aspect-4/5 overflow-hidden" id={`project-${project.id}`}>
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 33vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/20 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-6">
+                  <div className="mb-1.5 flex items-center gap-2 text-[0.7rem] uppercase tracking-[0.15em] text-gold">
+                    <Building2 size={13} /> {project.type}
                   </div>
-                  <h3 className={styles.projectTitle}>{project.title}</h3>
-                  <div className={styles.projectLocWrap}>
-                    <MapPin size={13} />
-                    <span className={styles.projectLoc}>{project.location}</span>
+                  <h3 className="mb-1 text-lg font-medium text-white">{project.title}</h3>
+                  <div className="flex items-center gap-2 text-xs text-white/70">
+                    <MapPin size={13} /> {project.location}
                   </div>
                 </div>
               </div>
@@ -140,13 +128,18 @@ export default function ClientelePage() {
         </div>
       </section>
 
-      <section className="section">
-        <div className="container" style={{ textAlign: "center", maxWidth: "800px" }}>
-          <h2 className="h2" style={{ color: "var(--color-charcoal)", marginBottom: "1.5rem" }}>Partner with Krishna Home Studio</h2>
-          <p style={{ color: "var(--color-text-muted)", marginBottom: "2rem", lineHeight: "1.8", fontWeight: 300 }}>
-            Are you an architect, builder, or independent interior designer looking for reliable procurement partners in sanitaryware, bathroom accessories, modular kitchen fittings, or electronic locking systems?
+      <section className="py-20 sm:py-28">
+        <div className="container mx-auto max-w-2xl text-center">
+          <h2 className="mb-5 text-3xl font-light text-primary-dark sm:text-4xl">Partner with Krishna Home Studio</h2>
+          <p className="mb-8 text-[0.95rem] leading-[1.85] text-gray-700">
+            Are you an architect, builder, or independent interior designer looking for reliable procurement partners
+            in sanitaryware, bathroom accessories, modular kitchen fittings, or electronic locking systems?
           </p>
-          <Link href="/contact" className="btn-primary" id="btn-client-partner">
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-3 border border-primary-dark px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-dark transition-colors hover:bg-primary-dark hover:text-white"
+            id="btn-client-partner"
+          >
             Request Business Partnership
           </Link>
         </div>

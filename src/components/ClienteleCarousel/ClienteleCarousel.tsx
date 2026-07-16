@@ -1,102 +1,78 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import styles from "./ClienteleCarousel.module.css";
+import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
-
-const testimonials = [
-  {
-    id: 1,
-    quote: "The attention to detail and curated selection at Krishna Home Studio made our architectural project effortless. The perfect balance of luxury and utility.",
-    author: "Arjun Reddy",
-    title: "Lead Architect, AR Designs"
-  },
-  {
-    id: 2,
-    quote: "Finding high-end architectural hardware used to be a challenge. KHS provided us with world-class options and exceptional consultation.",
-    author: "Priya Sharma",
-    title: "Homeowner, Whitefield"
-  },
-  {
-    id: 3,
-    quote: "A truly cinematic showroom experience. Their understanding of quiet luxury translates perfectly into the spaces they help build.",
-    author: "Vikram Mehta",
-    title: "Interior Designer"
-  }
-];
+import { testimonials } from "@/data/migratedContent";
 
 export default function ClienteleCarousel() {
   const [current, setCurrent] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
 
-  const goTo = useCallback(
-    (index: number) => {
-      if (isAnimating || index === current) return;
-      setIsAnimating(true);
-      setCurrent(index);
-      setTimeout(() => setIsAnimating(false), 600);
-    },
-    [isAnimating, current]
-  );
-
-  const next = useCallback(
-    () => goTo((current + 1) % testimonials.length),
-    [current, goTo]
-  );
-
-  const prev = useCallback(
-    () => goTo((current - 1 + testimonials.length) % testimonials.length),
-    [current, goTo]
-  );
+  const next = useCallback(() => setCurrent((c) => (c + 1) % testimonials.length), []);
+  const prev = useCallback(() => setCurrent((c) => (c - 1 + testimonials.length) % testimonials.length), []);
 
   useEffect(() => {
     const timer = setInterval(next, 8000);
     return () => clearInterval(timer);
   }, [next]);
 
+  const testimonial = testimonials[current];
+
   return (
-    <section className={`section ${styles.carouselSection}`}>
+    <section className="bg-primary-dark py-20 text-white sm:py-28">
       <div className="container">
-        <div className="section-title-wrap">
-          <span className="label">Social Proof</span>
-          <h2 className="h2">Trusted by Visionaries</h2>
-          <div className="gold-line-center" />
+        <div className="mb-12 text-center">
+          <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
+            Social Proof
+          </span>
+          <h2 className="text-3xl font-light sm:text-4xl">Trusted by Visionaries</h2>
         </div>
 
-        <div className={styles.carouselWrap}>
-          <button className={`${styles.navBtn} ${styles.prevBtn}`} onClick={prev} aria-label="Previous testimonial">
-            <ChevronLeft size={24} strokeWidth={1} />
+        <div className="relative mx-auto flex max-w-2xl items-center gap-4 sm:gap-8">
+          <button
+            onClick={prev}
+            aria-label="Previous testimonial"
+            className="hidden shrink-0 rounded-full border border-white/20 p-2.5 transition-colors hover:border-gold hover:text-gold sm:block"
+          >
+            <ChevronLeft size={20} strokeWidth={1.5} />
           </button>
 
-          <div className={styles.slidesContainer}>
-            {testimonials.map((testimonial, index) => (
-              <div 
-                key={testimonial.id}
-                className={`${styles.slide} ${index === current ? styles.active : ""}`}
-                aria-hidden={index !== current}
+          <div className="min-h-55 flex-1 text-center">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={testimonial.name}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.4 }}
               >
-                <Quote size={40} className={styles.quoteIcon} />
-                <p className={styles.quoteText}>&ldquo;{testimonial.quote}&rdquo;</p>
-                <div className={styles.authorInfo}>
-                  <span className={styles.authorName}>{testimonial.author}</span>
-                  <span className={styles.authorTitle}>{testimonial.title}</span>
-                </div>
-              </div>
-            ))}
+                <Quote size={36} className="mx-auto mb-5 text-gold/50" />
+                <p className="text-lg font-light leading-relaxed text-white/90 sm:text-xl">&ldquo;{testimonial.text}&rdquo;</p>
+                <span className="mt-6 block text-sm font-medium uppercase tracking-widest text-gold">
+                  {testimonial.name}
+                </span>
+              </motion.div>
+            </AnimatePresence>
           </div>
 
-          <button className={`${styles.navBtn} ${styles.nextBtn}`} onClick={next} aria-label="Next testimonial">
-            <ChevronRight size={24} strokeWidth={1} />
+          <button
+            onClick={next}
+            aria-label="Next testimonial"
+            className="hidden shrink-0 rounded-full border border-white/20 p-2.5 transition-colors hover:border-gold hover:text-gold sm:block"
+          >
+            <ChevronRight size={20} strokeWidth={1.5} />
           </button>
         </div>
 
-        <div className={styles.dots}>
-          {testimonials.map((_, index) => (
+        <div className="mt-10 flex justify-center gap-2.5">
+          {testimonials.map((t, index) => (
             <button
-              key={index}
-              className={`${styles.dot} ${index === current ? styles.activeDot : ""}`}
-              onClick={() => goTo(index)}
-              aria-label={`Go to slide ${index + 1}`}
+              key={t.name}
+              onClick={() => setCurrent(index)}
+              aria-label={`Go to testimonial ${index + 1}`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                index === current ? "w-8 bg-gold" : "w-1.5 bg-white/30 hover:bg-white/60"
+              }`}
             />
           ))}
         </div>

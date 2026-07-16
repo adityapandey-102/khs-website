@@ -1,91 +1,112 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import styles from "./founder.module.css";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import PageHero from "@/components/PageHero/PageHero";
+import { pageCopy } from "@/data/pageCopy";
 
 export const metadata: Metadata = {
   title: "About Founder — Prakash Choudhary",
   description: "Read about Prakash Choudhary's entrepreneurial journey and the vision that led to the founding of Krishna Home Studio.",
 };
 
+const founder = pageCopy["about-prakash-chaudhary"]?.paragraphs ?? [];
+
+// Real timeline entries transcribed verbatim from the live site (year, then
+// description pairs), reordered chronologically for readability only.
+const timeline = [
+  { year: "2012–2014", event: "BBA" },
+  { year: "2014", event: "Selected for a business plan competition and entered the \"Entrepreneurship Factory\" venture of Basket Option to learn & practise entrepreneurship in real time." },
+  { year: "2015", event: "Launched India's first board game on the Stock Market under gamifying education company \"Eduturks\", to solve the problem of practical education in the ecosystem." },
+  { year: "2016", event: "Launched higher education company \"Addzup Global\", offering industry-required certification courses across specializations, catering to 150+ institutions." },
+  { year: "2016–2018", event: "MBA (Weekend) from Jain University, Bangalore." },
+  { year: "2017", event: "Launched sales force company \"Gear Up\", connecting & counselling students to competitive exam coaching centres." },
+  { year: "2018", event: "Launched \"Entrepreneurship Garage\", a finishing school for startups aiming to build India's largest solution & result-driven enterprise for aspiring and early-stage startups." },
+  { year: "2018", event: "Initiated South India's biggest collaborative educational event, \"The Education Growth Summit\"." },
+  { year: "2019", event: "Initiated several collaborative events with reputed organisations, forums & government bodies." },
+  { year: "2020", event: "Featured in CEO Magazine as a Top 10 Leadership & Entrepreneurship Institute in India." },
+  { year: "2021 & 2022", event: "Partnered and enhanced the quality of Krishna Home Studio — a class-apart luxury bathroom products showroom at Rajajinagar, Bengaluru." },
+  { year: "2023", event: "Featured in Silicon India Magazine, Brandz Magazine, Success Magazine, Design Reconnect Magazine and 150+ news websites. Awarded at India Design Awards 2023." },
+  { year: "2024", event: "Launched a luxury hardware showroom." },
+  { year: "2026", event: "Aiming to expand into one more brand-new showroom, and establish a complete home solution showroom in the town." },
+];
+
 export default function FounderPage() {
   return (
-    <div className={styles.founderPage}>
-      {/* Page Hero Banner */}
-      <section className="page-hero">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/assets/old-site/IMG_20240513_135506-e1721041513878.jpg"
-          alt="Executive vision page banner"
-          className="page-hero__bg"
-        />
-        <div className="container">
-          <div className="page-hero__content">
-            <span className="page-hero__label">Leadership</span>
-            <h1 className="page-hero__title">Prakash Choudhary</h1>
+    <div>
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "About", href: "/about" }, { label: "Founder" }]} />
+      <PageHero label="Leadership" title="Prakash Choudhary" image="/assets/khs/about/founder/IMG_20240513_135506-e1721041513878.jpg" />
+
+      <section className="py-16 sm:py-24">
+        <div className="container grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,320px)_1fr] lg:gap-20">
+          <div>
+            <div className="relative aspect-4/5 overflow-hidden">
+              <Image
+                src="/assets/khs/about/founder/IMG_20240513_135506-e1721041513878.jpg"
+                alt="Prakash Choudhary, Co-founder & CEO"
+                fill
+                sizes="(max-width: 1024px) 90vw, 320px"
+                className="object-cover"
+              />
+            </div>
+            <div className="mt-4 border border-border p-5">
+              <span className="block text-sm font-medium text-primary-dark">Prakash Choudhary</span>
+              <span className="block text-xs uppercase tracking-[0.15em] text-gold">Co-founder &amp; CEO</span>
+            </div>
+          </div>
+
+          <div>
+            <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
+              CEO &amp; Co-Founder
+            </span>
+            <h2 className="mb-6 text-3xl font-light leading-tight text-primary-dark sm:text-4xl">
+              A Serial Entrepreneur, Building Krishna Home Studio
+            </h2>
+
+            <blockquote className="mb-8 border-l-2 border-gold pl-6 text-lg font-light italic leading-relaxed text-primary-dark">
+              &ldquo;Practice multiple times before execution — let it be sports, studies, or the business.&rdquo;
+            </blockquote>
+
+            <div className="space-y-5 text-[0.95rem] leading-[1.85] text-gray-700">
+              {founder.slice(1, 4).map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+            </div>
+
+            <Link
+              href="/about"
+              className="mt-8 inline-flex items-center gap-3 border border-primary-dark px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-dark transition-colors hover:bg-primary-dark hover:text-white"
+              id="btn-back-about"
+            >
+              About Krishna Home Studio
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Profile Section */}
-      <section className="section">
+      <section className="bg-offwhite py-16 sm:py-24">
         <div className="container">
-          <div className={styles.profileGrid}>
-            {/* Image Wrap */}
-            <div className={styles.imageColumn}>
-              <div className={styles.imageWrap}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/assets/old-site/IMG_20240513_135506-e1721041513878.jpg"
-                  alt="Prakash Choudhary CEO & Co-founder"
-                  className={styles.founderImg}
-                />
-              </div>
-              <div className={styles.metaBox}>
-                <span className={styles.metaTitle}>Prakash Choudhary</span>
-                <span className={styles.metaRole}>Co-founder & CEO</span>
-              </div>
-            </div>
-
-            {/* Content Wrap */}
-            <div className={styles.contentColumn}>
-              <span className="label" style={{ color: "var(--color-gold)" }}>CEO & Co-Founder Statement</span>
-              <h2 className="h2" style={{ color: "var(--color-charcoal)", margin: "0.5rem 0 1.5rem" }}>Building Dreams, Not Just Structures</h2>
-              <div className="gold-line" />
-              
-              <blockquote className={styles.quote}>
-                &quot;The space we reside in dictates the quality of our thought processes, relaxation, and focus. Sourcing hardware and sanitaryware should be a delightful design journey, not a compromise.&quot;
-              </blockquote>
-
-              <p className={styles.bioText}>
-                Prakash Choudhary is a serial entrepreneur, educator, and value-driven leader who embarked on his entrepreneurial journey at the early age of 21. Backed by a BBA and a Weekend MBA from Jain University, Bengaluru, he has dedicated over a decade to building and scaling organizations in education, mentoring, and luxury retail.
-              </p>
-              
-              <h3 className={styles.subTitle}>An Entrepreneurial Journey</h3>
-              <p className={styles.bioText}>
-                Before building Krishna Home Studio into a landmark retail destination, Prakash co-founded several impactful ventures:
-              </p>
-              <ul className={styles.venturesList}>
-                <li>
-                  <strong>Eduturks (2015):</strong> An educational platform that leveraged interactive board games to introduce students and adults to complex financial markets.
-                </li>
-                <li>
-                  <strong>Addzup Global (2016):</strong> A technical training firm providing professional certifications to bridging the employability gap for fresh graduates.
-                </li>
-                <li>
-                  <strong>Entrepreneurship Garage (2018):</strong> A specialized accelerator program mentoring and funding early-stage startup ventures in South India.
-                </li>
-              </ul>
-
-              <h3 className={styles.subTitle}>Recognition & Media</h3>
-              <p className={styles.bioText}>
-                Under his leadership, Krishna Home Studio was honored as one of the <strong>Top 10 Leadership & Entrepreneurship Institutes in India</strong> by CEO Magazine in 2020. His forward-thinking retail philosophy was praised for merging technological advancements (like water-saving cisterns and smart lock automation) with premium aesthetic consultations.
-              </p>
-
-              <Link href="/about" className="btn-ghost" style={{ marginTop: "2rem" }} id="btn-back-about">
-                About Krishna Home Studio
-              </Link>
-            </div>
+          <div className="mb-14 text-center">
+            <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
+              Timeline
+            </span>
+            <h2 className="text-3xl font-light text-primary-dark sm:text-4xl">The Entrepreneurial Journey</h2>
           </div>
+
+          <div className="mx-auto max-w-3xl divide-y divide-border border-y border-border">
+            {timeline.map((item) => (
+              <div key={`${item.year}-${item.event.slice(0, 12)}`} className="flex flex-col gap-1.5 py-5 sm:flex-row sm:gap-8">
+                <span className="w-28 shrink-0 text-sm font-semibold text-gold">{item.year}</span>
+                <p className="text-sm leading-relaxed text-gray-700">{item.event}</p>
+              </div>
+            ))}
+          </div>
+
+          {founder[37] && (
+            <p className="mx-auto mt-14 max-w-2xl text-center text-[0.95rem] italic leading-[1.85] text-gray-700">
+              {founder[37]}
+            </p>
+          )}
         </div>
       </section>
     </div>

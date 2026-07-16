@@ -1,8 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle2 } from "lucide-react";
-import styles from "./contact.module.css";
+import { MapPin, Phone, Mail, Clock, Send, CheckCircle2, ArrowRight } from "lucide-react";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import PageHero from "@/components/PageHero/PageHero";
+
+const inputClass =
+  "w-full border border-border bg-white px-4 py-3 text-sm text-primary-dark placeholder:text-gray-400 focus:border-gold focus:outline-none";
+const labelClass = "mb-1.5 block text-xs font-medium uppercase tracking-[0.1em] text-gray-400";
 
 export default function ContactPage() {
   const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success">("idle");
@@ -10,171 +15,163 @@ export default function ContactPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus("submitting");
-    // Simulate API call
-    setTimeout(() => {
-      setFormStatus("success");
-    }, 1500);
+    setTimeout(() => setFormStatus("success"), 1500);
   };
 
   const bathwareMapUrl = "https://maps.google.com/?q=Krishna+Home+Studio+Bathware+Rajajinagar+Bengaluru";
   const hardwareMapUrl = "https://maps.google.com/?q=Krishna+Home+Studio+Hardware+Rajajinagar+Bengaluru";
 
   return (
-    <div className={styles.contactPage}>
-      {/* Page Hero */}
-      <section className="page-hero">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/assets/old-site/WhatsApp-Image-2024-05-18-at-5.51.39-PM.jpeg"
-          alt="Contact Krishna Home Studio"
-          className="page-hero__bg"
-        />
-        <div className="container">
-          <div className="page-hero__content">
-            <span className="page-hero__label">Get In Touch</span>
-            <h1 className="page-hero__title">Contact Us</h1>
-          </div>
-        </div>
-      </section>
+    <div>
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Contact" }]} />
+      <PageHero label="Get In Touch" title="Contact Us" image="/assets/khs/home/WhatsApp-Image-2024-05-18-at-5.51.39-PM.jpeg" />
 
-      <section className="section">
-        <div className="container">
-          <div className={styles.grid}>
-            {/* Contact Form */}
-            <div className={styles.formCol}>
-              <div className="section-title-wrap" style={{ textAlign: "left", marginBottom: "2rem" }}>
-                <span className="label">Send a Message</span>
-                <h2 className="h2" style={{ color: "var(--color-charcoal)" }}>How can we help?</h2>
-                <div className="gold-line" style={{ margin: "1.25rem 0" }} />
+      <section className="py-16 sm:py-24">
+        <div className="container grid grid-cols-1 gap-16 lg:grid-cols-[1fr_1.1fr]">
+          <div>
+            <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
+              Send a Message
+            </span>
+            <h2 className="mb-8 text-3xl font-light text-primary-dark">How can we help?</h2>
+
+            {formStatus === "success" ? (
+              <div className="border border-border p-10 text-center">
+                <CheckCircle2 size={44} className="mx-auto mb-4 text-gold" />
+                <h3 className="mb-2 text-xl font-light text-primary-dark">Thank You!</h3>
+                <p className="text-sm text-gray-700">Your message has been received. Our team will get back to you shortly.</p>
+                <button
+                  onClick={() => setFormStatus("idle")}
+                  className="mt-6 border border-primary-dark px-6 py-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.15em] text-primary-dark hover:bg-primary-dark hover:text-white"
+                >
+                  Send Another Message
+                </button>
               </div>
-
-              {formStatus === "success" ? (
-                <div className={styles.successState}>
-                  <CheckCircle2 size={48} className={styles.successIcon} />
-                  <h3 className="h3">Thank You!</h3>
-                  <p>Your message has been received. Our team will get back to you shortly.</p>
-                  <button onClick={() => setFormStatus("idle")} className="btn-outline" style={{ color: "var(--color-charcoal)", borderColor: "var(--color-charcoal)", marginTop: "1rem" }}>
-                    Send Another Message
-                  </button>
+            ) : (
+              <form className="space-y-5" onSubmit={handleSubmit}>
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                  <div>
+                    <label className={labelClass} htmlFor="firstName">First Name</label>
+                    <input className={inputClass} type="text" id="firstName" required placeholder="John" />
+                  </div>
+                  <div>
+                    <label className={labelClass} htmlFor="lastName">Last Name</label>
+                    <input className={inputClass} type="text" id="lastName" required placeholder="Doe" />
+                  </div>
                 </div>
-              ) : (
-                <form className={styles.form} onSubmit={handleSubmit}>
-                  <div className={styles.formRow}>
-                    <div className={styles.formGroup}>
-                      <label htmlFor="firstName">First Name</label>
-                      <input type="text" id="firstName" required placeholder="John" />
-                    </div>
-                    <div className={styles.formGroup}>
-                      <label htmlFor="lastName">Last Name</label>
-                      <input type="text" id="lastName" required placeholder="Doe" />
-                    </div>
-                  </div>
-                  
-                  <div className={styles.formRow}>
-                    <div className={styles.formGroup}>
-                      <label htmlFor="email">Email Address</label>
-                      <input type="email" id="email" required placeholder="john@example.com" />
-                    </div>
-                    <div className={styles.formGroup}>
-                      <label htmlFor="phone">Phone Number</label>
-                      <input type="tel" id="phone" placeholder="+91 98765 43210" />
-                    </div>
-                  </div>
 
-                  <div className={styles.formGroup}>
-                    <label htmlFor="interest">I am interested in...</label>
-                    <select id="interest" defaultValue="">
-                      <option value="" disabled>Select an option</option>
-                      <option value="bathware">Bathware & Sanitaryware</option>
-                      <option value="hardware">Architectural Hardware</option>
-                      <option value="project">Large Scale Project Setup</option>
-                      <option value="other">Other Inquiry</option>
-                    </select>
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                  <div>
+                    <label className={labelClass} htmlFor="email">Email Address</label>
+                    <input className={inputClass} type="email" id="email" required placeholder="john@example.com" />
                   </div>
-
-                  <div className={styles.formGroup}>
-                    <label htmlFor="message">Your Message</label>
-                    <textarea id="message" rows={5} required placeholder="Tell us about your project..."></textarea>
+                  <div>
+                    <label className={labelClass} htmlFor="phone">Phone Number</label>
+                    <input className={inputClass} type="tel" id="phone" placeholder="+91 98765 43210" />
                   </div>
+                </div>
 
-                  <button 
-                    type="submit" 
-                    className={`btn-primary ${styles.submitBtn}`}
-                    disabled={formStatus === "submitting"}
-                  >
-                    {formStatus === "submitting" ? "Sending..." : "Send Message"} <Send size={14} />
-                  </button>
-                </form>
-              )}
+                <div>
+                  <label className={labelClass} htmlFor="interest">I am interested in...</label>
+                  <select className={inputClass} id="interest" defaultValue="">
+                    <option value="" disabled>Select an option</option>
+                    <option value="bathware">Bathware &amp; Sanitaryware</option>
+                    <option value="hardware">Architectural Hardware</option>
+                    <option value="project">Large Scale Project Setup</option>
+                    <option value="other">Other Inquiry</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className={labelClass} htmlFor="message">Your Message</label>
+                  <textarea className={inputClass} id="message" rows={5} required placeholder="Tell us about your project..." />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={formStatus === "submitting"}
+                  className="inline-flex items-center gap-3 bg-primary-dark px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-gold hover:text-primary-dark disabled:opacity-60"
+                >
+                  {formStatus === "submitting" ? "Sending..." : "Send Message"} <Send size={14} />
+                </button>
+              </form>
+            )}
+          </div>
+
+          <div className="space-y-6">
+            <div className="border border-border p-7">
+              <h3 className="mb-5 text-lg font-medium text-primary-dark">Bathware Studio</h3>
+              <div className="space-y-3 text-sm text-gray-700">
+                <div className="flex items-start gap-3">
+                  <MapPin size={17} className="mt-0.5 shrink-0 text-gold" />
+                  <span>#690, 36th Cross, 11th B Main Road, 2nd Block, Rajajinagar, Bengaluru 560010</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Phone size={17} className="shrink-0 text-gold" />
+                  <a href="tel:6362068331" className="hover:text-gold">+91 63620 68331</a>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Mail size={17} className="shrink-0 text-gold" />
+                  <a href="mailto:support@krishnahomestudio.com" className="hover:text-gold">support@krishnahomestudio.com</a>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Clock size={17} className="shrink-0 text-gold" />
+                  <span>Mon – Sun: 10:00 AM – 8:30 PM</span>
+                </div>
+              </div>
+              <a
+                href={bathwareMapUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-flex items-center gap-2 text-[0.72rem] font-semibold uppercase tracking-widest text-gold hover:underline"
+              >
+                Open in Google Maps <ArrowRight size={14} />
+              </a>
             </div>
 
-            {/* Store Info */}
-            <div className={styles.infoCol}>
-              <div className={styles.infoCard}>
-                <h3 className={styles.infoCardTitle}>Bathware Studio</h3>
-                <div className={styles.infoList}>
-                  <div className={styles.infoItem}>
-                    <MapPin size={18} className={styles.icon} />
-                    <span>#690, 36th Cross, 11th B Main Road, 2nd Block, Rajajinagar, Bengaluru 560010</span>
-                  </div>
-                  <div className={styles.infoItem}>
-                    <Phone size={18} className={styles.icon} />
-                    <a href="tel:6362068331">+91 63620 68331</a>
-                  </div>
-                  <div className={styles.infoItem}>
-                    <Mail size={18} className={styles.icon} />
-                    <a href="mailto:support@krishnahomestudio.com">support@krishnahomestudio.com</a>
-                  </div>
-                  <div className={styles.infoItem}>
-                    <Clock size={18} className={styles.icon} />
-                    <span>Mon - Sun: 10:00 AM - 8:30 PM</span>
-                  </div>
+            <div className="border border-border p-7">
+              <h3 className="mb-5 text-lg font-medium text-primary-dark">Hardware Studio</h3>
+              <div className="space-y-3 text-sm text-gray-700">
+                <div className="flex items-start gap-3">
+                  <MapPin size={17} className="mt-0.5 shrink-0 text-gold" />
+                  <span>#461, 36th Cross Road, 2nd Block, Rajajinagar, Bengaluru 560010</span>
                 </div>
-                <a href={bathwareMapUrl} target="_blank" rel="noopener noreferrer" className={styles.mapLink}>
-                  Open in Google Maps <ArrowRight size={14} />
-                </a>
-              </div>
-
-              <div className={styles.infoCard}>
-                <h3 className={styles.infoCardTitle}>Hardware Studio</h3>
-                <div className={styles.infoList}>
-                  <div className={styles.infoItem}>
-                    <MapPin size={18} className={styles.icon} />
-                    <span>#461, 36th Cross Road, 2nd Block, Rajajinagar, Bengaluru 560010</span>
-                  </div>
-                  <div className={styles.infoItem}>
-                    <Phone size={18} className={styles.icon} />
-                    <a href="tel:7892507179">+91 78925 07179</a>
-                  </div>
-                  <div className={styles.infoItem}>
-                    <Mail size={18} className={styles.icon} />
-                    <a href="mailto:Hardware@krishnahomestudio.com">Hardware@krishnahomestudio.com</a>
-                  </div>
-                  <div className={styles.infoItem}>
-                    <Clock size={18} className={styles.icon} />
-                    <span>Mon - Sun: 10:00 AM - 8:30 PM</span>
-                  </div>
+                <div className="flex items-center gap-3">
+                  <Phone size={17} className="shrink-0 text-gold" />
+                  <a href="tel:7892507179" className="hover:text-gold">+91 78925 07179</a>
                 </div>
-                <a href={hardwareMapUrl} target="_blank" rel="noopener noreferrer" className={styles.mapLink}>
-                  Open in Google Maps <ArrowRight size={14} />
-                </a>
+                <div className="flex items-center gap-3">
+                  <Mail size={17} className="shrink-0 text-gold" />
+                  <a href="mailto:Hardware@krishnahomestudio.com" className="hover:text-gold">Hardware@krishnahomestudio.com</a>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Clock size={17} className="shrink-0 text-gold" />
+                  <span>Mon – Sun: 10:00 AM – 8:30 PM</span>
+                </div>
               </div>
+              <a
+                href={hardwareMapUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-flex items-center gap-2 text-[0.72rem] font-semibold uppercase tracking-widest text-gold hover:underline"
+              >
+                Open in Google Maps <ArrowRight size={14} />
+              </a>
+            </div>
 
-              <div className={styles.infoCard}>
-                <h3 className={styles.infoCardTitle}>Jaquar Authorised Dealer</h3>
-                <div className={styles.infoList}>
-                  <div className={styles.infoItem}>
-                    <MapPin size={18} className={styles.icon} />
-                    <span>285/2, Bagalur to Yelahanka Main Road, near Bagalur Vegetable Market, Bengaluru, Karnataka 562149</span>
-                  </div>
-                  <div className={styles.infoItem}>
-                    <Phone size={18} className={styles.icon} />
-                    <a href="tel:8147393477">+91 81473 93477</a>
-                  </div>
-                  <div className={styles.infoItem}>
-                    <Mail size={18} className={styles.icon} />
-                    <a href="mailto:support@krishnahomestudio.com">support@krishnahomestudio.com</a>
-                  </div>
+            <div className="border border-border p-7">
+              <h3 className="mb-5 text-lg font-medium text-primary-dark">Jaquar Authorised Dealer</h3>
+              <div className="space-y-3 text-sm text-gray-700">
+                <div className="flex items-start gap-3">
+                  <MapPin size={17} className="mt-0.5 shrink-0 text-gold" />
+                  <span>285/2, Bagalur to Yelahanka Main Road, near Bagalur Vegetable Market, Bengaluru, Karnataka 562149</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Phone size={17} className="shrink-0 text-gold" />
+                  <a href="tel:8147393477" className="hover:text-gold">+91 81473 93477</a>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Mail size={17} className="shrink-0 text-gold" />
+                  <a href="mailto:support@krishnahomestudio.com" className="hover:text-gold">support@krishnahomestudio.com</a>
                 </div>
               </div>
             </div>
@@ -184,11 +181,3 @@ export default function ContactPage() {
     </div>
   );
 }
-
-// ArrowRight component fallback inside the same file to avoid extra imports if omitted
-const ArrowRight = ({ size }: { size: number }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M5 12h14"></path>
-    <path d="m12 5 7 7-7 7"></path>
-  </svg>
-);

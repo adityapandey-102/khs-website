@@ -1,7 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { bathwareCategories } from "@/data/categories";
-import styles from "./CategoryGrid.module.css";
 
 interface CategoryGridProps {
   title?: string;
@@ -14,55 +13,54 @@ export default function CategoryGrid({
   label = "Bathware",
   showAll = false,
 }: CategoryGridProps) {
-  const displayCategories = showAll
-    ? bathwareCategories
-    : bathwareCategories.slice(0, 8);
+  const displayCategories = showAll ? bathwareCategories : bathwareCategories.slice(0, 8);
 
   return (
-    <section className={styles.section} id="categories">
+    <section className="py-20 sm:py-28" id="categories">
       <div className="container">
-        <div className={styles.sectionTitleWrap}>
-          <span className={styles.sectionLabel}>{label}</span>
-          <h2 className={styles.sectionTitle}>{title}</h2>
-          <div className={styles.goldLine} />
+        <div className="mb-14 text-center">
+          <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
+            {label}
+          </span>
+          <h2 className="text-3xl font-light text-primary-dark sm:text-4xl">{title}</h2>
         </div>
-      </div>
 
-      <div className={styles.grid}>
-        {displayCategories.map((cat) => (
+        <div className="grid grid-cols-2 gap-px bg-border sm:grid-cols-3 lg:grid-cols-4">
+          {displayCategories.map((cat) => (
             <Link
               key={cat.id}
               href={cat.href}
-              className={styles.card}
-              id={`category-card-${cat.id}`}
+              className="group relative aspect-square overflow-hidden bg-white"
               aria-label={`Explore ${cat.label}`}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={cat.image}
                 alt={cat.label}
-                className={styles.cardImage}
-                loading="lazy"
+                fill
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               />
-              <div className={styles.cardOverlay} />
-              <div className={styles.cardContent}>
-                <span className={styles.cardLabel}>Explore</span>
-                <h3 className={styles.cardTitle}>{cat.shortLabel}</h3>
-                <span className={styles.cardArrow}>
-                  View Collection <ArrowRight size={13} />
-                </span>
+              <div className="absolute inset-0 bg-linear-to-t from-primary-dark/70 via-primary-dark/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <div className="absolute inset-x-0 bottom-0 p-5">
+                <h3 className="text-sm font-medium text-white [text-shadow:0_1px_6px_rgba(0,0,0,0.5)] sm:text-base">
+                  {cat.shortLabel}
+                </h3>
               </div>
             </Link>
-        ))}
-      </div>
-
-      {!showAll && (
-        <div className={`container ${styles.viewAll}`}>
-          <Link href="/bathware" className="btn-outline" id="category-view-all">
-            View All Categories
-          </Link>
+          ))}
         </div>
-      )}
+
+        {!showAll && (
+          <div className="mt-14 text-center">
+            <Link
+              href="/bathware"
+              className="inline-flex items-center gap-3 border border-primary-dark px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-dark transition-colors hover:bg-primary-dark hover:text-white"
+            >
+              View All Categories
+            </Link>
+          </div>
+        )}
+      </div>
     </section>
   );
 }

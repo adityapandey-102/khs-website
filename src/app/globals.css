@@ -1,333 +1,81 @@
+@import "tailwindcss";
+
 /* ============================================================
-   GLOBAL DESIGN SYSTEM — Krishna Home Studio
-   Layered Premium Dark Architecture
+   DESIGN TOKENS — Krishna Home Studio
+   Jaquar-style system: near-black navy + white + off-white + gold accent
    ============================================================ */
+@theme {
+  --color-primary-dark: #0a1628;
+  --color-black: #1a1a1a;
+  --color-white: #ffffff;
+  --color-offwhite: #f7f7f5;
+  --color-gold: #b8945f;
+  --color-gold-hover: #c7a56f;
+  --color-gray-100: #f2f2f2;
+  --color-gray-400: #9a9a9a;
+  --color-gray-700: #4a4a4a;
+  --color-border: #e5e5e5;
 
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap");
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-/* ── CSS Custom Properties ── */
-:root {
-  /* Surface Depths (Layered Dark Tones) */
-  --surface-0: #0a0a0c; /* Global Body: Soft Black */
-  --surface-1: #111114; /* Deep Graphite */
-  --surface-2: #1a1a1f; /* Dark Stone */
-  --surface-glass: rgba(17, 17, 20, 0.6); /* Glassmorphism layer */
+  --container-max: 1440px;
 
-  /* Accents */
-  --color-gold: #c2a36d;
-  --color-gold-hover: #d1b483;
-  
-  /* Typography */
-  --color-text-primary: #f0f0f2; /* Crisp off-white */
-  --color-text-secondary: #9a9a9f; /* Muted stone gray */
-  --color-text-tertiary: #5e5e65;
-
-  /* Structural */
-  --color-border: rgba(255, 255, 255, 0.06);
-  --color-border-hover: rgba(255, 255, 255, 0.15);
-  
-  /* Shadows */
-  --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.4);
-  --shadow-deep: 0 10px 40px rgba(0, 0, 0, 0.8);
-  --shadow-inner: inset 0 0 80px rgba(0, 0, 0, 0.5);
-
-  /* Typography Families */
-  --font-serif: "Playfair Display", Georgia, serif;
-  --font-sans: "Inter", -apple-system, sans-serif;
-
-  /* Spacing */
-  --spacing-xs: 0.5rem;
-  --spacing-sm: 1rem;
-  --spacing-md: 1.5rem;
-  --spacing-lg: 2.5rem;
-  --spacing-xl: 4rem;
-  --spacing-2xl: 6rem;
-  --spacing-3xl: 10rem;
-
-  /* Transitions */
-  --transition-fast: 0.2s ease;
-  --transition-mid: 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-  --transition-slow: 1.2s cubic-bezier(0.2, 1, 0.3, 1);
-
-  /* Z-index layers */
   --z-header: 1000;
   --z-overlay: 1100;
   --z-modal: 1200;
   --z-float: 1300;
-
-  /* Container */
-  --container-max: 1400px;
-  --container-padding: clamp(1.25rem, 5vw, 5rem);
 }
 
-/* ── Reset ── */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-black);
+    background-color: var(--color-white);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  button {
+    cursor: pointer;
+  }
 }
 
-html {
-  scroll-behavior: smooth;
-  font-size: 16px;
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
-body {
-  font-family: var(--font-sans);
-  color: var(--color-text-primary);
-  background-color: var(--surface-0);
-  line-height: 1.7;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-  /* Subtle CSS noise texture for premium depth */
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+@utility animate-marquee {
+  animation: marquee 38s linear infinite;
 }
 
-img {
-  max-width: 100%;
-  display: block;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-ul,
-ol {
-  list-style: none;
-}
-
-button {
-  cursor: pointer;
-  border: none;
-  background: none;
-  font-family: inherit;
-}
-
-/* ── Typography Scale ── */
-.h1 {
-  font-family: var(--font-serif);
-  font-size: clamp(2.5rem, 6vw, 5.5rem);
-  font-weight: 300;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
-  color: var(--color-text-primary);
-}
-
-.h2 {
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 4vw, 3.8rem);
-  font-weight: 300;
-  line-height: 1.15;
-  letter-spacing: 0em;
-  color: var(--color-text-primary);
-}
-
-.h3 {
-  font-family: var(--font-serif);
-  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
-  font-weight: 300;
-  line-height: 1.3;
-  color: var(--color-text-primary);
-}
-
-.h4 {
-  font-family: var(--font-sans);
-  font-size: clamp(1rem, 1.2vw, 1.1rem);
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  color: var(--color-text-primary);
-}
-
-.body-lg {
-  font-size: clamp(1.05rem, 1.2vw, 1.15rem);
-  line-height: 1.9;
-  font-weight: 300;
-  color: var(--color-text-secondary);
-}
-
-.label {
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--color-text-tertiary);
-}
-
-.page-hero {
-  position: relative;
-  min-height: clamp(24rem, 38vw, 32rem);
-  display: flex;
-  align-items: center;
-  background: var(--surface-0);
-  overflow: hidden;
-}
-
-.page-hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.25) 55%, rgba(0, 0, 0, 0.6) 100%);
-  z-index: 1;
-}
-
-.page-hero__bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(0.58) saturate(0.85);
-}
-
-.page-hero__content {
-  position: relative;
-  z-index: 2;
-  max-width: 760px;
-  padding: 2rem 0;
-}
-
-.page-hero__label {
-  display: inline-block;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--color-gold);
-  margin-bottom: 1rem;
-}
-
-.page-hero__title {
-  font-family: var(--font-serif);
-  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
-  font-weight: 400;
-  line-height: 1.1;
-  color: var(--color-text-primary);
-}
-
-/* ── Layout Utilities ── */
-.container {
-  width: 100%;
+@utility container {
   max-width: var(--container-max);
-  margin: 0 auto;
-  padding: 0 var(--container-padding);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 5vw, 5rem);
 }
 
-.section {
-  padding: var(--spacing-3xl) 0;
-}
-
-.section-sm {
-  padding: var(--spacing-xl) 0;
-}
-
-/* ── Refined Divider ── */
-.gold-line {
-  width: 40px;
-  height: 1px;
-  background: var(--color-border-hover);
-  margin: var(--spacing-md) 0;
-}
-
-.gold-line-center {
-  width: 40px;
-  height: 1px;
-  background: var(--color-border-hover);
-  margin: var(--spacing-md) auto;
-}
-
-/* ── Buttons ── */
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  padding: 1rem 2.5rem;
-  background: var(--color-text-primary);
-  color: var(--surface-0);
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  transition: all var(--transition-mid);
-  border: 1px solid var(--color-text-primary);
-}
-
-.btn-primary:hover {
-  background: transparent;
-  color: var(--color-text-primary);
-}
-
-.btn-outline {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  padding: 1rem 2.5rem;
-  background: transparent;
-  color: var(--color-text-secondary);
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  border: 1px solid var(--color-border);
-  transition: all var(--transition-mid);
-}
-
-.btn-outline:hover {
-  color: var(--color-text-primary);
-  border-color: var(--color-border-hover);
-}
-
-/* ── Section Title Pattern ── */
-.section-title-wrap {
-  text-align: center;
-  margin-bottom: var(--spacing-2xl);
-}
-
-.section-title-wrap .label {
-  display: block;
-  margin-bottom: 1rem;
-}
-
-.section-title-wrap .gold-line-center {
-  margin-top: 1.5rem;
-}
-
-/* ── Global Scroll Reveal Animation ── */
-.reveal-on-scroll {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 1.2s cubic-bezier(0.2, 1, 0.3, 1), transform 1.2s cubic-bezier(0.2, 1, 0.3, 1);
-}
-
-.reveal-on-scroll.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ── Scrollbar ── */
 ::-webkit-scrollbar {
   width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--surface-0);
+  background: var(--color-white);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--surface-2);
+  background: var(--color-gray-400);
 }
 
-/* ── Selection ── */
 ::selection {
-  background: var(--surface-2);
-  color: var(--color-text-primary);
+  background: var(--color-primary-dark);
+  color: var(--color-white);
 }

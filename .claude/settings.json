@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd \"d:\\\\Code Space\\\\WorkSpace\\\\KHS\\\\krishnahomestudio\" && rm \"src/app/bathware/[slug]/category.module.css\" && echo removed)",
+      "Bash(node --input-type=module -e ' *)",
+      "Bash(node scripts/fetch-page-copy.mjs)",
+      "Bash(cd \"d:\\\\Code Space\\\\WorkSpace\\\\KHS\\\\krishnahomestudio\" && rm \"src/app/hardware/[slug]/category.module.css\" && echo removed)",
+      "Bash(git rm *)",
+      "Read(//c/Users/progr/AppData/Local/Temp/khs-screens/**)"
+    ],
+    "additionalDirectories": [
+      "D:\\Code Space\\WorkSpace\\KHS\\krishnahomestudio\\src\\app\\bathware\\[slug]",
+      "D:\\Code Space\\WorkSpace\\KHS\\krishnahomestudio\\src\\app\\hardware\\[slug]"
+    ]
+  }
+}

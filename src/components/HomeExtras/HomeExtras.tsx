@@ -2,15 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Play, Quote, Star } from "lucide-react";
 import { brandLogos, clienteleLogos, featuredProducts, testimonials } from "@/data/migratedContent";
-import styles from "./HomeExtras.module.css";
 
 export function BrandCarousel() {
   return (
-    <section className={styles.brandStrip} aria-label="Brand partners">
-      <div className={styles.marquee}>
+    <section className="overflow-hidden border-y border-border bg-white py-10" aria-label="Brand partners">
+      <div className="flex w-max animate-marquee gap-14">
         {[...brandLogos, ...brandLogos].map((brand, index) => (
-          <div className={styles.brandLogo} key={`${brand.name}-${index}`}>
-            <Image src={brand.image} alt={brand.name} width={180} height={80} />
+          <div className="flex h-14 w-[140px] shrink-0 items-center justify-center grayscale transition-all hover:grayscale-0" key={`${brand.name}-${index}`}>
+            <Image src={brand.image} alt={brand.name} width={140} height={56} className="max-h-14 w-auto object-contain" />
           </div>
         ))}
       </div>
@@ -20,15 +19,26 @@ export function BrandCarousel() {
 
 export function FeaturedProducts() {
   return (
-    <div className={styles.featuredProducts}>
-      <span className={styles.miniLabel}>Featured Products</span>
-      <div className={styles.featuredGrid}>
-        {featuredProducts.map((product) => (
-          <Link href={product.href} className={styles.featuredCard} key={product.title}>
-            <Image src={product.image} alt={product.title} width={600} height={480} />
-            <span>{product.title}</span>
-          </Link>
-        ))}
+    <div className="py-20 sm:py-28">
+      <div className="container">
+        <span className="mb-3 block text-center text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
+          Featured Products
+        </span>
+        <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
+          {featuredProducts.map((product) => (
+            <Link href={product.href} className="group relative aspect-3/4 overflow-hidden" key={product.title}>
+              <Image
+                src={product.image}
+                alt={product.title}
+                fill
+                sizes="(max-width: 1024px) 50vw, 25vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-primary-dark/80 to-transparent" />
+              <span className="absolute bottom-4 left-4 text-sm font-medium text-white">{product.title}</span>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -36,22 +46,25 @@ export function FeaturedProducts() {
 
 export function ClientelePreview() {
   return (
-    <section className={`${styles.clienteleSection} section`}>
+    <section className="bg-offwhite py-20 sm:py-28">
       <div className="container">
-        <div className={styles.sectionHeader}>
+        <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
           <div>
-            <span className={styles.sectionLabel}>Clientele</span>
-            <h2 className={styles.sectionTitle}>Trusted by Homeowners, Designers and Project Teams</h2>
-            <div className={styles.goldLine} />
+            <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
+              Clientele
+            </span>
+            <h2 className="max-w-xl text-3xl font-light text-primary-dark sm:text-4xl">
+              Trusted by Homeowners, Designers and Project Teams
+            </h2>
           </div>
-          <Link href="/clientele" className="btn-ghost">
+          <Link href="/clientele" className="inline-flex items-center gap-2 text-sm font-medium text-primary-dark hover:text-gold">
             View Clientele <ArrowRight size={14} />
           </Link>
         </div>
-        <div className={styles.clientLogoGrid}>
+        <div className="grid grid-cols-3 gap-6 sm:grid-cols-4 lg:grid-cols-6">
           {clienteleLogos.map((logo, index) => (
-            <div className={styles.clientLogoCard} key={logo}>
-              <Image src={logo} alt={`Clientele logo ${index + 1}`} width={220} height={90} />
+            <div className="flex h-16 items-center justify-center bg-white p-3" key={logo}>
+              <Image src={logo} alt={`Clientele logo ${index + 1}`} width={110} height={45} className="max-h-10 w-auto object-contain" />
             </div>
           ))}
         </div>
@@ -62,23 +75,28 @@ export function ClientelePreview() {
 
 export function AwardsVideo() {
   return (
-    <section className={styles.videoSection}>
-      <div className="container">
-        <div className={styles.videoGrid}>
-          <div>
-            <span className={styles.sectionLabel}>Awards & Success</span>
-            <h2 className={styles.sectionTitle}>India Design Awards Recognition</h2>
-            <div className={styles.goldLine} />
-            <p className={styles.videoCopy}>
-              Krishna Home Studio was featured among the India Design Awards 2023 awardees, recognizing its premium interior solution experience and bathware expertise.
-            </p>
-          </div>
-          <div className={styles.videoFrame}>
-            <video src="/assets/old-site/KHS-Video.mp4" controls preload="metadata" poster="/assets/old-site/Krishna-Home-Studio-Hardware-5.png" />
-            <div className={styles.playBadge} aria-hidden="true">
-              <Play size={16} />
-              Play Video
-            </div>
+    <section className="bg-primary-dark py-20 text-white sm:py-28">
+      <div className="container grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
+        <div>
+          <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
+            Awards &amp; Success
+          </span>
+          <h2 className="text-3xl font-light sm:text-4xl">India Design Awards Recognition</h2>
+          <p className="mt-6 max-w-md text-[0.95rem] leading-[1.8] text-white/70">
+            Krishna Home Studio was featured among the India Design Awards 2023 awardees, recognizing its premium
+            interior solution experience and bathware expertise.
+          </p>
+        </div>
+        <div className="relative aspect-video overflow-hidden">
+          <video
+            src="/assets/khs/unassociated/KHS-Video.mp4"
+            controls
+            preload="metadata"
+            poster="/assets/khs/hardware/Krishna-Home-Studio-Hardware-2.png"
+            className="h-full w-full object-cover"
+          />
+          <div className="pointer-events-none absolute right-4 top-4 flex items-center gap-2 bg-white/90 px-3 py-1.5 text-[0.7rem] font-semibold uppercase tracking-wide text-primary-dark">
+            <Play size={14} /> Play Video
           </div>
         </div>
       </div>
@@ -88,24 +106,25 @@ export function AwardsVideo() {
 
 export function TestimonialsSection() {
   return (
-    <section className={`${styles.testimonialSection} section`}>
+    <section className="py-20 sm:py-28">
       <div className="container">
-        <div className="section-title-wrap">
-          <span className="label">Customer Reviews</span>
-          <h2 className="h2">Customers Reviews</h2>
-          <div className="gold-line-center" />
+        <div className="mb-14 text-center">
+          <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
+            Customer Reviews
+          </span>
+          <h2 className="text-3xl font-light text-primary-dark sm:text-4xl">What Our Customers Say</h2>
         </div>
-        <div className={styles.testimonialGrid}>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((review) => (
-            <article className={styles.testimonialCard} key={review.name}>
-              <div className={styles.starRow}>
+            <article className="relative border border-border bg-white p-8" key={review.name}>
+              <Quote size={28} className="mb-4 text-gold/40" />
+              <div className="mb-3 flex gap-0.5">
                 {[0, 1, 2, 3, 4].map((star) => (
-                  <Star key={star} size={13} fill="var(--color-gold)" color="var(--color-gold)" />
+                  <Star key={star} size={13} className="fill-gold text-gold" />
                 ))}
               </div>
-              <Quote size={24} className={styles.quoteIcon} />
-              <p>{review.text}</p>
-              <strong>{review.name}</strong>
+              <p className="text-sm leading-relaxed text-gray-700">{review.text}</p>
+              <strong className="mt-4 block text-sm font-medium text-primary-dark">{review.name}</strong>
             </article>
           ))}
         </div>

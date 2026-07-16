@@ -2,13 +2,17 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { LockKeyhole, ShieldCheck, Flame, Fingerprint } from "lucide-react";
-import styles from "./safe-essentials.module.css";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import PageHero from "@/components/PageHero/PageHero";
+import { pageCopy } from "@/data/pageCopy";
 
 export const metadata: Metadata = {
   title: "Safe Essentials",
   description:
     "Explore Krishna Home Studio's safe essentials collection, blending security technology, refined finishes, and premium home protection.",
 };
+
+const copy = pageCopy["safe-essentials"]?.paragraphs ?? [];
 
 const features = [
   { title: "Reinforced Steel", icon: ShieldCheck },
@@ -19,70 +23,61 @@ const features = [
 
 export default function SafeEssentialsPage() {
   return (
-    <div className={styles.page}>
-      <section className="page-hero">
-        <Image
-          src="/assets/old-site/dec23384735345.Y3JvcCwxMTUwLDkwMCwyNSww.jpg"
-          alt="Safe essentials by Krishna Home Studio"
-          className="page-hero__bg"
-          fill
-          priority
-        />
-        <div className="container">
-          <div className="page-hero__content">
-            <span className="page-hero__label">Hardware Collection</span>
-            <h1 className="page-hero__title">Safe Essentials</h1>
+    <div>
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Hardware", href: "/hardware" }, { label: "Safe Essentials" }]} />
+      <PageHero label="Hardware Collection" title="Safe Essentials" image="/assets/khs/home/dec23384735345.Y3JvcCwxMTUwLDkwMCwyNSww.jpg" />
+
+      <section className="py-16 sm:py-24">
+        <div className="container grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-20">
+          <div>
+            <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
+              Secure Your Peace of Mind
+            </span>
+            <h2 className="mb-6 text-3xl font-light leading-tight text-primary-dark sm:text-4xl">
+              Protection with Refined Elegance
+            </h2>
+            <div className="space-y-5 text-[0.95rem] leading-[1.85] text-gray-700">
+              {copy.slice(1, 5).map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+            </div>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Link
+                href="/contact"
+                className="border border-primary-dark px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-dark transition-colors hover:bg-primary-dark hover:text-white"
+              >
+                Visit Showroom
+              </Link>
+              <Link
+                href="/hardware"
+                className="px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-dark underline decoration-gold underline-offset-4 hover:text-gold"
+              >
+                Back to Hardware
+              </Link>
+            </div>
+          </div>
+
+          <div className="relative aspect-4/5 overflow-hidden">
+            <Image
+              src="/assets/khs/home/dec23384735345.Y3JvcCwxMTUwLDkwMCwyNSww.jpg"
+              alt="Luxury safe essentials collection"
+              fill
+              sizes="(max-width: 1024px) 90vw, 40vw"
+              className="object-cover"
+            />
           </div>
         </div>
-      </section>
 
-      <section className="section">
-        <div className="container">
-          <div className={styles.grid}>
-            <div>
-              <span className="label" style={{ color: "var(--color-gold)" }}>Secure Your Peace of Mind</span>
-              <h2 className="h2" style={{ color: "var(--color-charcoal)", margin: "0.75rem 0 1.5rem" }}>
-                Protection with Refined Elegance
-              </h2>
-              <div className="gold-line" />
-              <p className={styles.copy}>
-                Discover the perfect blend of security and sophistication with Krishna Home Studio&apos;s exquisite collection of safe essentials. Meticulously crafted to safeguard your most precious possessions, these masterpieces of protection seamlessly integrate cutting-edge security technology with elegant design.
-              </p>
-              <p className={styles.copy}>
-                From sleek wall-mounted designs that blend into your decor to imposing freestanding models that command respect, each safe is a testament to uncompromising security and refined aesthetics.
-              </p>
-              <p className={styles.copy}>
-                Whether you prefer a precision-engineered mechanical lock or the convenience of biometric access, Krishna Home Studio offers a curated selection to suit your security preferences and lifestyle needs.
-              </p>
-              <p className={styles.copy}>
-                Each safe features advanced materials, reinforced steel construction, pry-resistant doors, alarm systems, and finishes ranging from brushed stainless steel to rich wood veneers.
-              </p>
-              <div className={styles.ctaRow}>
-                <Link href="/contact" className="btn-primary">Visit Showroom</Link>
-                <Link href="/hardware" className="btn-ghost">Back to Hardware</Link>
+        <div className="container mt-16 grid grid-cols-2 gap-6 sm:grid-cols-4">
+          {features.map((feature) => {
+            const Icon = feature.icon;
+            return (
+              <div key={feature.title} className="flex flex-col items-center gap-3 border border-border p-6 text-center">
+                <Icon size={24} className="text-gold" strokeWidth={1.5} />
+                <span className="text-sm font-medium text-primary-dark">{feature.title}</span>
               </div>
-            </div>
-            <div className={styles.imageCard}>
-              <Image
-                src="/assets/old-site/dec23384735345.Y3JvcCwxMTUwLDkwMCwyNSww.jpg"
-                alt="Luxury safe essentials collection"
-                width={800}
-                height={1000}
-              />
-            </div>
-          </div>
-
-          <div className={styles.featureGrid}>
-            {features.map((feature) => {
-              const Icon = feature.icon;
-              return (
-                <div className={styles.featureCard} key={feature.title}>
-                  <Icon size={24} />
-                  <span>{feature.title}</span>
-                </div>
-              );
-            })}
-          </div>
+            );
+          })}
         </div>
       </section>
     </div>

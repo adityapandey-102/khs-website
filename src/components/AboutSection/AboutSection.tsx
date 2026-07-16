@@ -1,98 +1,79 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import styles from "./AboutSection.module.css";
+import { motion } from "framer-motion";
+import { pageCopy } from "@/data/pageCopy";
+
+const intro = pageCopy.about?.paragraphs.slice(1, 3) ?? [];
 
 export default function AboutSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add(styles.visible);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    const elements = sectionRef.current?.querySelectorAll(`.${styles.revealOnScroll}`);
-    elements?.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section ref={sectionRef} className={styles.heritageSection} aria-label="Our Heritage">
-      <div className="container">
-        <div className={styles.storyGrid}>
-          
-          {/* Left: Layered Imagery */}
-          <div className={styles.imageCol}>
-            <div className={`${styles.imageWrapPrimary} ${styles.revealOnScroll}`}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&q=80&w=1200"
-                alt="Luxury Architectural Space"
-                className={styles.image}
-              />
-            </div>
-            <div className={`${styles.imageWrapSecondary} ${styles.revealOnScroll}`}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="https://images.unsplash.com/photo-1552596489-cf2b369dbfbc?auto=format&fit=crop&q=80&w=800"
-                alt="Premium Hardware Detail"
-                className={styles.image}
-              />
-            </div>
+    <section className="py-20 sm:py-28" aria-label="Our Story">
+      <div className="container grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
+        <motion.div
+          initial={{ opacity: 0, x: -24 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="relative grid grid-cols-5 grid-rows-5 gap-4"
+        >
+          <div className="relative col-span-4 row-span-4 aspect-4/5 overflow-hidden">
+            <Image
+              src="/assets/khs/bathware/countertop-basin/IMG-20230520-WA0072.jpg"
+              alt="Krishna Home Studio showroom"
+              fill
+              sizes="(max-width: 1024px) 90vw, 40vw"
+              className="object-cover"
+            />
           </div>
-
-          {/* Right: Storytelling Content */}
-          <div className={styles.contentCol}>
-            <div className={styles.timelineNode}>
-              <span className={styles.timelineYear}>2018</span>
-              <div className={styles.timelineLine} />
-            </div>
-
-            <span className={`label ${styles.revealOnScroll}`}>Our Heritage</span>
-            
-            <h2 className={`h2 ${styles.title} ${styles.revealOnScroll}`}>
-              Sanctuaries Crafted <br />
-              <span className={styles.titleItalic}>for the Senses</span>
-            </h2>
-            
-            <div className={`gold-line ${styles.revealOnScroll}`} />
-
-            <div className={`${styles.bodyContent} ${styles.revealOnScroll}`}>
-              <p className="body-lg">
-                Founded in Bengaluru by Prakash Choudhary, Krishna Home Studio was born from a singular vision: to curate the world’s finest architectural hardware and bathware for discerning spaces.
-              </p>
-              <p className="body-lg">
-                We believe true luxury is quiet. It is found in the weight of a meticulously engineered door handle, the precise flow of a digital shower, and the seamless integration of form and function.
-              </p>
-            </div>
-
-            <div className={`${styles.ctaWrap} ${styles.revealOnScroll}`}>
-              <Link href="/about" className="btn-outline">
-                Discover Our Story
-              </Link>
-            </div>
-
-            <div className={`${styles.metaCard} ${styles.revealOnScroll}`}>
-              <span className={styles.metaCardLabel}>Featured in the press</span>
-              <p>
-                Award-winning storytelling, client trust, and a deeply curated retail experience brought to life across luxury interiors.
-              </p>
-              <Link href="/media" className={styles.metaCardLink}>
-                View Media & Recognition
-              </Link>
-            </div>
+          <div className="relative col-span-3 col-start-3 row-span-3 row-start-3 aspect-square overflow-hidden border-4 border-white shadow-xl">
+            <Image
+              src="/assets/khs/bathware/standalone-basin/IMG-20230520-WA0005.jpg"
+              alt="Krishna Home Studio product detail"
+              fill
+              sizes="(max-width: 1024px) 60vw, 24vw"
+              className="object-cover"
+            />
           </div>
+        </motion.div>
 
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
+        >
+          <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
+            Our Heritage
+          </span>
+          <h2 className="text-3xl font-light leading-tight text-primary-dark sm:text-4xl">
+            Sanctuaries Crafted for the Senses
+          </h2>
+          <div className="mt-6 space-y-4 text-[0.95rem] leading-[1.8] text-gray-700">
+            {intro.map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
+          </div>
+          <Link
+            href="/about"
+            className="mt-8 inline-flex items-center gap-3 border border-primary-dark px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-dark transition-colors hover:bg-primary-dark hover:text-white"
+          >
+            Discover Our Story
+          </Link>
+
+          <div className="mt-10 border-t border-border pt-6">
+            <span className="block text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-gray-400">
+              Featured in the press
+            </span>
+            <p className="mt-2 text-sm text-gray-700">
+              Award-winning recognition, client trust, and a deeply curated retail experience across luxury interiors.
+            </p>
+            <Link href="/media" className="mt-2 inline-block text-sm font-medium text-gold hover:underline">
+              View Media &amp; Recognition
+            </Link>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
