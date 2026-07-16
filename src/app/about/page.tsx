@@ -31,7 +31,7 @@ export default function AboutPage() {
             <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
               Established 2018
             </span>
-            <h2 className="mb-6 text-3xl font-light leading-tight text-white sm:text-4xl">
+            <h2 className="mb-6 text-3xl font-light leading-tight text-primary-dark sm:text-4xl">
               Elevating everyday spaces with exceptional design.
             </h2>
             <div className="space-y-5 text-[0.95rem] leading-[1.85] text-gray-700">
@@ -43,7 +43,7 @@ export default function AboutPage() {
             <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
               {highlights.map((item) => (
                 <div key={item.title} className="border border-border p-5">
-                  <h3 className="mb-1.5 text-sm font-medium text-white">{item.title}</h3>
+                  <h3 className="mb-1.5 text-sm font-medium text-primary-dark">{item.title}</h3>
                   <p className="text-xs leading-relaxed text-gray-700">{item.body}</p>
                 </div>
               ))}
@@ -88,14 +88,14 @@ export default function AboutPage() {
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Link
               href="/contact"
-              className="border border-white/30 px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-primary-dark hover:text-white"
+              className="border border-primary-dark px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-dark transition-colors hover:bg-primary-dark hover:text-white"
               id="about-visit-btn"
             >
               Visit Our Showrooms
             </Link>
             <Link
               href="/bathware"
-              className="px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-white underline decoration-gold underline-offset-4 hover:text-gold"
+              className="px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-dark underline decoration-gold underline-offset-4 hover:text-gold"
               id="about-explore-btn"
             >
               Browse Bathware

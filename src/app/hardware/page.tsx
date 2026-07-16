@@ -33,7 +33,7 @@ export default function HardwarePage() {
             <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
               Precision Engineered
             </span>
-            <h2 className="mb-6 text-3xl font-light text-white sm:text-4xl">
+            <h2 className="mb-6 text-3xl font-light text-primary-dark sm:text-4xl">
               Flawless Function, Timeless Elegance
             </h2>
             {intro && <p className="text-[0.95rem] leading-[1.85] text-gray-700">{intro}</p>}
@@ -77,7 +77,7 @@ export default function HardwarePage() {
           </div>
 
           <div className="mx-auto flex max-w-2xl flex-col items-center gap-5 border border-border p-10 text-center">
-            <h3 className="text-xl font-light text-white">Need Custom Fittings?</h3>
+            <h3 className="text-xl font-light text-primary-dark">Need Custom Fittings?</h3>
             <p className="text-sm leading-relaxed text-gray-700">
               Bring your cabinet plans, wardrobe blueprints, or entry door dimensions. Our hardware consultants will
               assist you in sourcing the exact load capacities, soft-close mechanisms, or biometric locks to fit your
@@ -87,7 +87,7 @@ export default function HardwarePage() {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-gold px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-gold-hover"
+              className="bg-gold px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-primary-dark transition-colors hover:bg-gold-hover"
               id="btn-hardware-consult"
             >
               Consult with Hardware Expert

@@ -23,7 +23,7 @@ export default function FAQAccordion({ items }: { items: FAQItem[] }) {
               onClick={() => setOpenIndex(isOpen ? null : index)}
               aria-expanded={isOpen}
             >
-              <span className="text-[0.95rem] font-medium text-white">{item.question}</span>
+              <span className="text-[0.95rem] font-medium text-primary-dark">{item.question}</span>
               <motion.span
                 animate={{ rotate: isOpen ? 45 : 0 }}
                 transition={{ duration: 0.25 }}

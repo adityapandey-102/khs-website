@@ -47,7 +47,7 @@ export default function AboutSection() {
           <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
             Our Heritage
           </span>
-          <h2 className="text-3xl font-light leading-tight text-white sm:text-4xl">
+          <h2 className="text-3xl font-light leading-tight text-primary-dark sm:text-4xl">
             Sanctuaries Crafted for the Senses
           </h2>
           <div className="mt-6 space-y-4 text-[0.95rem] leading-[1.8] text-gray-700">
@@ -57,7 +57,7 @@ export default function AboutSection() {
           </div>
           <Link
             href="/about"
-            className="mt-8 inline-flex items-center gap-3 border border-white/30 px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-primary-dark hover:text-white"
+            className="mt-8 inline-flex items-center gap-3 border border-primary-dark px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-dark transition-colors hover:bg-primary-dark hover:text-white"
           >
             Discover Our Story
           </Link>

@@ -45,15 +45,15 @@ export default function ClientelePage() {
       <section className="border-b border-border py-12">
         <div className="container grid grid-cols-1 gap-8 text-center sm:grid-cols-3">
           <div>
-            <span className="block text-4xl font-light text-white">500+</span>
+            <span className="block text-4xl font-light text-primary-dark">500+</span>
             <span className="mt-1 block text-xs uppercase tracking-[0.15em] text-gray-400">Happy Homeowners</span>
           </div>
           <div>
-            <span className="block text-4xl font-light text-white">40+</span>
+            <span className="block text-4xl font-light text-primary-dark">40+</span>
             <span className="mt-1 block text-xs uppercase tracking-[0.15em] text-gray-400">Architects &amp; Designers</span>
           </div>
           <div>
-            <span className="block text-4xl font-light text-white">15+</span>
+            <span className="block text-4xl font-light text-primary-dark">15+</span>
             <span className="mt-1 block text-xs uppercase tracking-[0.15em] text-gray-400">Luxury Apartment Complexes</span>
           </div>
         </div>
@@ -65,7 +65,7 @@ export default function ClientelePage() {
             <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
               Our Partners
             </span>
-            <h2 className="text-3xl font-light text-white sm:text-4xl">Authorized Brands We Carry</h2>
+            <h2 className="text-3xl font-light text-primary-dark sm:text-4xl">Authorized Brands We Carry</h2>
           </div>
 
           <div className="grid grid-cols-3 gap-4 sm:grid-cols-5">
@@ -86,7 +86,7 @@ export default function ClientelePage() {
                 </div>
                 <Quote size={28} className="mb-3 text-gold/40" />
                 <p className="text-sm leading-relaxed text-gray-700">{review.text}</p>
-                <span className="mt-4 block text-sm font-medium text-white">{review.name}</span>
+                <span className="mt-4 block text-sm font-medium text-primary-dark">{review.name}</span>
               </div>
             ))}
           </div>
@@ -130,14 +130,14 @@ export default function ClientelePage() {
 
       <section className="py-20 sm:py-28">
         <div className="container mx-auto max-w-2xl text-center">
-          <h2 className="mb-5 text-3xl font-light text-white sm:text-4xl">Partner with Krishna Home Studio</h2>
+          <h2 className="mb-5 text-3xl font-light text-primary-dark sm:text-4xl">Partner with Krishna Home Studio</h2>
           <p className="mb-8 text-[0.95rem] leading-[1.85] text-gray-700">
             Are you an architect, builder, or independent interior designer looking for reliable procurement partners
             in sanitaryware, bathroom accessories, modular kitchen fittings, or electronic locking systems?
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-3 border border-white/30 px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-primary-dark hover:text-white"
+            className="inline-flex items-center gap-3 border border-primary-dark px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-dark transition-colors hover:bg-primary-dark hover:text-white"
             id="btn-client-partner"
           >
             Request Business Partnership

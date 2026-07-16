@@ -18,7 +18,7 @@ export default function AwardsSection() {
           <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
             Why Choose Us
           </span>
-          <h2 className="text-3xl font-light text-white sm:text-4xl">Excellence, By Every Measure</h2>
+          <h2 className="text-3xl font-light text-primary-dark sm:text-4xl">Excellence, By Every Measure</h2>
         </div>
 
         <div className="grid grid-cols-1 gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
@@ -27,7 +27,7 @@ export default function AwardsSection() {
               <div className="mb-5 flex h-12 w-12 items-center justify-center border border-gold text-gold transition-colors group-hover:border-white group-hover:text-white" aria-hidden="true">
                 {iconMap[award.icon]}
               </div>
-              <h3 className="mb-2 text-base font-medium text-white transition-colors group-hover:text-white">
+              <h3 className="mb-2 text-base font-medium text-primary-dark transition-colors group-hover:text-white">
                 {award.title}
               </h3>
               <p className="text-sm leading-relaxed text-gray-700 transition-colors group-hover:text-white/70">

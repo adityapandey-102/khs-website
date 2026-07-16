@@ -6,7 +6,7 @@ import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import PageHero from "@/components/PageHero/PageHero";
 
 const inputClass =
-  "w-full border border-border bg-surface px-4 py-3 text-sm text-white placeholder:text-gray-400 focus:border-gold focus:outline-none";
+  "w-full border border-border bg-surface px-4 py-3 text-sm text-primary-dark placeholder:text-gray-400 focus:border-gold focus:outline-none";
 const labelClass = "mb-1.5 block text-xs font-medium uppercase tracking-[0.1em] text-gray-400";
 
 export default function ContactPage() {
@@ -32,16 +32,16 @@ export default function ContactPage() {
             <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
               Send a Message
             </span>
-            <h2 className="mb-8 text-3xl font-light text-white">How can we help?</h2>
+            <h2 className="mb-8 text-3xl font-light text-primary-dark">How can we help?</h2>
 
             {formStatus === "success" ? (
               <div className="border border-border p-10 text-center">
                 <CheckCircle2 size={44} className="mx-auto mb-4 text-gold" />
-                <h3 className="mb-2 text-xl font-light text-white">Thank You!</h3>
+                <h3 className="mb-2 text-xl font-light text-primary-dark">Thank You!</h3>
                 <p className="text-sm text-gray-700">Your message has been received. Our team will get back to you shortly.</p>
                 <button
                   onClick={() => setFormStatus("idle")}
-                  className="mt-6 border border-white/30 px-6 py-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.15em] text-white hover:bg-primary-dark hover:text-white"
+                  className="mt-6 border border-primary-dark px-6 py-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.15em] text-primary-dark hover:bg-primary-dark hover:text-white"
                 >
                   Send Another Message
                 </button>
@@ -99,7 +99,7 @@ export default function ContactPage() {
 
           <div className="space-y-6">
             <div className="border border-border p-7">
-              <h3 className="mb-5 text-lg font-medium text-white">Bathware Studio</h3>
+              <h3 className="mb-5 text-lg font-medium text-primary-dark">Bathware Studio</h3>
               <div className="space-y-3 text-sm text-gray-700">
                 <div className="flex items-start gap-3">
                   <MapPin size={17} className="mt-0.5 shrink-0 text-gold" />
@@ -129,7 +129,7 @@ export default function ContactPage() {
             </div>
 
             <div className="border border-border p-7">
-              <h3 className="mb-5 text-lg font-medium text-white">Hardware Studio</h3>
+              <h3 className="mb-5 text-lg font-medium text-primary-dark">Hardware Studio</h3>
               <div className="space-y-3 text-sm text-gray-700">
                 <div className="flex items-start gap-3">
                   <MapPin size={17} className="mt-0.5 shrink-0 text-gold" />
@@ -159,7 +159,7 @@ export default function ContactPage() {
             </div>
 
             <div className="border border-border p-7">
-              <h3 className="mb-5 text-lg font-medium text-white">Jaquar Authorised Dealer</h3>
+              <h3 className="mb-5 text-lg font-medium text-primary-dark">Jaquar Authorised Dealer</h3>
               <div className="space-y-3 text-sm text-gray-700">
                 <div className="flex items-start gap-3">
                   <MapPin size={17} className="mt-0.5 shrink-0 text-gold" />

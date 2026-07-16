@@ -89,7 +89,7 @@ export default function ContactSection() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-3 bg-gold px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-gold-hover"
+            className="inline-flex items-center gap-3 bg-gold px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-dark transition-colors hover:bg-gold-hover"
             id="btn-cta-contact"
           >
             Get In Touch

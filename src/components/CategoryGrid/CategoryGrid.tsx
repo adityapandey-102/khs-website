@@ -26,7 +26,7 @@ export default function CategoryGrid({
           <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
             {label}
           </span>
-          <h2 className="text-3xl font-light text-white sm:text-4xl">{title}</h2>
+          <h2 className="text-3xl font-light text-primary-dark sm:text-4xl">{title}</h2>
         </div>
       )}
 
@@ -62,7 +62,7 @@ export default function CategoryGrid({
         <div className="container mt-14 text-center">
           <Link
             href="/bathware"
-            className="inline-flex items-center gap-3 border border-white/30 px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-primary-dark hover:text-white"
+            className="inline-flex items-center gap-3 border border-primary-dark px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-dark transition-colors hover:bg-primary-dark hover:text-white"
           >
             View All Categories
           </Link>

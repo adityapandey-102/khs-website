@@ -33,7 +33,7 @@ export default function SafeEssentialsPage() {
             <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
               Secure Your Peace of Mind
             </span>
-            <h2 className="mb-6 text-3xl font-light leading-tight text-white sm:text-4xl">
+            <h2 className="mb-6 text-3xl font-light leading-tight text-primary-dark sm:text-4xl">
               Protection with Refined Elegance
             </h2>
             <div className="space-y-5 text-[0.95rem] leading-[1.85] text-gray-700">
@@ -44,13 +44,13 @@ export default function SafeEssentialsPage() {
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 href="/contact"
-                className="border border-white/30 px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-primary-dark hover:text-white"
+                className="border border-primary-dark px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-dark transition-colors hover:bg-primary-dark hover:text-white"
               >
                 Visit Showroom
               </Link>
               <Link
                 href="/hardware"
-                className="px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-white underline decoration-gold underline-offset-4 hover:text-gold"
+                className="px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-dark underline decoration-gold underline-offset-4 hover:text-gold"
               >
                 Back to Hardware
               </Link>
@@ -74,7 +74,7 @@ export default function SafeEssentialsPage() {
             return (
               <div key={feature.title} className="flex flex-col items-center gap-3 border border-border p-6 text-center">
                 <Icon size={24} className="text-gold" strokeWidth={1.5} />
-                <span className="text-sm font-medium text-white">{feature.title}</span>
+                <span className="text-sm font-medium text-primary-dark">{feature.title}</span>
               </div>
             );
           })}

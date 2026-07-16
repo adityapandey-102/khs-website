@@ -50,7 +50,7 @@ export default function FounderPage() {
               />
             </div>
             <div className="mt-4 border border-border p-5">
-              <span className="block text-sm font-medium text-white">Prakash Choudhary</span>
+              <span className="block text-sm font-medium text-primary-dark">Prakash Choudhary</span>
               <span className="block text-xs uppercase tracking-[0.15em] text-gold">Co-founder &amp; CEO</span>
             </div>
           </div>
@@ -59,11 +59,11 @@ export default function FounderPage() {
             <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
               CEO &amp; Co-Founder
             </span>
-            <h2 className="mb-6 text-3xl font-light leading-tight text-white sm:text-4xl">
+            <h2 className="mb-6 text-3xl font-light leading-tight text-primary-dark sm:text-4xl">
               A Serial Entrepreneur, Building Krishna Home Studio
             </h2>
 
-            <blockquote className="mb-8 border-l-2 border-gold pl-6 text-lg font-light italic leading-relaxed text-white">
+            <blockquote className="mb-8 border-l-2 border-gold pl-6 text-lg font-light italic leading-relaxed text-primary-dark">
               &ldquo;Practice multiple times before execution — let it be sports, studies, or the business.&rdquo;
             </blockquote>
 
@@ -75,7 +75,7 @@ export default function FounderPage() {
 
             <Link
               href="/about"
-              className="mt-8 inline-flex items-center gap-3 border border-white/30 px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-primary-dark hover:text-white"
+              className="mt-8 inline-flex items-center gap-3 border border-primary-dark px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-dark transition-colors hover:bg-primary-dark hover:text-white"
               id="btn-back-about"
             >
               About Krishna Home Studio
@@ -90,7 +90,7 @@ export default function FounderPage() {
             <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
               Timeline
             </span>
-            <h2 className="text-3xl font-light text-white sm:text-4xl">The Entrepreneurial Journey</h2>
+            <h2 className="text-3xl font-light text-primary-dark sm:text-4xl">The Entrepreneurial Journey</h2>
           </div>
 
           <div className="mx-auto max-w-3xl divide-y divide-border border-y border-border">

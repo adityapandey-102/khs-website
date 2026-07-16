@@ -56,11 +56,11 @@ export function ClientelePreview() {
             <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
               Our Partners
             </span>
-            <h2 className="max-w-xl text-3xl font-light text-white sm:text-4xl">
+            <h2 className="max-w-xl text-3xl font-light text-primary-dark sm:text-4xl">
               Trusted by Homeowners, Designers and Project Teams
             </h2>
           </div>
-          <Link href="/clientele" className="inline-flex items-center gap-2 text-sm font-medium text-white hover:text-gold">
+          <Link href="/clientele" className="inline-flex items-center gap-2 text-sm font-medium text-primary-dark hover:text-gold">
             View Clientele <ArrowRight size={14} />
           </Link>
         </div>
@@ -115,7 +115,7 @@ export function TestimonialsSection() {
           <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
             Customer Reviews
           </span>
-          <h2 className="text-3xl font-light text-white sm:text-4xl">What Our Customers Say</h2>
+          <h2 className="text-3xl font-light text-primary-dark sm:text-4xl">What Our Customers Say</h2>
         </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((review) => (
@@ -127,7 +127,7 @@ export function TestimonialsSection() {
                 ))}
               </div>
               <p className="text-sm leading-relaxed text-gray-700">{review.text}</p>
-              <strong className="mt-4 block text-sm font-medium text-white">{review.name}</strong>
+              <strong className="mt-4 block text-sm font-medium text-primary-dark">{review.name}</strong>
             </article>
           ))}
         </div>

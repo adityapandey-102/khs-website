@@ -12,11 +12,11 @@ export default function NewsSection() {
             <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
               Media &amp; Awards
             </span>
-            <h2 className="text-3xl font-light text-white sm:text-4xl">In The Press</h2>
+            <h2 className="text-3xl font-light text-primary-dark sm:text-4xl">In The Press</h2>
           </div>
           <Link
             href="/media"
-            className="inline-flex items-center gap-3 border border-white/30 px-6 py-3 text-[0.72rem] font-semibold uppercase tracking-[0.15em] text-white transition-colors hover:bg-primary-dark hover:text-white"
+            className="inline-flex items-center gap-3 border border-primary-dark px-6 py-3 text-[0.72rem] font-semibold uppercase tracking-[0.15em] text-primary-dark transition-colors hover:bg-primary-dark hover:text-white"
             id="news-view-all"
           >
             View All Coverage
@@ -33,7 +33,7 @@ export default function NewsSection() {
               ) : (
                 <Newspaper size={22} className="mb-5 text-gold" strokeWidth={1.5} />
               )}
-              <h3 className="mb-2 text-base font-medium text-white">{item.publication}</h3>
+              <h3 className="mb-2 text-base font-medium text-primary-dark">{item.publication}</h3>
               <p className="mb-4 flex-1 text-sm leading-relaxed text-gray-700">{item.description}</p>
               {item.url && (
                 <a
