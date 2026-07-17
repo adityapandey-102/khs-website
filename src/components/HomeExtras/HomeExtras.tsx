@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Play, Quote, Star } from "lucide-react";
-import { brandLogos, featuredProducts, testimonials } from "@/data/migratedContent";
+import { brandLogos, featuredBrands, testimonials } from "@/data/migratedContent";
 
 export function BrandCarousel() {
   return (
@@ -20,25 +20,54 @@ export function BrandCarousel() {
   );
 }
 
-export function FeaturedProducts() {
+export function FeaturedBrands() {
   return (
     <div className="py-20 sm:py-28">
       <div className="container">
         <span className="mb-3 block text-center text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
-          Featured Products
+          Featured Brands
         </span>
-        <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
-          {featuredProducts.map((product) => (
-            <Link href={product.href} className="group relative aspect-3/4 overflow-hidden" key={product.title}>
+        <h2 className="mx-auto max-w-xl text-center text-3xl font-light text-primary-dark sm:text-4xl">
+          The World&apos;s Top Bath &amp; Hardware Brands
+        </h2>
+        <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
+          {featuredBrands.map((item) => (
+            <Link
+              href={item.href}
+              className="group relative aspect-3/4 overflow-hidden bg-primary-dark"
+              key={item.brand}
+            >
               <Image
-                src={product.image}
-                alt={product.title}
+                src={item.image}
+                alt={`${item.category} by ${item.brand}`}
                 fill
                 sizes="(max-width: 1024px) 50vw, 25vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                className={`object-cover ${item.imagePosition ?? ""} transition-transform duration-700 ease-out group-hover:scale-110`}
               />
-              <div className="absolute inset-0 bg-linear-to-t from-primary-dark/80 to-transparent" />
-              <span className="absolute bottom-4 left-4 text-sm font-medium text-white">{product.title}</span>
+              {/* Darken the photo so it reads purely as texture — the brand is the subject here */}
+              <div className="absolute inset-0 bg-linear-to-b from-black/55 via-black/10 to-black/75 transition-colors duration-500 group-hover:from-black/65 group-hover:to-black/80" />
+
+              <div className="absolute inset-x-0 top-0 flex justify-center p-4 sm:p-5">
+                <div className="relative h-16 w-28 bg-white p-2 shadow-lg ring-1 ring-black/5 transition-transform duration-500 ease-out group-hover:-translate-y-0.5 sm:h-18 sm:w-32 sm:p-2.5">
+                  <Image
+                    src={item.logo}
+                    alt={item.brand}
+                    fill
+                    sizes="130px"
+                    className="object-contain"
+                  />
+                </div>
+              </div>
+
+              <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
+                <span className="mb-1 block text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-gold">
+                  Featured Brand
+                </span>
+                <div className="flex items-baseline justify-between gap-2">
+                  <strong className="text-base font-medium text-white sm:text-lg">{item.brand}</strong>
+                  <span className="truncate text-[0.7rem] text-white/70">{item.category}</span>
+                </div>
+              </div>
             </Link>
           ))}
         </div>

@@ -59,6 +59,27 @@
   animation: marquee 38s linear infinite;
 }
 
+@keyframes promo-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@utility animate-promo-fade {
+  animation: promo-fade 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes promo-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+  }
+}
+
+@utility animate-promo-in {
+  animation: promo-in 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 @utility container {
   max-width: var(--container-max);
   margin-inline: auto;

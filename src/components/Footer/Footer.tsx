@@ -12,7 +12,7 @@ const Facebook = ({ size = 18 }: { size?: number }) => (
 
 export default function Footer() {
   return (
-    <footer className="bg-primary-dark text-white/70">
+    <footer className="bg-primary-dark-- bg-gray-800 text-white/70">
       <div className="container grid grid-cols-1 gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <Link href="/" className="flex items-center gap-3">

@@ -35,26 +35,47 @@ export const brandLogos = [
   { name: "Zero B", image: "/assets/khs/home/Zero-B.png" },
 ];
 
-export const featuredProducts = [
+export const featuredBrands = [
   {
-    title: "Shower & Faucets",
+    brand: "Jaquar",
+    slug: "jaquar",
+    logo: "/assets/khs/home/jaquar.webp",
+    category: "Shower & Faucets",
+    categoryHref: "/bathware/shower-faucets",
+    galleryKey: "shower-faucets",
     image: "/assets/khs/about/Untitled-design-17.png",
-    href: "/bathware/shower-faucets",
+    href: "/brands/jaquar",
   },
   {
-    title: "Countertop Basin",
+    brand: "Kohler",
+    slug: "kohler",
+    logo: "/assets/khs/home/kohler-e1719934015203.webp",
+    category: "Countertop Basin",
+    categoryHref: "/bathware/countertop-basin",
+    galleryKey: "countertop-basin",
     image: "/assets/khs/home/pexels-julie-aagaard-2207894-scaled.jpg",
-    href: "/bathware/countertop-basin",
+    imagePosition: "object-bottom",
+    href: "/brands/kohler",
   },
   {
-    title: "Bathroom Accessories",
-    image: "/assets/khs/about/Untitled-design-17.png",
-    href: "/bathware/bath-accessories",
+    brand: "Parryware",
+    slug: "parryware",
+    logo: "/assets/khs/home/Parryware.webp",
+    category: "Bathroom Accessories",
+    categoryHref: "/bathware/bath-accessories",
+    galleryKey: "bath-accessories",
+    image: "/assets/khs/about/bathroom.jpg",
+    href: "/brands/parryware",
   },
   {
-    title: "Architectural Hardware",
+    brand: "Hafele",
+    slug: "hafele",
+    logo: "/assets/khs/home/Hafele.png",
+    category: "Architectural Hardware",
+    categoryHref: "/hardware",
+    galleryKey: "hardware",
     image: "/assets/khs/hardware/Krishna-Home-Studio-Hardware-2.png",
-    href: "/hardware",
+    href: "/brands/hafele",
   },
 ];
 

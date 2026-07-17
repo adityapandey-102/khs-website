@@ -17,7 +17,7 @@ export default function CategoryGrid({
   showHeading = true,
   sectionClassName = "py-20 sm:py-28",
 }: CategoryGridProps) {
-  const displayCategories = showAll ? bathwareCategories : bathwareCategories.slice(0, 7);
+  const displayCategories = showAll ? bathwareCategories : bathwareCategories.slice(0, 5);
 
   return (
     <section className={sectionClassName} id="categories">
@@ -30,12 +30,12 @@ export default function CategoryGrid({
         </div>
       )}
 
-      <div className="grid grid-cols-1 gap-2 gap-px-- bg-border sm:grid-cols-3 lg:grid-cols-4 mx-2.5">
+      <div className="grid grid-cols-1 gap-2 gap-px-- bg-border sm:grid-cols-2 lg:grid-cols-3 mx-3">
         {displayCategories.map((cat, index) => (
           <Link
             key={cat.id}
             href={cat.href}
-            className={`group relative overflow-hidden bg-surface aspect-square ${
+            className={`group relative overflow-hidden bg-surface aspect-square  ${
               !showAll && index === 4 ? "lg:col-span-2 lg:aspect-2/1" : ""
             }`}
             aria-label={`Explore ${cat.label}`}

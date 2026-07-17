@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import PageHero from "@/components/PageHero/PageHero";
+import JourneyTimeline from "@/components/JourneyTimeline/JourneyTimeline";
 import { pageCopy } from "@/data/pageCopy";
 
 export const metadata: Metadata = {
@@ -84,31 +85,17 @@ export default function FounderPage() {
         </div>
       </section>
 
-      <section className="bg-offwhite py-16 sm:py-24">
-        <div className="container">
-          <div className="mb-14 text-center">
-            <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
-              Timeline
-            </span>
-            <h2 className="text-3xl font-light text-primary-dark sm:text-4xl">The Entrepreneurial Journey</h2>
-          </div>
+      <JourneyTimeline items={timeline} />
 
-          <div className="mx-auto max-w-3xl divide-y divide-border border-y border-border">
-            {timeline.map((item) => (
-              <div key={`${item.year}-${item.event.slice(0, 12)}`} className="flex flex-col gap-1.5 py-5 sm:flex-row sm:gap-8">
-                <span className="w-28 shrink-0 text-sm font-semibold text-gold">{item.year}</span>
-                <p className="text-sm leading-relaxed text-gray-700">{item.event}</p>
-              </div>
-            ))}
-          </div>
-
-          {founder[37] && (
-            <p className="mx-auto mt-14 max-w-2xl text-center text-[0.95rem] italic leading-[1.85] text-gray-700">
+      {founder[37] && (
+        <section className="bg-offwhite pb-20 sm:pb-28">
+          <div className="container">
+            <p className="mx-auto max-w-2xl text-center text-[0.95rem] italic leading-[1.85] text-gray-700">
               {founder[37]}
             </p>
-          )}
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
     </div>
   );
 }

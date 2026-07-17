@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Lets phones/tablets on the same WiFi load the dev server via the
+  // laptop's LAN IP. Next.js blocks cross-origin dev requests (including the
+  // HMR websocket) by default; without this, pages load but hydration/HMR
+  // silently fail on any device that isn't "localhost" itself.
+  allowedDevOrigins: ["192.168.1.*"],
   async redirects() {
     return [
       { source: "/about-prakash-chaudhary", destination: "/about/founder", permanent: true },

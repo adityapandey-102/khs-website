@@ -7,10 +7,11 @@ import ContactSection from "@/components/ContactSection/ContactSection";
 import NewsSection from "@/components/NewsSection/NewsSection";
 import {
   BrandCarousel,
-  FeaturedProducts,
+  FeaturedBrands,
   ClientelePreview,
   AwardsVideo,
 } from "@/components/HomeExtras/HomeExtras";
+import BrandPromoPopup from "@/components/BrandPromoPopup/BrandPromoPopup";
 
 export default function Home() {
   return (
@@ -18,8 +19,9 @@ export default function Home() {
       <Hero />
       <CategoryGrid showHeading={false} sectionClassName="pt-8 pb-16 sm:pt-10 sm:pb-24" />
       <BrandCarousel />
+      <BrandPromoPopup />
       {/* <AboutSection /> */}
-      <FeaturedProducts />
+      <FeaturedBrands />
       <AwardsSection />
       <AwardsVideo />
       <ClienteleCarousel />
