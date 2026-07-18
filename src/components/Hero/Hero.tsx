@@ -14,7 +14,19 @@ const slides = [
     tagline: "Cool Elegance for Modern Bathrooms.",
     cta: "Explore Bathware",
     href: "/bathware",
-    video: "/assets/khs/hero-video/ice-blue-home-desktop.mp4",
+    // Sources are ordered smallest-file-first per format (not just "webm first") —
+    // VP9 doesn't always beat H.264 on this footage, so we measured each pair and
+    // let the browser grab whichever it hits first that it can play.
+    video: {
+      mobile: [
+        { src: "/assets/khs/hero-video/ice-blue-mobile.mp4", type: "video/mp4" },
+        { src: "/assets/khs/hero-video/ice-blue-mobile.webm", type: "video/webm" },
+      ],
+      desktop: [
+        { src: "/assets/khs/hero-video/ice-blue-desktop.webm", type: "video/webm" },
+        { src: "/assets/khs/hero-video/ice-blue-desktop.mp4", type: "video/mp4" },
+      ],
+    },
     poster: "/assets/khs/home/pexels-max-vakhtbovycn-6207947-scaled.jpg",
     duration: 30000,
   },
@@ -24,7 +36,16 @@ const slides = [
     tagline: "Precision Hand Showers, Timeless Design.",
     cta: "Discover Showers",
     href: "/bathware/shower-faucets",
-    video: "/assets/khs/hero-video/florentine-prime-hand-shower-desktop.mp4",
+    video: {
+      mobile: [
+        { src: "/assets/khs/hero-video/florentine-mobile.mp4", type: "video/mp4" },
+        { src: "/assets/khs/hero-video/florentine-mobile.webm", type: "video/webm" },
+      ],
+      desktop: [
+        { src: "/assets/khs/hero-video/florentine-desktop.webm", type: "video/webm" },
+        { src: "/assets/khs/hero-video/florentine-desktop.mp4", type: "video/mp4" },
+      ],
+    },
     poster: "/assets/khs/bathware/countertop-basin/bathroom-4032529_1280.jpg",
     duration: 28000,
   },
@@ -34,7 +55,16 @@ const slides = [
     tagline: "Adaptive Spray, Everyday Comfort.",
     cta: "View Collection",
     href: "/bathware/shower-faucets",
-    video: "/assets/khs/hero-video/flexi-nozzle-hand-shower_2026.mp4",
+    video: {
+      mobile: [
+        { src: "/assets/khs/hero-video/flexi-mobile.mp4", type: "video/mp4" },
+        { src: "/assets/khs/hero-video/flexi-mobile.webm", type: "video/webm" },
+      ],
+      desktop: [
+        { src: "/assets/khs/hero-video/flexi-desktop.mp4", type: "video/mp4" },
+        { src: "/assets/khs/hero-video/flexi-desktop.webm", type: "video/webm" },
+      ],
+    },
     poster: "/assets/khs/bathware/shower-faucets/pexels-vika-glitter-3315291-scaled.jpg",
     duration: 12000,
   },
@@ -44,7 +74,16 @@ const slides = [
     tagline: "Effortless Control, Refined Flow.",
     cta: "Explore Bathware",
     href: "/bathware",
-    video: "/assets/khs/hero-video/rotor-hand-shower_2026.mp4",
+    video: {
+      mobile: [
+        { src: "/assets/khs/hero-video/rotor-mobile.mp4", type: "video/mp4" },
+        { src: "/assets/khs/hero-video/rotor-mobile.webm", type: "video/webm" },
+      ],
+      desktop: [
+        { src: "/assets/khs/hero-video/rotor-desktop.mp4", type: "video/mp4" },
+        { src: "/assets/khs/hero-video/rotor-desktop.webm", type: "video/webm" },
+      ],
+    },
     poster: "/assets/khs/home/Krishna-Home-Studio-Hardware-1.png",
     duration: 12000,
   },
@@ -59,6 +98,7 @@ export default function Hero() {
   // hydration instead of competing with a video fetch/decode from frame one.
   const [armed, setArmed] = useState<Set<number>>(() => new Set());
   const [ready, setReady] = useState<Set<number>>(() => new Set());
+  const [errored, setErrored] = useState<Set<number>>(() => new Set());
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   // Arm the active slide only after the browser has actually painted (two
@@ -96,11 +136,18 @@ export default function Hero() {
   }, []);
 
   // A single re-scheduled timeout (not setInterval) so each slide waits out
-  // its own real video duration before advancing.
+  // its own real video duration before advancing. The countdown only starts
+  // once the video is actually playable — no matter how long that takes —
+  // so a slow connection just makes the poster show longer instead of the
+  // slide getting force-advanced past a video that never got to play. The
+  // only thing that skips a slide early is a genuine load failure (onError).
+  const isCurrentReady = ready.has(current);
+  const isCurrentErrored = errored.has(current);
   useEffect(() => {
-    const timer = setTimeout(next, slides[current].duration);
+    if (!isCurrentReady && !isCurrentErrored) return;
+    const timer = setTimeout(next, isCurrentReady ? slides[current].duration : 0);
     return () => clearTimeout(timer);
-  }, [current, next]);
+  }, [current, next, isCurrentReady, isCurrentErrored]);
 
   // Play only the active video; pause the rest so they don't compete for
   // bandwidth/decoding and restart cleanly each time a slide comes back around.
@@ -155,11 +202,17 @@ export default function Hero() {
                 poster={s.poster}
                 aria-hidden="true"
                 onCanPlay={() => setReady((prev) => (prev.has(index) ? prev : new Set(prev).add(index)))}
+                onError={() => setErrored((prev) => (prev.has(index) ? prev : new Set(prev).add(index)))}
                 className={`h-full w-full object-cover transition-opacity duration-700 ${
                   isReady ? "opacity-100" : "opacity-0"
                 }`}
               >
-                <source src={s.video} type="video/mp4" />
+                {s.video.mobile.map((source) => (
+                  <source key={source.src} src={source.src} type={source.type} media="(max-width: 767px)" />
+                ))}
+                {s.video.desktop.map((source) => (
+                  <source key={source.src} src={source.src} type={source.type} />
+                ))}
               </video>
             )}
             <div className="absolute inset-0 bg-linear-to-t from-primary-dark/85 via-primary-dark/20 to-primary-dark/40" />

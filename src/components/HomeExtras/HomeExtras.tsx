@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Play, Quote, Star } from "lucide-react";
+import { ArrowRight, Quote, Star } from "lucide-react";
 import { brandLogos, featuredBrands, testimonials } from "@/data/migratedContent";
+import { ClickToPlayVideo } from "./ClickToPlayVideo";
 
 export function BrandCarousel() {
   return (
@@ -120,16 +121,11 @@ export function AwardsVideo() {
           </p>
         </div>
         <div className="relative aspect-video overflow-hidden">
-          <video
+          <ClickToPlayVideo
             src="/assets/khs/unassociated/KHS-Video.mp4"
-            controls
-            preload="metadata"
             poster="/assets/khs/hardware/Krishna-Home-Studio-Hardware-2.png"
-            className="h-full w-full object-cover"
+            alt="India Design Awards Recognition video"
           />
-          <div className="pointer-events-none absolute right-4 top-4 flex items-center gap-2 bg-white/90 px-3 py-1.5 text-[0.7rem] font-semibold uppercase tracking-wide text-primary-dark">
-            <Play size={14} /> Play Video
-          </div>
         </div>
       </div>
     </section>
