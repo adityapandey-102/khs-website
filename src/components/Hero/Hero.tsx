@@ -1,33 +1,45 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 
+const MOBILE_BREAKPOINT = 767;
+
+// Three real tiers, not five — the source footage tops out at 1280x542
+// (confirmed against the original masters), so "tablet" and "large/retina
+// desktop" would just be upscaled duplicates of "desktop" with no real
+// quality gain. See docs/hero-video-delivery-architecture.md for the full
+// reasoning.
+type VideoTier = "mobileStandard" | "mobileRetina" | "desktop";
+
+type Slide = {
+  id: string;
+  label: string;
+  tagline: string;
+  cta: string;
+  href: string;
+  poster: string;
+  video: Record<VideoTier, string>;
+  duration: number;
+};
+
 // Each slide plays for its own video's real duration before advancing —
 // not a fixed interval — so no clip gets cut off early or lingers too long.
-const slides = [
+const slides: Slide[] = [
   {
     id: "ice-blue",
     label: "Jaquar Ice Blue Collection",
     tagline: "Cool Elegance for Modern Bathrooms.",
     cta: "Explore Bathware",
     href: "/bathware",
-    // Sources are ordered smallest-file-first per format (not just "webm first") —
-    // VP9 doesn't always beat H.264 on this footage, so we measured each pair and
-    // let the browser grab whichever it hits first that it can play.
-    video: {
-      mobile: [
-        { src: "/assets/khs/hero-video/ice-blue-mobile.mp4", type: "video/mp4" },
-        { src: "/assets/khs/hero-video/ice-blue-mobile.webm", type: "video/webm" },
-      ],
-      desktop: [
-        { src: "/assets/khs/hero-video/ice-blue-desktop.webm", type: "video/webm" },
-        { src: "/assets/khs/hero-video/ice-blue-desktop.mp4", type: "video/mp4" },
-      ],
-    },
     poster: "/assets/khs/home/pexels-max-vakhtbovycn-6207947-scaled.jpg",
+    video: {
+      mobileStandard: "/assets/khs/hero-video/ice-blue-mobile-standard.mp4",
+      mobileRetina: "/assets/khs/hero-video/ice-blue-mobile-retina.mp4",
+      desktop: "/assets/khs/hero-video/ice-blue-desktop.mp4",
+    },
     duration: 30000,
   },
   {
@@ -36,17 +48,12 @@ const slides = [
     tagline: "Precision Hand Showers, Timeless Design.",
     cta: "Discover Showers",
     href: "/bathware/shower-faucets",
-    video: {
-      mobile: [
-        { src: "/assets/khs/hero-video/florentine-mobile.mp4", type: "video/mp4" },
-        { src: "/assets/khs/hero-video/florentine-mobile.webm", type: "video/webm" },
-      ],
-      desktop: [
-        { src: "/assets/khs/hero-video/florentine-desktop.webm", type: "video/webm" },
-        { src: "/assets/khs/hero-video/florentine-desktop.mp4", type: "video/mp4" },
-      ],
-    },
     poster: "/assets/khs/bathware/countertop-basin/bathroom-4032529_1280.jpg",
+    video: {
+      mobileStandard: "/assets/khs/hero-video/florentine-mobile-standard.mp4",
+      mobileRetina: "/assets/khs/hero-video/florentine-mobile-retina.mp4",
+      desktop: "/assets/khs/hero-video/florentine-desktop.mp4",
+    },
     duration: 28000,
   },
   {
@@ -55,17 +62,12 @@ const slides = [
     tagline: "Adaptive Spray, Everyday Comfort.",
     cta: "View Collection",
     href: "/bathware/shower-faucets",
-    video: {
-      mobile: [
-        { src: "/assets/khs/hero-video/flexi-mobile.mp4", type: "video/mp4" },
-        { src: "/assets/khs/hero-video/flexi-mobile.webm", type: "video/webm" },
-      ],
-      desktop: [
-        { src: "/assets/khs/hero-video/flexi-desktop.mp4", type: "video/mp4" },
-        { src: "/assets/khs/hero-video/flexi-desktop.webm", type: "video/webm" },
-      ],
-    },
     poster: "/assets/khs/bathware/shower-faucets/pexels-vika-glitter-3315291-scaled.jpg",
+    video: {
+      mobileStandard: "/assets/khs/hero-video/flexi-mobile-standard.mp4",
+      mobileRetina: "/assets/khs/hero-video/flexi-mobile-retina.mp4",
+      desktop: "/assets/khs/hero-video/flexi-desktop.mp4",
+    },
     duration: 12000,
   },
   {
@@ -74,156 +76,211 @@ const slides = [
     tagline: "Effortless Control, Refined Flow.",
     cta: "Explore Bathware",
     href: "/bathware",
-    video: {
-      mobile: [
-        { src: "/assets/khs/hero-video/rotor-mobile.mp4", type: "video/mp4" },
-        { src: "/assets/khs/hero-video/rotor-mobile.webm", type: "video/webm" },
-      ],
-      desktop: [
-        { src: "/assets/khs/hero-video/rotor-desktop.mp4", type: "video/mp4" },
-        { src: "/assets/khs/hero-video/rotor-desktop.webm", type: "video/webm" },
-      ],
-    },
     poster: "/assets/khs/home/Krishna-Home-Studio-Hardware-1.png",
+    video: {
+      mobileStandard: "/assets/khs/hero-video/rotor-mobile-standard.mp4",
+      mobileRetina: "/assets/khs/hero-video/rotor-mobile-retina.mp4",
+      desktop: "/assets/khs/hero-video/rotor-desktop.mp4",
+    },
     duration: 12000,
   },
 ];
 
-export default function Hero() {
-  const [current, setCurrent] = useState(0);
-  // "Armed" videos have a real <source> and are fetching/buffering. Nothing
-  // is armed on the very first render — the poster photo is the true LCP
-  // element and paints first, exactly like Jaquar's hero: photo, then video
-  // fades in once it can actually play. This keeps the main thread free for
-  // hydration instead of competing with a video fetch/decode from frame one.
-  const [armed, setArmed] = useState<Set<number>>(() => new Set());
-  const [ready, setReady] = useState<Set<number>>(() => new Set());
-  const [errored, setErrored] = useState<Set<number>>(() => new Set());
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+function resolveVideoSrc(slide: Slide, tier: VideoTier) {
+  return slide.video[tier];
+}
 
-  // Arm the active slide only after the browser has actually painted (two
-  // rAFs guarantee a committed frame), so the poster is always what shows
-  // first rather than the video fetch racing hydration.
-  useEffect(() => {
-    let raf2 = 0;
-    const raf1 = requestAnimationFrame(() => {
-      raf2 = requestAnimationFrame(() => {
-        setArmed((prev) => (prev.has(current) ? prev : new Set(prev).add(current)));
-      });
-    });
-    return () => {
-      cancelAnimationFrame(raf1);
-      cancelAnimationFrame(raf2);
-    };
-  }, [current]);
-
-  // Once the active slide's video can actually play, start buffering the
-  // next one so the following transition doesn't begin a cold fetch — but
-  // only then, so we never pull two videos' worth of data at once. Adjusted
-  // directly during render (comparing against the previous render's value)
-  // rather than in an effect, per React's guidance for derived state.
-  const [lastArmedFor, setLastArmedFor] = useState<number | null>(null);
-  if (ready.has(current) && lastArmedFor !== current) {
-    setLastArmedFor(current);
-    const nextIndex = (current + 1) % slides.length;
-    if (!armed.has(nextIndex)) {
-      setArmed((prev) => new Set(prev).add(nextIndex));
-    }
+// React (not the browser) decides which tier to load — from viewport width,
+// device pixel ratio (splits the mobile bucket into standard vs. retina),
+// and, where the Network Information API is available (not in Safari — a
+// progressive enhancement, not a dependency), a data-saver/slow-connection
+// override that forces the smallest tier regardless of screen size.
+// useSyncExternalStore is the correct primitive here: the server has no
+// viewport, so getServerSnapshot assumes desktop, and React reconciles to
+// the real tier immediately after hydration.
+function resolveTier(width: number, dpr: number, saveData: boolean, slowConnection: boolean): VideoTier {
+  if (saveData || slowConnection) {
+    return "mobileStandard";
   }
+  if (width <= MOBILE_BREAKPOINT) {
+    return dpr > 2 ? "mobileRetina" : "mobileStandard";
+  }
+  return "desktop";
+}
 
-  const next = useCallback(() => {
-    setCurrent((prev) => (prev + 1) % slides.length);
+type NetworkInformationLike = { effectiveType?: string; saveData?: boolean; addEventListener?: (type: "change", cb: () => void) => void; removeEventListener?: (type: "change", cb: () => void) => void };
+function getConnection(): NetworkInformationLike | undefined {
+  return (navigator as Navigator & { connection?: NetworkInformationLike }).connection;
+}
+
+function subscribeToTier(callback: () => void) {
+  window.addEventListener("resize", callback);
+  const connection = getConnection();
+  connection?.addEventListener?.("change", callback);
+  return () => {
+    window.removeEventListener("resize", callback);
+    connection?.removeEventListener?.("change", callback);
+  };
+}
+function getTierSnapshot(): VideoTier {
+  const connection = getConnection();
+  const slowConnection = connection?.effectiveType === "2g" || connection?.effectiveType === "slow-2g";
+  return resolveTier(window.innerWidth, window.devicePixelRatio || 1, connection?.saveData ?? false, slowConnection);
+}
+function getTierServerSnapshot(): VideoTier {
+  return "desktop";
+}
+
+// The active slide's video. Mounted fresh (via `key`) every time the source
+// changes, so its "has a real frame been presented" state never needs manual
+// resetting — a new mount is a new, correct starting state by construction.
+function HeroVideo({
+  src,
+  poster,
+  onFirstFrame,
+  onError,
+}: {
+  src: string;
+  poster: string;
+  onFirstFrame: () => void;
+  onError: () => void;
+}) {
+  // requestVideoFrameCallback confirms a frame was actually decoded AND
+  // composited — stronger than canplay, which only promises enough data to
+  // begin playback. Falls back to loadeddata + one animation frame on
+  // browsers without it (older Firefox).
+  const handleRef = useCallback(
+    (el: HTMLVideoElement | null) => {
+      if (!el) return;
+      if (typeof el.requestVideoFrameCallback === "function") {
+        el.requestVideoFrameCallback(() => onFirstFrame());
+      } else {
+        el.addEventListener("loadeddata", () => requestAnimationFrame(onFirstFrame), { once: true });
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
+  return (
+    <video
+      ref={handleRef}
+      src={src}
+      poster={poster}
+      muted
+      loop
+      autoPlay
+      playsInline
+      preload="auto"
+      aria-hidden="true"
+      onError={onError}
+      className="h-full w-full object-cover"
+    />
+  );
+}
+
+// Silent metadata-only warm-up for the next slide's video — never played,
+// never visible. Gives the next transition a head start without paying for
+// the full file until it's actually needed.
+function HeroPreloadVideo({ src }: { src: string }) {
+  return <video src={src} muted playsInline preload="metadata" aria-hidden="true" className="hidden" />;
+}
+
+export default function Hero() {
+  const tier = useSyncExternalStore(subscribeToTier, getTierSnapshot, getTierServerSnapshot);
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [previousIndex, setPreviousIndex] = useState<number | null>(null);
+  // Which src last reported a first frame. "Loaded" is derived by comparing
+  // this to the active src, rather than a boolean reset via effect — the
+  // React-recommended way to express "this resets whenever the input
+  // changes" without a synchronous setState-in-effect.
+  const [loadedSrc, setLoadedSrc] = useState<string | null>(null);
+
+  const current = slides[currentIndex];
+  const upcoming = slides[(currentIndex + 1) % slides.length];
+  const currentSrc = resolveVideoSrc(current, tier);
+  const nextSrc = resolveVideoSrc(upcoming, tier);
+  const videoLoaded = loadedSrc === currentSrc;
+
+  const goToSlide = useCallback((index: number) => {
+    setCurrentIndex((prevIndex) => {
+      setPreviousIndex(prevIndex);
+      return index;
+    });
   }, []);
 
-  // A single re-scheduled timeout (not setInterval) so each slide waits out
-  // its own real video duration before advancing. The countdown only starts
-  // once the video is actually playable — no matter how long that takes —
-  // so a slow connection just makes the poster show longer instead of the
-  // slide getting force-advanced past a video that never got to play. The
-  // only thing that skips a slide early is a genuine load failure (onError).
-  const isCurrentReady = ready.has(current);
-  const isCurrentErrored = errored.has(current);
+  // Auto-advance only once the active slide has actually started playing —
+  // a slow connection just holds the poster longer, it never skips a slide
+  // before it got the chance to show.
   useEffect(() => {
-    if (!isCurrentReady && !isCurrentErrored) return;
-    const timer = setTimeout(next, isCurrentReady ? slides[current].duration : 0);
+    if (!videoLoaded) return;
+    const timer = setTimeout(() => {
+      goToSlide((currentIndex + 1) % slides.length);
+    }, current.duration);
     return () => clearTimeout(timer);
-  }, [current, next, isCurrentReady, isCurrentErrored]);
+  }, [videoLoaded, currentIndex, current.duration, goToSlide]);
 
-  // Play only the active video; pause the rest so they don't compete for
-  // bandwidth/decoding and restart cleanly each time a slide comes back around.
+  // Drop the outgoing slide once the incoming one has visibly taken over —
+  // 700ms matches the crossfade duration below.
   useEffect(() => {
-    videoRefs.current.forEach((el, index) => {
-      if (!el) return;
-      if (index === current) {
-        el.currentTime = 0;
-        el.play().catch(() => {});
-      } else {
-        el.pause();
-      }
-    });
-  }, [current]);
-
-  const slide = slides[current];
+    if (!videoLoaded || previousIndex === null) return;
+    const timer = setTimeout(() => setPreviousIndex(null), 700);
+    return () => clearTimeout(timer);
+  }, [videoLoaded, previousIndex]);
 
   return (
     <section className="relative h-[85vh] min-h-140 w-full overflow-hidden bg-primary-dark" aria-label="Showcase">
-      {slides.map((s, index) => {
-        const isActive = index === current;
-        const isArmed = armed.has(index);
-        const isReady = ready.has(index);
-        return (
-          <div
-            key={s.id}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              isActive ? "z-10 opacity-100" : "pointer-events-none z-0 opacity-0"
-            }`}
-            aria-hidden={!isActive}
-          >
-            {/* Real photo, shown until this slide's video is actually playable. */}
-            <Image
-              src={s.poster}
-              alt={s.label}
-              fill
-              priority={index === 0}
-              sizes="100vw"
-              className={`object-cover transition-opacity duration-700 ${
-                isReady ? "opacity-0" : "opacity-100"
-              }`}
-            />
-            {isArmed && (
-              <video
-                ref={(el) => {
-                  videoRefs.current[index] = el;
-                }}
-                muted
-                loop
-                playsInline
-                preload={isActive ? "auto" : "metadata"}
-                poster={s.poster}
-                aria-hidden="true"
-                onCanPlay={() => setReady((prev) => (prev.has(index) ? prev : new Set(prev).add(index)))}
-                onError={() => setErrored((prev) => (prev.has(index) ? prev : new Set(prev).add(index)))}
-                className={`h-full w-full object-cover transition-opacity duration-700 ${
-                  isReady ? "opacity-100" : "opacity-0"
-                }`}
-              >
-                {s.video.mobile.map((source) => (
-                  <source key={source.src} src={source.src} type={source.type} media="(max-width: 767px)" />
-                ))}
-                {s.video.desktop.map((source) => (
-                  <source key={source.src} src={source.src} type={source.type} />
-                ))}
-              </video>
-            )}
-            <div className="absolute inset-0 bg-linear-to-t from-primary-dark/85 via-primary-dark/20 to-primary-dark/40" />
-          </div>
-        );
-      })}
+      {/* Outgoing slide: stays fully visible until the incoming slide's video
+          is confirmed on-screen, then fades away and unmounts. */}
+      {previousIndex !== null && (
+        <div
+          key={`prev-${slides[previousIndex].id}`}
+          className={`absolute inset-0 z-10 transition-opacity duration-700 ease-in-out ${
+            videoLoaded ? "opacity-0" : "opacity-100"
+          }`}
+          aria-hidden
+        >
+          <video
+            src={resolveVideoSrc(slides[previousIndex], tier)}
+            muted
+            loop
+            autoPlay
+            playsInline
+            className="h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-linear-to-t from-primary-dark/85 via-primary-dark/20 to-primary-dark/40" />
+        </div>
+      )}
+
+      {/* Active slide */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src={current.poster}
+          alt={current.label}
+          fill
+          priority={currentIndex === 0}
+          sizes="100vw"
+          className={`object-cover transition-opacity duration-700 ${videoLoaded ? "opacity-0" : "opacity-100"}`}
+        />
+        <div className={`absolute inset-0 transition-opacity duration-700 ${videoLoaded ? "opacity-100" : "opacity-0"}`}>
+          <HeroVideo
+            key={currentSrc}
+            src={currentSrc}
+            poster={current.poster}
+            onFirstFrame={() => setLoadedSrc(currentSrc)}
+            onError={() => goToSlide((currentIndex + 1) % slides.length)}
+          />
+        </div>
+        <div className="absolute inset-0 bg-linear-to-t from-primary-dark/85 via-primary-dark/20 to-primary-dark/40" />
+      </div>
+
+      <HeroPreloadVideo key={nextSrc} src={nextSrc} />
 
       <div className="container relative z-20 flex h-full items-end pb-24 sm:pb-28">
         <AnimatePresence mode="wait">
           <motion.div
-            key={`${slide.id}-content`}
+            key={`${current.id}-content`}
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
@@ -231,16 +288,16 @@ export default function Hero() {
             className="max-w-xl"
           >
             <span className="mb-4 block text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-gold">
-              {slide.label}
+              {current.label}
             </span>
             <h1 className="text-4xl font-light leading-[1.1] text-white sm:text-5xl lg:text-6xl">
-              {slide.tagline}
+              {current.tagline}
             </h1>
             <Link
-              href={slide.href}
+              href={current.href}
               className="mt-8 inline-flex items-center gap-3 border border-white px-8 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-surface hover:text-primary-dark"
             >
-              {slide.cta}
+              {current.cta}
             </Link>
           </motion.div>
         </AnimatePresence>
@@ -250,10 +307,10 @@ export default function Hero() {
         {slides.map((s, index) => (
           <button
             key={s.id}
-            onClick={() => setCurrent(index)}
+            onClick={() => goToSlide(index)}
             aria-label={`Go to slide ${index + 1}`}
             className={`h-1.5 rounded-full transition-all duration-300 ${
-              index === current ? "w-8 bg-gold" : "w-1.5 bg-white/50 hover:bg-white/80"
+              index === currentIndex ? "w-8 bg-gold" : "w-1.5 bg-white/50 hover:bg-white/80"
             }`}
           />
         ))}
