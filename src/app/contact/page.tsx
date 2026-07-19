@@ -76,7 +76,7 @@ export default function ContactPage() {
           utility bar). --header-height is kept live by Header.tsx. */}
       <nav
         aria-label="Contact page sections"
-        className="sticky top-(--header-height) z-40 border-b border-border bg-white/95 backdrop-blur-sm"
+        className="sticky top-(--header-height) z-40 border-b border-border bg-white/95 backdrop-blur-sm transition-[top] duration-300 ease-out"
       >
         <div className="container flex flex-wrap items-center justify-center gap-2 py-3 sm:justify-between sm:gap-4 sm:py-4">
           <div className="flex flex-wrap items-center justify-center gap-2">

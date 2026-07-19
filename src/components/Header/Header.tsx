@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useLayoutEffect, useRef } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -28,30 +28,12 @@ export default function Header() {
   const [openDesktopMenu, setOpenDesktopMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMobileMenu, setOpenMobileMenu] = useState<string | null>(null);
-  const headerStackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Publish the fixed header's real, current height as a CSS variable so any
-  // page can position content (e.g. a sticky sub-nav) directly beneath it
-  // without hardcoding pixel values that drift whenever the header's own
-  // sizing (utility bar collapse, compact height) changes. ResizeObserver
-  // keeps it in sync frame-by-frame while the header's height transitions.
-  useLayoutEffect(() => {
-    const el = headerStackRef.current;
-    if (!el) return;
-    const setHeightVar = () => {
-      document.documentElement.style.setProperty("--header-height", `${el.offsetHeight}px`);
-    };
-    setHeightVar();
-    const observer = new ResizeObserver(setHeightVar);
-    observer.observe(el);
-    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -71,9 +53,23 @@ export default function Header() {
   // the home page.
   const compact = scrolled;
 
+  // Publish the header's current height as a CSS variable — driven by the
+  // exact same `compact` boolean that sizes the header itself, in the same
+  // render, so a sticky sub-nav positioned with top-(--header-height) is
+  // always in lockstep with the header, never a frame behind it. (The
+  // uncompact 76px/112px per breakpoint is provided by a CSS fallback in
+  // globals.css, since compact is the only state JS needs to express here.)
+  useLayoutEffect(() => {
+    if (compact) {
+      document.documentElement.style.setProperty("--header-height", "4rem");
+    } else {
+      document.documentElement.style.removeProperty("--header-height");
+    }
+  }, [compact]);
+
   return (
     <>
-      <div ref={headerStackRef} className="fixed inset-x-0 top-0 z-1000">
+      <div className="fixed inset-x-0 top-0 z-1000">
         {/* Utility bar — collapses away once the user scrolls, on every
             page, so the fixed header doesn't keep eating vertical space
             while reading content further down the page. */}
