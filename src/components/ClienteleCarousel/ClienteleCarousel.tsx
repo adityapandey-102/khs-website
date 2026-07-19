@@ -34,7 +34,7 @@ export default function ClienteleCarousel() {
           <button
             onClick={prev}
             aria-label="Previous testimonial"
-            className="hidden shrink-0 rounded-full border border-white/20 p-2.5 transition-colors hover:border-gold hover:text-gold sm:block"
+            className="hidden shrink-0 rounded-full border border-white/20 p-2.5 transition-colors hover:border-blue hover:text-blue sm:block"
           >
             <ChevronLeft size={20} strokeWidth={1.5} />
           </button>
@@ -60,7 +60,7 @@ export default function ClienteleCarousel() {
           <button
             onClick={next}
             aria-label="Next testimonial"
-            className="hidden shrink-0 rounded-full border border-white/20 p-2.5 transition-colors hover:border-gold hover:text-gold sm:block"
+            className="hidden shrink-0 rounded-full border border-white/20 p-2.5 transition-colors hover:border-blue hover:text-blue sm:block"
           >
             <ChevronRight size={20} strokeWidth={1.5} />
           </button>
@@ -73,7 +73,7 @@ export default function ClienteleCarousel() {
               onClick={() => setCurrent(index)}
               aria-label={`Go to testimonial ${index + 1}`}
               className={`h-1.5 rounded-full transition-all duration-300 ${
-                index === current ? "w-8 bg-gold" : "w-1.5 bg-white/30 hover:bg-white/60"
+                index === current ? "w-8 bg-blue" : "w-1.5 bg-white/30 hover:bg-white/60"
               }`}
             />
           ))}

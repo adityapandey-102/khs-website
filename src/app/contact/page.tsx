@@ -7,7 +7,7 @@ import PageHero from "@/components/PageHero/PageHero";
 import { brandLogos } from "@/data/migratedContent";
 
 const inputClass =
-  "w-full border border-border bg-surface px-4 py-3 text-sm text-primary-dark placeholder:text-gray-400 focus:border-gold focus:outline-none";
+  "w-full border border-border bg-surface px-4 py-3 text-sm text-primary-dark placeholder:text-gray-400 focus:border-blue focus:outline-none";
 const labelClass = "mb-1.5 block text-xs font-medium uppercase tracking-[0.1em] text-gray-400";
 
 const NAV_ITEMS = [
@@ -84,7 +84,7 @@ export default function ContactPage() {
               <a
                 key={item.href}
                 href={item.href}
-                className="px-4 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-primary-dark transition-colors hover:bg-offwhite hover:text-gold"
+                className="px-4 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-primary-dark transition-colors hover:bg-offwhite hover:text-blue"
               >
                 {item.label}
               </a>
@@ -121,13 +121,13 @@ export default function ContactPage() {
               <div className="space-y-3">
                 <a
                   href="tel:6362068331"
-                  className="flex items-center justify-between border border-white/20 px-5 py-3 text-sm transition-colors hover:border-gold hover:text-gold"
+                  className="flex items-center justify-between border border-white/20 px-5 py-3 text-sm transition-colors hover:border-blue hover:text-blue"
                 >
                   Bathware: +91 63620 68331 <ArrowRight size={14} />
                 </a>
                 <a
                   href="tel:7892507179"
-                  className="flex items-center justify-between border border-white/20 px-5 py-3 text-sm transition-colors hover:border-gold hover:text-gold"
+                  className="flex items-center justify-between border border-white/20 px-5 py-3 text-sm transition-colors hover:border-blue hover:text-blue"
                 >
                   Hardware: +91 78925 07179 <ArrowRight size={14} />
                 </a>
@@ -147,7 +147,7 @@ export default function ContactPage() {
                   href="https://wa.me/916362068331?text=Hi%20Krishna%20Home%20Studio%2C%20I%20am%20interested%20in%20your%20bathware%20collection."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between bg-gold px-5 py-3 text-sm font-medium text-primary-dark transition-colors hover:bg-gold-hover"
+                  className="flex items-center justify-between bg-blue px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-hover"
                 >
                   Chat: Bathware Team <ArrowRight size={14} />
                 </a>
@@ -155,7 +155,7 @@ export default function ContactPage() {
                   href="https://wa.me/917892507179?text=Hi%20Krishna%20Home%20Studio%2C%20I%20am%20interested%20in%20your%20hardware%20collection."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between border border-white/20 px-5 py-3 text-sm transition-colors hover:border-gold hover:text-gold"
+                  className="flex items-center justify-between border border-white/20 px-5 py-3 text-sm transition-colors hover:border-blue hover:text-blue"
                 >
                   Chat: Hardware Team <ArrowRight size={14} />
                 </a>
@@ -234,7 +234,7 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={formStatus === "submitting"}
-                  className="inline-flex items-center gap-3 bg-primary-dark px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-gold hover:text-primary-dark disabled:opacity-60"
+                  className="inline-flex items-center gap-3 bg-primary-dark px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-blue disabled:opacity-60"
                 >
                   {formStatus === "submitting" ? "Sending..." : "Send Message"} <Send size={14} />
                 </button>
@@ -245,13 +245,13 @@ export default function ContactPage() {
           <div className="border border-border bg-offwhite p-8">
             <h3 className="mb-5 text-lg font-medium text-primary-dark">Prefer to Reach Us Directly?</h3>
             <div className="space-y-4 text-sm text-gray-700">
-              <a href="tel:6362068331" className="flex items-center gap-3 hover:text-gold">
+              <a href="tel:6362068331" className="flex items-center gap-3 hover:text-blue">
                 <Phone size={17} className="shrink-0 text-gold" /> +91 63620 68331 (Bathware)
               </a>
-              <a href="tel:7892507179" className="flex items-center gap-3 hover:text-gold">
+              <a href="tel:7892507179" className="flex items-center gap-3 hover:text-blue">
                 <Phone size={17} className="shrink-0 text-gold" /> +91 78925 07179 (Hardware)
               </a>
-              <a href="mailto:support@krishnahomestudio.com" className="flex items-center gap-3 hover:text-gold">
+              <a href="mailto:support@krishnahomestudio.com" className="flex items-center gap-3 hover:text-blue">
                 <Mail size={17} className="shrink-0 text-gold" /> support@krishnahomestudio.com
               </a>
               <div className="flex items-center gap-3">
@@ -305,10 +305,10 @@ export default function ContactPage() {
                       <MapPin size={16} className="mt-0.5 shrink-0 text-gold" />
                       <span>{store.address}</span>
                     </div>
-                    <a href={store.phoneHref} className="flex items-center gap-3 hover:text-gold">
+                    <a href={store.phoneHref} className="flex items-center gap-3 hover:text-blue">
                       <Phone size={16} className="shrink-0 text-gold" /> {store.phoneDisplay}
                     </a>
-                    <a href={`mailto:${store.email}`} className="flex items-center gap-3 hover:text-gold">
+                    <a href={`mailto:${store.email}`} className="flex items-center gap-3 hover:text-blue">
                       <Mail size={16} className="shrink-0 text-gold" /> {store.email}
                     </a>
                     {store.hours && (

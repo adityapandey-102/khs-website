@@ -2,12 +2,14 @@
 
 /* ============================================================
    DESIGN TOKENS — Krishna Home Studio
-   White + navy + warm gold accent system — no black backgrounds.
-   `gold` was previously a mid-blue (#3256c6), which is why it read as
-   near-invisible against the dark navy hero overlay and header tagline —
-   dark blue on dark navy has almost no contrast. A real warm gold both
-   fixes that contrast problem and reads as the classic premium/luxury
-   accent color, which is what the token was always named for.
+   White + navy, with two deliberate accents — no black backgrounds.
+   `gold` is the quiet, decorative accent: eyebrow labels, dividers,
+   small numerals, ratings — things that whisper rather than act.
+   `blue` (#3256c6, matched to thw.co.in — our original color-scheme
+   reference) is the functional accent: buttons, links, hovers, active
+   states — anything the user interacts with. Keeping these two roles
+   distinct is what makes the accenting read as intentional rather than
+   decorative gold sprinkled everywhere.
    ============================================================ */
 @theme {
   --color-primary-dark: #13172b;
@@ -18,6 +20,8 @@
   --color-offwhite: #f4f4f4;
   --color-gold: #c9a961;
   --color-gold-hover: #ddbd7c;
+  --color-blue: #3256c6;
+  --color-blue-hover: #4a6fd4;
   --color-gray-100: #f2f2f2;
   --color-gray-400: #9a9a9a;
   --color-gray-700: #6a7285;
@@ -126,6 +130,6 @@
 }
 
 ::selection {
-  background: var(--color-gold);
+  background: var(--color-blue);
   color: var(--color-white);
 }

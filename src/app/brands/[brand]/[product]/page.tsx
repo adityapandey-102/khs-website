@@ -89,21 +89,21 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-gold px-7 py-3.5 text-center text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-primary-dark transition-colors hover:bg-gold-hover"
+                className="bg-blue px-7 py-3.5 text-center text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-blue-hover"
                 id="btn-product-whatsapp"
               >
                 Inquire on WhatsApp
               </a>
               <Link
                 href="/contact"
-                className="border border-border px-7 py-3.5 text-center text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-primary-dark transition-colors hover:border-gold hover:text-gold"
+                className="border border-border px-7 py-3.5 text-center text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-primary-dark transition-colors hover:border-blue hover:text-blue"
                 id="btn-product-contact"
               >
                 Contact Store
               </Link>
             </div>
 
-            <Link href={`/brands/${brand.slug}`} className="mt-6 inline-block text-xs text-gray-400 hover:text-gold">
+            <Link href={`/brands/${brand.slug}`} className="mt-6 inline-block text-xs text-gray-400 hover:text-blue">
               ← Back to {brand.brand} collection
             </Link>
           </div>

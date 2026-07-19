@@ -313,7 +313,7 @@ export default function Hero() {
             onClick={() => goToSlide(index)}
             aria-label={`Go to slide ${index + 1}`}
             className={`h-1.5 rounded-full transition-all duration-300 ${
-              index === currentIndex ? "w-8 bg-gold" : "w-1.5 bg-white/50 hover:bg-white/80"
+              index === currentIndex ? "w-8 bg-blue" : "w-1.5 bg-white/50 hover:bg-white/80"
             }`}
           />
         ))}

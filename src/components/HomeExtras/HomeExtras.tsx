@@ -90,7 +90,7 @@ export function ClientelePreview() {
               Trusted by Homeowners, Designers and Project Teams
             </h2>
           </div>
-          <Link href="/clientele" className="inline-flex items-center gap-2 text-sm font-medium text-primary-dark hover:text-gold">
+          <Link href="/clientele" className="inline-flex items-center gap-2 text-sm font-medium text-primary-dark hover:text-blue">
             View Clientele <ArrowRight size={14} />
           </Link>
         </div>

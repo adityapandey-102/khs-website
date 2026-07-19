@@ -80,10 +80,10 @@ export default function Header() {
         >
           <div className="container flex h-9 items-center justify-between text-[0.72rem] tracking-wide">
             <div className="flex items-center gap-5">
-              <a href="tel:6362068331" className="flex items-center gap-1.5 transition-colors hover:text-gold">
+              <a href="tel:6362068331" className="flex items-center gap-1.5 transition-colors hover:text-blue">
                 <Phone size={11} /> Bathware: +91 63620 68331
               </a>
-              <a href="tel:7892507179" className="hidden items-center gap-1.5 transition-colors hover:text-gold lg:flex">
+              <a href="tel:7892507179" className="hidden items-center gap-1.5 transition-colors hover:text-blue lg:flex">
                 <Phone size={11} /> Hardware: +91 78925 07179
               </a>
             </div>
@@ -92,11 +92,11 @@ export default function Header() {
                 href="https://wa.me/916362068331"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 transition-colors hover:text-gold"
+                className="flex items-center gap-1.5 transition-colors hover:text-blue"
               >
                 <WhatsAppIcon /> WhatsApp Us
               </a>
-              <Link href="/contact" className="transition-colors hover:text-gold">
+              <Link href="/contact" className="transition-colors hover:text-blue">
                 Store Locator
               </Link>
               <a
@@ -104,7 +104,7 @@ export default function Header() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="transition-colors hover:text-gold"
+                className="transition-colors hover:text-blue"
               >
                 <Instagram />
               </a>
@@ -147,7 +147,7 @@ export default function Header() {
                     href={item.href}
                     className={`flex items-center gap-1 px-4 text-[0.78rem] font-medium uppercase tracking-[0.08em] transition-[color,height] duration-300 ${
                       compact ? "h-16" : "h-19"
-                    } ${pathname === item.href ? "text-gold" : solid ? "text-black hover:text-gold" : "text-white hover:text-gold"}`}
+                    } ${pathname === item.href ? "text-blue" : solid ? "text-black hover:text-blue" : "text-white hover:text-blue"}`}
                   >
                     {item.label}
                     {item.children && (
@@ -193,7 +193,7 @@ export default function Header() {
                             <Link
                               key={child.href}
                               href={child.href}
-                              className="border-l-2 border-transparent px-3 py-2 text-[0.82rem] text-white/70 transition-colors hover:border-gold hover:bg-white/5 hover:text-gold"
+                              className="border-l-2 border-transparent px-3 py-2 text-[0.82rem] text-white/70 transition-colors hover:border-blue hover:bg-white/5 hover:text-blue"
                             >
                               {child.label}
                             </Link>
@@ -297,7 +297,7 @@ export default function Header() {
                               <Link
                                 key={child.href}
                                 href={child.href}
-                                className="block px-9 py-2.5 text-[0.82rem] text-white/60 transition-colors hover:text-gold"
+                                className="block px-9 py-2.5 text-[0.82rem] text-white/60 transition-colors hover:text-blue"
                                 onClick={() => setMobileOpen(false)}
                               >
                                 {child.label}
@@ -310,7 +310,7 @@ export default function Header() {
                   ) : (
                     <Link
                       href={item.href}
-                      className="block px-6 py-4 text-sm font-medium uppercase tracking-[0.08em] text-white/90 hover:text-gold"
+                      className="block px-6 py-4 text-sm font-medium uppercase tracking-[0.08em] text-white/90 hover:text-blue"
                       onClick={() => setMobileOpen(false)}
                     >
                       {item.label}

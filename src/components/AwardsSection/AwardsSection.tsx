@@ -18,11 +18,10 @@ const easeOut = [0.16, 1, 0.3, 1] as const;
 export default function AwardsSection() {
   return (
     <section className="relative overflow-hidden bg-offwhite py-12 sm:py-14 lg:py-16" id="awards">
-      {/* Depth, not decoration — a barely-visible glow rather than a
-          coloured accent, so the light section stays free of the gold
-          that's reserved for genuinely dark backgrounds elsewhere. */}
+      {/* Barely-visible warm glow, echoing the section's gold accent
+          without ever reading as a solid block of colour. */}
       <div
-        className="pointer-events-none absolute -top-32 right-0 h-100 w-100 rounded-full bg-primary-dark/5 blur-[110px]"
+        className="pointer-events-none absolute -top-32 right-0 h-100 w-100 rounded-full bg-gold/8 blur-[110px]"
         aria-hidden="true"
       />
 
@@ -34,8 +33,8 @@ export default function AwardsSection() {
           transition={{ duration: 0.5, ease: easeOut }}
           className="mb-8 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2 sm:mb-10"
         >
-          <span className="flex items-center gap-3 text-[0.68rem] font-medium uppercase tracking-[0.34em] text-primary-dark/50">
-            <span className="h-px w-8 bg-primary-dark/25" aria-hidden="true" />
+          <span className="flex items-center gap-3 text-[0.68rem] font-medium uppercase tracking-[0.34em] text-gold">
+            <span className="h-px w-8 bg-gold/60" aria-hidden="true" />
             Why Choose Us
           </span>
           <h2 className="text-2xl font-light tracking-[-0.01em] text-primary-dark sm:text-3xl">
@@ -54,15 +53,15 @@ export default function AwardsSection() {
               className="group relative border-t border-primary-dark/10 py-6"
               id={`award-${award.id}`}
             >
-              {/* base rule is always visible; this one draws in on hover */}
+              {/* base rule is always visible; this one draws in gold on hover */}
               <span
-                className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-primary-dark/45 transition-transform duration-500 ease-out group-hover:scale-x-100"
+                className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-gold transition-transform duration-500 ease-out group-hover:scale-x-100"
                 aria-hidden="true"
               />
 
               <div className="mb-3 flex items-center gap-3">
                 <span
-                  className="text-primary-dark transition-transform duration-500 ease-out group-hover:-translate-y-0.5"
+                  className="text-gold transition-transform duration-500 ease-out group-hover:-translate-y-0.5"
                   aria-hidden="true"
                 >
                   {iconMap[award.icon]}

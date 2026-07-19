@@ -142,14 +142,14 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-gold px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-primary-dark transition-colors hover:bg-gold-hover"
+              className="bg-blue px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-blue-hover"
               id="btn-cat-whatsapp"
             >
               Inquire on WhatsApp
             </a>
             <Link
               href="/contact"
-              className="border border-white/40 px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:border-gold hover:text-gold"
+              className="border border-white/40 px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:border-blue hover:text-blue"
               id="btn-cat-contact"
             >
               Contact Store

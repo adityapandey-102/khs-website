@@ -33,7 +33,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               aria-label="Instagram"
               id="footer-social-instagram"
-              className="flex h-9 w-9 items-center justify-center border border-white/15 text-white/70 transition-colors hover:border-gold hover:text-gold"
+              className="flex h-9 w-9 items-center justify-center border border-white/15 text-white/70 transition-colors hover:border-blue hover:text-blue"
             >
               <Instagram size={16} />
             </a>
@@ -43,7 +43,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               aria-label="Facebook"
               id="footer-social-facebook"
-              className="flex h-9 w-9 items-center justify-center border border-white/15 text-white/70 transition-colors hover:border-gold hover:text-gold"
+              className="flex h-9 w-9 items-center justify-center border border-white/15 text-white/70 transition-colors hover:border-blue hover:text-blue"
             >
               <Facebook size={16} />
             </a>
@@ -53,26 +53,26 @@ export default function Footer() {
         <div>
           <h3 className="mb-5 text-sm font-semibold uppercase tracking-[0.15em] text-white">Quick Links</h3>
           <div className="flex flex-col gap-3 text-sm text-white/55">
-            <Link href="/" id="footer-link-home" className="hover:text-gold">Home</Link>
-            <Link href="/about" id="footer-link-about" className="hover:text-gold">About Us</Link>
-            <Link href="/bathware" id="footer-link-bathware" className="hover:text-gold">Bathware Collection</Link>
-            <Link href="/hardware" id="footer-link-hardware" className="hover:text-gold">Hardware Collection</Link>
-            <Link href="/clientele" id="footer-link-clientele" className="hover:text-gold">Clientele</Link>
-            <Link href="/media" id="footer-link-media" className="hover:text-gold">Media Coverage</Link>
-            <Link href="/contact" id="footer-link-contact" className="hover:text-gold">Contact Us</Link>
+            <Link href="/" id="footer-link-home" className="hover:text-blue">Home</Link>
+            <Link href="/about" id="footer-link-about" className="hover:text-blue">About Us</Link>
+            <Link href="/bathware" id="footer-link-bathware" className="hover:text-blue">Bathware Collection</Link>
+            <Link href="/hardware" id="footer-link-hardware" className="hover:text-blue">Hardware Collection</Link>
+            <Link href="/clientele" id="footer-link-clientele" className="hover:text-blue">Clientele</Link>
+            <Link href="/media" id="footer-link-media" className="hover:text-blue">Media Coverage</Link>
+            <Link href="/contact" id="footer-link-contact" className="hover:text-blue">Contact Us</Link>
           </div>
         </div>
 
         <div>
           <h3 className="mb-5 text-sm font-semibold uppercase tracking-[0.15em] text-white">Bathware</h3>
           <div className="flex flex-col gap-3 text-sm text-white/55">
-            <Link href="/bathware/shower-faucets" id="footer-cat-shower" className="hover:text-gold">Shower &amp; Faucets</Link>
-            <Link href="/bathware/countertop-basin" id="footer-cat-countertop" className="hover:text-gold">Countertop Basin</Link>
-            <Link href="/bathware/standalone-basin" id="footer-cat-standalone" className="hover:text-gold">Standalone Basin</Link>
-            <Link href="/bathware/vanity-mirrors" id="footer-cat-vanity" className="hover:text-gold">Vanities &amp; Mirrors</Link>
-            <Link href="/bathware/spa-wellness" id="footer-cat-spa" className="hover:text-gold">Spa &amp; Wellness</Link>
-            <Link href="/hardware" id="footer-cat-hardware" className="hover:text-gold">Architectural Hardware</Link>
-            <Link href="/safe-essentials" id="footer-cat-safe" className="hover:text-gold">Safe Essentials</Link>
+            <Link href="/bathware/shower-faucets" id="footer-cat-shower" className="hover:text-blue">Shower &amp; Faucets</Link>
+            <Link href="/bathware/countertop-basin" id="footer-cat-countertop" className="hover:text-blue">Countertop Basin</Link>
+            <Link href="/bathware/standalone-basin" id="footer-cat-standalone" className="hover:text-blue">Standalone Basin</Link>
+            <Link href="/bathware/vanity-mirrors" id="footer-cat-vanity" className="hover:text-blue">Vanities &amp; Mirrors</Link>
+            <Link href="/bathware/spa-wellness" id="footer-cat-spa" className="hover:text-blue">Spa &amp; Wellness</Link>
+            <Link href="/hardware" id="footer-cat-hardware" className="hover:text-blue">Architectural Hardware</Link>
+            <Link href="/safe-essentials" id="footer-cat-safe" className="hover:text-blue">Safe Essentials</Link>
           </div>
         </div>
 
@@ -87,7 +87,7 @@ export default function Footer() {
               </div>
               <div className="mt-1.5 flex items-center gap-2">
                 <Phone size={14} className="shrink-0 text-gold" />
-                <a href="tel:6362068331" id="footer-phone-bathware" className="hover:text-gold">+91 63620 68331</a>
+                <a href="tel:6362068331" id="footer-phone-bathware" className="hover:text-blue">+91 63620 68331</a>
               </div>
             </div>
 
@@ -99,7 +99,7 @@ export default function Footer() {
               </div>
               <div className="mt-1.5 flex items-center gap-2">
                 <Phone size={14} className="shrink-0 text-gold" />
-                <a href="tel:7892507179" id="footer-phone-hardware" className="hover:text-gold">+91 78925 07179</a>
+                <a href="tel:7892507179" id="footer-phone-hardware" className="hover:text-blue">+91 78925 07179</a>
               </div>
             </div>
 
@@ -111,13 +111,13 @@ export default function Footer() {
               </div>
               <div className="mt-1.5 flex items-center gap-2">
                 <Phone size={14} className="shrink-0 text-gold" />
-                <a href="tel:8147393477" className="hover:text-gold">+91 81473 93477</a>
+                <a href="tel:8147393477" className="hover:text-blue">+91 81473 93477</a>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
               <Mail size={14} className="shrink-0 text-gold" />
-              <a href="mailto:support@krishnahomestudio.com" id="footer-email" className="hover:text-gold">
+              <a href="mailto:support@krishnahomestudio.com" id="footer-email" className="hover:text-blue">
                 support@krishnahomestudio.com
               </a>
             </div>
@@ -129,8 +129,8 @@ export default function Footer() {
         <div className="container flex flex-col items-center justify-between gap-3 py-6 text-xs text-white/40 sm:flex-row">
           <p>© 2026 Krishna Home Studio. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link href="/privacy" id="footer-privacy" className="hover:text-gold">Privacy Policy</Link>
-            <Link href="/terms" id="footer-terms" className="hover:text-gold">Terms of Service</Link>
+            <Link href="/privacy" id="footer-privacy" className="hover:text-blue">Privacy Policy</Link>
+            <Link href="/terms" id="footer-terms" className="hover:text-blue">Terms of Service</Link>
           </div>
         </div>
       </div>

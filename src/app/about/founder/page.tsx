@@ -38,8 +38,8 @@ export default function FounderPage() {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "About", href: "/about" }, { label: "Founder" }]} />
       <PageHero label="Leadership" title="Prakash Choudhary" image="/assets/khs/about/founder/IMG_20240513_135506-e1721041513878.jpg" />
 
-      <section className="py-16 sm:py-24">
-        <div className="container grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,320px)_1fr] lg:gap-20">
+      <section className="py-14 sm:py-18">
+        <div className="container grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,320px)_1fr] lg:gap-16">
           <div>
             <div className="relative aspect-4/5 overflow-hidden">
               <Image
@@ -57,18 +57,19 @@ export default function FounderPage() {
           </div>
 
           <div>
-            <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
+            <span className="mb-3 flex items-center gap-3 text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
+              <span className="h-px w-8 bg-gold/60" aria-hidden="true" />
               CEO &amp; Co-Founder
             </span>
-            <h2 className="mb-6 text-3xl font-light leading-tight text-primary-dark sm:text-4xl">
+            <h2 className="mb-5 text-2xl font-light leading-tight text-primary-dark sm:text-3xl lg:text-[2.15rem]">
               A Serial Entrepreneur, Building Krishna Home Studio
             </h2>
 
-            <blockquote className="mb-8 border-l-2 border-gold pl-6 text-lg font-light italic leading-relaxed text-primary-dark">
+            <blockquote className="mb-6 border-l-2 border-gold pl-6 text-base font-light italic leading-relaxed text-primary-dark sm:text-lg">
               &ldquo;Practice multiple times before execution — let it be sports, studies, or the business.&rdquo;
             </blockquote>
 
-            <div className="space-y-5 text-[0.95rem] leading-[1.85] text-gray-700">
+            <div className="space-y-4 text-[0.9rem] leading-[1.8] text-gray-700">
               {founder.slice(1, 4).map((paragraph, index) => (
                 <p key={index}>{paragraph}</p>
               ))}
@@ -76,7 +77,7 @@ export default function FounderPage() {
 
             <Link
               href="/about"
-              className="mt-8 inline-flex items-center gap-3 border border-primary-dark px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-dark transition-colors hover:bg-primary-dark hover:text-white"
+              className="mt-7 inline-flex items-center gap-3 border border-primary-dark px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-dark transition-colors hover:bg-primary-dark hover:text-white"
               id="btn-back-about"
             >
               About Krishna Home Studio
@@ -88,9 +89,9 @@ export default function FounderPage() {
       <JourneyTimeline items={timeline} />
 
       {founder[37] && (
-        <section className="bg-offwhite pb-20 sm:pb-28">
+        <section className="bg-offwhite pb-14 sm:pb-18">
           <div className="container">
-            <p className="mx-auto max-w-2xl text-center text-[0.95rem] italic leading-[1.85] text-gray-700">
+            <p className="mx-auto max-w-2xl text-center text-[0.9rem] italic leading-[1.8] text-gray-700">
               {founder[37]}
             </p>
           </div>

@@ -109,7 +109,7 @@ export default function BrandPromoPopup() {
         <Link
           href="/contact"
           onClick={() => setOpen(false)}
-          className="mt-4 block bg-gold py-2.5 text-center text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-gold-hover lg:py-3 lg:text-[0.72rem]"
+          className="mt-4 block bg-blue py-2.5 text-center text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-blue-hover lg:py-3 lg:text-[0.72rem]"
         >
           Get in Touch
         </Link>

@@ -28,11 +28,11 @@ export default function ContactSection() {
               </div>
               <div className="flex items-center gap-3">
                 <Phone size={17} className="shrink-0 text-gold" />
-                <a href="tel:6362068331" id="contact-phone-bathware" className="hover:text-gold">+91 63620 68331</a>
+                <a href="tel:6362068331" id="contact-phone-bathware" className="hover:text-blue">+91 63620 68331</a>
               </div>
               <div className="flex items-center gap-3">
                 <Mail size={17} className="shrink-0 text-gold" />
-                <a href="mailto:support@krishnahomestudio.com" id="contact-email-bathware" className="hover:text-gold">
+                <a href="mailto:support@krishnahomestudio.com" id="contact-email-bathware" className="hover:text-blue">
                   support@krishnahomestudio.com
                 </a>
               </div>
@@ -41,7 +41,7 @@ export default function ContactSection() {
               href={bathwareMapUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 border border-white/30 py-3 text-[0.72rem] font-semibold uppercase tracking-[0.15em] transition-colors hover:border-gold hover:text-gold"
+              className="flex items-center justify-center gap-2 border border-white/30 py-3 text-[0.72rem] font-semibold uppercase tracking-[0.15em] transition-colors hover:border-blue hover:text-blue"
               id="btn-directions-bathware"
             >
               Get Directions <ExternalLink size={14} />
@@ -60,11 +60,11 @@ export default function ContactSection() {
               </div>
               <div className="flex items-center gap-3">
                 <Phone size={17} className="shrink-0 text-gold" />
-                <a href="tel:7892507179" id="contact-phone-hardware" className="hover:text-gold">+91 78925 07179</a>
+                <a href="tel:7892507179" id="contact-phone-hardware" className="hover:text-blue">+91 78925 07179</a>
               </div>
               <div className="flex items-center gap-3">
                 <Mail size={17} className="shrink-0 text-gold" />
-                <a href="mailto:Hardware@krishnahomestudio.com" id="contact-email-hardware" className="hover:text-gold">
+                <a href="mailto:Hardware@krishnahomestudio.com" id="contact-email-hardware" className="hover:text-blue">
                   Hardware@krishnahomestudio.com
                 </a>
               </div>
@@ -73,7 +73,7 @@ export default function ContactSection() {
               href={hardwareMapUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 border border-white/30 py-3 text-[0.72rem] font-semibold uppercase tracking-[0.15em] transition-colors hover:border-gold hover:text-gold"
+              className="flex items-center justify-center gap-2 border border-white/30 py-3 text-[0.72rem] font-semibold uppercase tracking-[0.15em] transition-colors hover:border-blue hover:text-blue"
               id="btn-directions-hardware"
             >
               Get Directions <ExternalLink size={14} />
@@ -89,7 +89,7 @@ export default function ContactSection() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-3 bg-gold px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-dark transition-colors hover:bg-gold-hover"
+            className="inline-flex items-center gap-3 bg-blue px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-blue-hover"
             id="btn-cta-contact"
           >
             Get In Touch

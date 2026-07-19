@@ -52,7 +52,7 @@ export default async function BrandPage({ params }: BrandPageProps) {
             </p>
             <Link
               href={brand.categoryHref}
-              className="inline-flex items-center gap-2 text-sm font-medium text-primary-dark hover:text-gold"
+              className="inline-flex items-center gap-2 text-sm font-medium text-primary-dark hover:text-blue"
             >
               View Full {brand.category} Collection <ArrowRight size={14} />
             </Link>
@@ -101,14 +101,14 @@ export default async function BrandPage({ params }: BrandPageProps) {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-gold px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-primary-dark transition-colors hover:bg-gold-hover"
+              className="bg-blue px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-blue-hover"
               id="btn-brand-whatsapp"
             >
               Inquire on WhatsApp
             </a>
             <Link
               href="/contact"
-              className="border border-white/40 px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:border-gold hover:text-gold"
+              className="border border-white/40 px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:border-blue hover:text-blue"
               id="btn-brand-contact"
             >
               Contact Store

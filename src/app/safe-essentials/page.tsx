@@ -50,7 +50,7 @@ export default function SafeEssentialsPage() {
               </Link>
               <Link
                 href="/hardware"
-                className="px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-dark underline decoration-gold underline-offset-4 hover:text-gold"
+                className="px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-dark underline decoration-gold underline-offset-4 hover:text-blue"
               >
                 Back to Hardware
               </Link>

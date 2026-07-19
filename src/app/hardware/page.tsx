@@ -26,7 +26,7 @@ export default function HardwarePage() {
         title="Architectural Hardware"
         image="/assets/khs/hardware/Krishna-Home-Studio-Hardware-2.png"
       />
-
+{/* 
       <section className="py-16 sm:py-24">
         <div className="container">
           <div className="mx-auto max-w-3xl text-center">
@@ -39,9 +39,9 @@ export default function HardwarePage() {
             {intro && <p className="text-[0.95rem] leading-[1.85] text-gray-700">{intro}</p>}
           </div>
         </div>
-      </section>
+      </section> */}
 
-      <section className="bg-primary-dark py-16 text-white sm:py-20">
+      <section className="bg-primary-dark-- bg-offwhite py-16 text-white sm:py-20">
         <div className="container grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {hardwareCategories.map((cat) => (
             <Link
@@ -87,7 +87,7 @@ export default function HardwarePage() {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-gold px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-primary-dark transition-colors hover:bg-gold-hover"
+              className="bg-gold px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-blue-hover"
               id="btn-hardware-consult"
             >
               Consult with Hardware Expert

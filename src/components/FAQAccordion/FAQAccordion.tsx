@@ -27,7 +27,7 @@ export default function FAQAccordion({ items }: { items: FAQItem[] }) {
               <motion.span
                 animate={{ rotate: isOpen ? 45 : 0 }}
                 transition={{ duration: 0.25 }}
-                className="flex h-7 w-7 shrink-0 items-center justify-center border border-gold text-gold"
+                className="flex h-7 w-7 shrink-0 items-center justify-center border border-blue text-blue"
               >
                 <Plus size={15} />
               </motion.span>
