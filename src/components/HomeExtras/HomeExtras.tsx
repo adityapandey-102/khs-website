@@ -108,19 +108,22 @@ export function ClientelePreview() {
 
 export function AwardsVideo() {
   return (
-    <section className="bg-primary-dark py-20 text-white sm:py-28">
-      <div className="container grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
+    <section className="bg-primary-dark py-14 text-white sm:py-20">
+      <div className="container grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-16">
         <div>
-          <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
+          <span className="mb-3 flex items-center gap-3 text-[0.7rem] font-medium uppercase tracking-[0.3em] text-gold">
+            <span className="h-px w-8 bg-gold/60" aria-hidden="true" />
             Awards &amp; Success
           </span>
-          <h2 className="text-3xl font-light sm:text-4xl">India Design Awards Recognition</h2>
-          <p className="mt-6 max-w-md text-[0.95rem] leading-[1.8] text-white/70">
+          <h2 className="text-2xl font-light tracking-[-0.01em] sm:text-3xl lg:text-4xl">
+            India Design Awards Recognition
+          </h2>
+          <p className="mt-4 max-w-md text-sm leading-relaxed text-white/60 sm:text-[0.95rem]">
             Krishna Home Studio was featured among the India Design Awards 2023 awardees, recognizing its premium
             interior solution experience and bathware expertise.
           </p>
         </div>
-        <div className="relative aspect-video overflow-hidden">
+        <div className="relative aspect-video overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.35)]">
           <ClickToPlayVideo
             src="/assets/khs/unassociated/KHS-Video.mp4"
             poster="/assets/khs/hardware/Krishna-Home-Studio-Hardware-2.png"

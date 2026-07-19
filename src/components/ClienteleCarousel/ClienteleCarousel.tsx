@@ -19,13 +19,15 @@ export default function ClienteleCarousel() {
   const testimonial = testimonials[current];
 
   return (
-    <section className="bg-primary-dark py-20 text-white sm:py-28">
+    <section className="bg-primary-dark py-14 text-white sm:py-20">
       <div className="container">
-        <div className="mb-12 text-center">
-          <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
+        <div className="mb-8 text-center sm:mb-10">
+          <span className="mb-3 flex items-center justify-center gap-3 text-[0.7rem] font-medium uppercase tracking-[0.3em] text-gold">
+            <span className="h-px w-8 bg-gold/60" aria-hidden="true" />
             Social Proof
+            <span className="h-px w-8 bg-gold/60" aria-hidden="true" />
           </span>
-          <h2 className="text-3xl font-light sm:text-4xl">Trusted by Visionaries</h2>
+          <h2 className="text-2xl font-light tracking-[-0.01em] sm:text-3xl lg:text-4xl">Trusted by Visionaries</h2>
         </div>
 
         <div className="relative mx-auto flex max-w-2xl items-center gap-4 sm:gap-8">
@@ -37,7 +39,7 @@ export default function ClienteleCarousel() {
             <ChevronLeft size={20} strokeWidth={1.5} />
           </button>
 
-          <div className="min-h-55 flex-1 text-center">
+          <div className="min-h-40 flex-1 text-center sm:min-h-36">
             <AnimatePresence mode="wait">
               <motion.div
                 key={testimonial.name}
@@ -46,9 +48,9 @@ export default function ClienteleCarousel() {
                 exit={{ opacity: 0, y: -12 }}
                 transition={{ duration: 0.4 }}
               >
-                <Quote size={36} className="mx-auto mb-5 text-gold/50" />
-                <p className="text-lg font-light leading-relaxed text-white/90 sm:text-xl">&ldquo;{testimonial.text}&rdquo;</p>
-                <span className="mt-6 block text-sm font-medium uppercase tracking-widest text-gold">
+                <Quote size={28} className="mx-auto mb-4 text-gold/50" />
+                <p className="text-base font-light leading-relaxed text-white/90 sm:text-lg">&ldquo;{testimonial.text}&rdquo;</p>
+                <span className="mt-4 block text-sm font-medium uppercase tracking-widest text-gold">
                   {testimonial.name}
                 </span>
               </motion.div>
@@ -64,7 +66,7 @@ export default function ClienteleCarousel() {
           </button>
         </div>
 
-        <div className="mt-10 flex justify-center gap-2.5">
+        <div className="mt-6 flex justify-center gap-2.5 sm:mt-8">
           {testimonials.map((t, index) => (
             <button
               key={t.name}
