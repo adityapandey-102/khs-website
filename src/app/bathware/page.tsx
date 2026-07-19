@@ -19,7 +19,12 @@ export default function BathwareHubPage() {
         title="Bathware Studio"
         image="/assets/khs/about/Untitled-design-17.png"
       />
-      <CategoryGrid title="Explore Our Bathware Collections" label="Full Catalogue" showAll />
+      <CategoryGrid
+        title="Explore Our Bathware Collections"
+        label="Full Catalogue"
+        description="Eleven curated categories spanning showers, sanitaryware, vanities and wellness — every piece selected for lasting craft."
+        showAll
+      />
       <div className="pb-20">
         <div className="container">
           <CertificationStrip />

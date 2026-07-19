@@ -2,7 +2,12 @@
 
 /* ============================================================
    DESIGN TOKENS — Krishna Home Studio
-   White + navy + blue accent system (reference: thw.co.in) — no black backgrounds.
+   White + navy + warm gold accent system — no black backgrounds.
+   `gold` was previously a mid-blue (#3256c6), which is why it read as
+   near-invisible against the dark navy hero overlay and header tagline —
+   dark blue on dark navy has almost no contrast. A real warm gold both
+   fixes that contrast problem and reads as the classic premium/luxury
+   accent color, which is what the token was always named for.
    ============================================================ */
 @theme {
   --color-primary-dark: #13172b;
@@ -11,8 +16,8 @@
   --color-charcoal: #ffffff;
   --color-surface: #f4f4f4;
   --color-offwhite: #f4f4f4;
-  --color-gold: #3256c6;
-  --color-gold-hover: #4a6fd4;
+  --color-gold: #c9a961;
+  --color-gold-hover: #ddbd7c;
   --color-gray-100: #f2f2f2;
   --color-gray-400: #9a9a9a;
   --color-gray-700: #6a7285;
@@ -31,6 +36,19 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Fallback for the header's real, JS-measured height (Header.tsx keeps
+       this live via ResizeObserver). Anything using `top-(--header-height)`
+       — e.g. a sticky sub-nav — needs a valid value from first paint,
+       before hydration runs; without it `top: var(--header-height)` is
+       invalid and resolves to `auto`, which breaks position: sticky. These
+       defaults mirror the header's own unscrolled height per breakpoint. */
+    --header-height: 4.75rem;
+  }
+
+  @media (min-width: 640px) {
+    html {
+      --header-height: 7rem;
+    }
   }
 
   body {
@@ -84,6 +102,15 @@
   max-width: var(--container-max);
   margin-inline: auto;
   padding-inline: clamp(1.25rem, 5vw, 5rem);
+}
+
+@utility scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 ::-webkit-scrollbar {

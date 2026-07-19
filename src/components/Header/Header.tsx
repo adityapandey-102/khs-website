@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown, Menu, Phone, X } from "lucide-react";
+import { ChevronDown, Phone, X } from "lucide-react";
 import { navItems } from "@/data/navigation";
 import { bathwareCategories } from "@/data/categories";
 
@@ -28,12 +28,30 @@ export default function Header() {
   const [openDesktopMenu, setOpenDesktopMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMobileMenu, setOpenMobileMenu] = useState<string | null>(null);
+  const headerStackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Publish the fixed header's real, current height as a CSS variable so any
+  // page can position content (e.g. a sticky sub-nav) directly beneath it
+  // without hardcoding pixel values that drift whenever the header's own
+  // sizing (utility bar collapse, compact height) changes. ResizeObserver
+  // keeps it in sync frame-by-frame while the header's height transitions.
+  useLayoutEffect(() => {
+    const el = headerStackRef.current;
+    if (!el) return;
+    const setHeightVar = () => {
+      document.documentElement.style.setProperty("--header-height", `${el.offsetHeight}px`);
+    };
+    setHeightVar();
+    const observer = new ResizeObserver(setHeightVar);
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -46,12 +64,24 @@ export default function Header() {
   // Transparent overlay only makes sense floating over the home hero;
   // every other page keeps a solid header from the start.
   const solid = !isHome || scrolled;
+  // Separate from `solid`: once the user has actually scrolled (on any
+  // page), the utility bar hides and the main bar shrinks a little tighter.
+  // Keeping this independent of `isHome` means non-home pages — which are
+  // always "solid" — still get the tightened bar once scrolled, not just
+  // the home page.
+  const compact = scrolled;
 
   return (
     <>
-      <div className="fixed inset-x-0 top-0 z-1000">
-        {/* Utility bar */}
-        <div className="hidden bg-primary-dark text-white/70 sm:block">
+      <div ref={headerStackRef} className="fixed inset-x-0 top-0 z-1000">
+        {/* Utility bar — collapses away once the user scrolls, on every
+            page, so the fixed header doesn't keep eating vertical space
+            while reading content further down the page. */}
+        <div
+          className={`hidden overflow-hidden bg-primary-dark text-white/70 transition-[max-height,opacity] duration-300 ease-out sm:block ${
+            compact ? "max-h-0 opacity-0" : "max-h-12 opacity-100"
+          }`}
+        >
           <div className="container flex h-9 items-center justify-between text-[0.72rem] tracking-wide">
             <div className="flex items-center gap-5">
               <a href="tel:6362068331" className="flex items-center gap-1.5 transition-colors hover:text-gold">
@@ -93,16 +123,24 @@ export default function Header() {
           }`}
           onMouseLeave={() => setOpenDesktopMenu(null)}
         >
-          <div className="container flex h-19 items-center justify-between gap-8">
+          <div
+            className={`container flex items-center justify-between gap-8 transition-[height] duration-300 ease-out ${
+              compact ? "h-16" : "h-19"
+            }`}
+          >
             <Link href="/" className="flex shrink-0 items-center gap-3" aria-label="Krishna Home Studio - Home">
-              <span className="flex h-11 w-23 items-center justify-center bg-primary-dark px-2">
-                <Image src="/assets/brand/khs-logo.png" alt="Krishna Home Studio" width={112} height={50} className="h-8 w-auto object-contain" priority />
+              <span
+                className={`flex items-center justify-center bg-primary-dark px-2 transition-[height,width] duration-300 ${
+                  compact ? "h-9 w-19" : "h-11 w-23"
+                }`}
+              >
+                <Image src="/assets/brand/khs-logo.png" alt="Krishna Home Studio" width={112} height={50} className="h-7 w-auto object-contain" priority />
               </span>
               <span className="hidden flex-col leading-tight sm:flex">
-                <span className={`font-semibold tracking-wide transition-colors ${solid ? "text-primary-dark" : "text-white"}`}>
+                <span className={`text-[0.95rem] font-semibold tracking-[0.01em] transition-colors ${solid ? "text-primary-dark" : "text-white"}`}>
                   Krishna Home Studio
                 </span>
-                <span className="text-[0.62rem] uppercase tracking-[0.2em] text-gold">Premium Bathware &amp; Hardware</span>
+                <span className="mt-0.5 text-[0.62rem] font-medium uppercase tracking-[0.3em] text-gold">A Class Apart</span>
               </span>
             </Link>
 
@@ -111,9 +149,9 @@ export default function Header() {
                 <div key={item.href} className="relative" onMouseEnter={() => setOpenDesktopMenu(item.label)}>
                   <Link
                     href={item.href}
-                    className={`flex h-19 items-center gap-1 px-4 text-[0.78rem] font-medium uppercase tracking-[0.08em] transition-colors ${
-                      pathname === item.href ? "text-gold" : solid ? "text-black hover:text-gold" : "text-white hover:text-gold"
-                    }`}
+                    className={`flex items-center gap-1 px-4 text-[0.78rem] font-medium uppercase tracking-[0.08em] transition-[color,height] duration-300 ${
+                      compact ? "h-16" : "h-19"
+                    } ${pathname === item.href ? "text-gold" : solid ? "text-black hover:text-gold" : "text-white hover:text-gold"}`}
                   >
                     {item.label}
                     {item.children && (
@@ -131,7 +169,9 @@ export default function Header() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -8 }}
                         transition={{ duration: 0.18, ease: "easeOut" }}
-                        className="absolute left-0 top-19 z-1000 flex w-[min(90vw,760px)] overflow-hidden border border-white/10 bg-primary-dark shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
+                        className={`absolute left-0 z-1000 flex w-[min(90vw,760px)] overflow-hidden border border-white/10 bg-primary-dark shadow-[0_20px_50px_rgba(0,0,0,0.4)] ${
+                          compact ? "top-16" : "top-19"
+                        }`}
                       >
                         {item.label === "Bathware" && featuredImage && (
                           <Link
@@ -186,11 +226,19 @@ export default function Header() {
             </div>
 
             <button
-              className={`flex items-center justify-center p-2 lg:hidden ${solid ? "text-black" : "text-white"}`}
+              className="group flex h-10 w-10 shrink-0 items-center justify-center lg:hidden"
               onClick={() => setMobileOpen(true)}
               aria-label="Open menu"
             >
-              <Menu size={26} />
+              <span className="flex w-6 flex-col items-end gap-1.25">
+                <span className={`h-[1.5px] w-full rounded-full transition-colors duration-300 ${solid ? "bg-primary-dark" : "bg-white"}`} />
+                <span className={`h-[1.5px] w-full rounded-full transition-colors duration-300 ${solid ? "bg-primary-dark" : "bg-white"}`} />
+                <span
+                  className={`h-[1.5px] w-2/3 rounded-full transition-all duration-300 ease-out group-hover:w-full ${
+                    solid ? "bg-primary-dark" : "bg-white"
+                  }`}
+                />
+              </span>
             </button>
           </div>
         </header>

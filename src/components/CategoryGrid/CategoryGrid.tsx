@@ -1,10 +1,15 @@
+"use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { bathwareCategories } from "@/data/categories";
 
 interface CategoryGridProps {
   title?: string;
   label?: string;
+  description?: string;
   showAll?: boolean;
   showHeading?: boolean;
   sectionClassName?: string;
@@ -13,61 +18,213 @@ interface CategoryGridProps {
 export default function CategoryGrid({
   title = "Our Collections",
   label = "Bathware",
+  description,
   showAll = false,
   showHeading = true,
   sectionClassName = "py-20 sm:py-28",
 }: CategoryGridProps) {
   const displayCategories = showAll ? bathwareCategories : bathwareCategories.slice(0, 5);
 
-  return (
-    <section className={sectionClassName} id="categories">
-      {showHeading && (
-        <div className="container mb-10 text-center ">
-          <span className="mb-3 block text-[0.72rem] font-semibold uppercase tracking-[0.25em] text-gold">
-            {label}
-          </span>
-          <h2 className="text-3xl font-light text-primary-dark sm:text-4xl">{title}</h2>
-        </div>
-      )}
+  const [activeIndex, setActiveIndex] = useState(0);
+  const railRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const dragRef = useRef({ pointerId: null as number | null, startX: 0, startScroll: 0, dragged: false });
+  const rafRef = useRef<number | null>(null);
 
-      <div className="grid grid-cols-1 gap-2 gap-px-- bg-border sm:grid-cols-2 lg:grid-cols-3 mx-3">
-        {displayCategories.map((cat, index) => (
-          <Link
-            key={cat.id}
-            href={cat.href}
-            className={`group relative overflow-hidden bg-surface aspect-square  ${
-              !showAll && index === 4 ? "lg:col-span-2 lg:aspect-2/1" : ""
-            }`}
-            aria-label={`Explore ${cat.label}`}
+  // The "active" catalogue is whichever card's center is closest to the
+  // rail's center — recomputed on scroll (native touch swipe, drag, or the
+  // dot/arrow controls all funnel through this) so the emphasis always
+  // matches what's actually centered in view.
+  const updateActiveFromScroll = useCallback(() => {
+    const rail = railRef.current;
+    if (!rail) return;
+    const railRect = rail.getBoundingClientRect();
+    const center = railRect.left + railRect.width / 2;
+    let closest = 0;
+    let closestDistance = Infinity;
+    cardRefs.current.forEach((card, index) => {
+      if (!card) return;
+      const cardRect = card.getBoundingClientRect();
+      const distance = Math.abs(cardRect.left + cardRect.width / 2 - center);
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closest = index;
+      }
+    });
+    setActiveIndex(closest);
+  }, []);
+
+  const handleRailScroll = useCallback(() => {
+    if (rafRef.current !== null) return;
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null;
+      updateActiveFromScroll();
+    });
+  }, [updateActiveFromScroll]);
+
+  useEffect(() => {
+    updateActiveFromScroll();
+  }, [displayCategories.length, updateActiveFromScroll]);
+
+  const scrollToIndex = (index: number) => {
+    const rail = railRef.current;
+    const card = cardRefs.current[index];
+    if (!rail || !card) return;
+    const railRect = rail.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    const delta = cardRect.left + cardRect.width / 2 - (railRect.left + railRect.width / 2);
+    rail.scrollBy({ left: delta, behavior: "smooth" });
+  };
+
+  // Desktop drag-to-scroll — touch keeps its native, momentum-friendly
+  // overflow-x scroll rather than being fought over by pointer handlers.
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === "touch") return;
+    const rail = railRef.current;
+    if (!rail) return;
+    dragRef.current = { pointerId: e.pointerId, startX: e.clientX, startScroll: rail.scrollLeft, dragged: false };
+    rail.setPointerCapture(e.pointerId);
+  };
+
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const rail = railRef.current;
+    const state = dragRef.current;
+    if (!rail || state.pointerId !== e.pointerId) return;
+    const delta = e.clientX - state.startX;
+    if (Math.abs(delta) > 3) state.dragged = true;
+    rail.scrollLeft = state.startScroll - delta;
+  };
+
+  const endDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (dragRef.current.pointerId === e.pointerId) dragRef.current.pointerId = null;
+  };
+
+  const onCardClick = (e: React.MouseEvent) => {
+    if (dragRef.current.dragged) {
+      e.preventDefault();
+      dragRef.current.dragged = false;
+    }
+  };
+
+  const viewAllCta = !showAll && (
+    <Link
+      href="/bathware"
+      className="group inline-flex items-center gap-4 border border-primary-dark px-8 py-3.5 text-[0.7rem] font-medium uppercase tracking-[0.32em] text-primary-dark transition-all duration-300 hover:bg-primary-dark hover:text-white"
+    >
+      View All Categories
+      <ArrowRight size={14} className="transition-transform duration-300 ease-out group-hover:translate-x-1" />
+    </Link>
+  );
+
+  return (
+    <section className={`overflow-hidden bg-white text-primary-dark ${sectionClassName}`} id="categories">
+      <div
+        className={`container grid gap-10 ${
+          showHeading ? "lg:grid-cols-[20rem_minmax(0,1fr)] lg:items-center lg:gap-16" : ""
+        }`}
+      >
+        {showHeading && (
+          <div>
+            <span className="mb-4 flex items-center gap-3 text-[0.7rem] font-medium uppercase tracking-[0.34em] text-gold">
+              <span className="h-px w-8 bg-gold/60" aria-hidden="true" />
+              {label}
+            </span>
+            <h2 className="text-3xl font-light tracking-[-0.01em] sm:text-4xl">{title}</h2>
+            {description && <p className="mt-5 max-w-sm text-sm leading-relaxed text-gray-700">{description}</p>}
+            {viewAllCta && <div className="mt-9">{viewAllCta}</div>}
+          </div>
+        )}
+
+        <div className="relative min-w-0">
+          <div
+            ref={railRef}
+            onScroll={handleRailScroll}
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={endDrag}
+            onPointerLeave={endDrag}
+            aria-label="Bathware catalogue carousel"
+            className="scrollbar-hide -mx-[clamp(1.25rem,5vw,5rem)] flex cursor-grab snap-x snap-mandatory gap-6 overflow-x-auto px-[clamp(1.25rem,5vw,5rem)] py-6 select-none active:cursor-grabbing lg:mx-0 lg:px-0"
           >
-            <Image
-              src={cat.image}
-              alt={cat.label}
-              fill
-              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-linear-to-t from-primary-dark/70 via-primary-dark/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-            <div className="absolute inset-x-0 bottom-0 p-5">
-              {/* <button className="text-sm font-medium text-white [text-shadow:0_1px_6px_rgba(0,0,0,0.5)] sm:text-base py-1 px-3 border-2 rounded-full-- mb-2">Explore More</button> */}
-              <h3 className="text-sm font-medium text-white [text-shadow:0_1px_6px_rgba(0,0,0,0.5)] sm:text-base">
-                {cat.shortLabel}
-              </h3>
-            </div>
-          </Link>
-        ))}
+            {displayCategories.map((cat, index) => (
+              <Link
+                key={cat.id}
+                ref={(el) => {
+                  cardRefs.current[index] = el;
+                }}
+                href={cat.href}
+                draggable={false}
+                onClick={onCardClick}
+                aria-label={`Explore ${cat.label}`}
+                aria-current={index === activeIndex ? "true" : undefined}
+                className={`group relative aspect-210/297 w-[72vw] shrink-0 snap-center overflow-hidden bg-primary-dark shadow-[0_20px_50px_rgba(0,0,0,0.35)] transition-all duration-500 ease-out sm:w-76 lg:w-84 ${
+                  index === activeIndex
+                    ? "scale-100 opacity-100 shadow-[0_30px_70px_rgba(0,0,0,0.5)]"
+                    : "scale-[0.92] opacity-55"
+                }`}
+              >
+                <Image
+                  src={cat.image}
+                  alt={cat.label}
+                  fill
+                  sizes="(max-width: 1024px) 72vw, 336px"
+                  draggable={false}
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-primary-dark/95 via-primary-dark/15 to-transparent transition-opacity duration-300 group-hover:from-primary-dark/98" />
+                <span className="absolute left-6 top-6 text-[0.68rem] font-medium uppercase tracking-[0.3em] text-gold">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div className="absolute inset-x-0 bottom-0 p-6">
+                  <span className="mb-3 block h-px w-8 bg-gold/60" aria-hidden="true" />
+                  <h3 className="text-base font-light leading-snug text-white sm:text-lg">{cat.shortLabel}</h3>
+                  <span className="mt-3 inline-flex items-center gap-2 text-[0.66rem] font-medium uppercase tracking-[0.2em] text-white/60 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:text-gold group-hover:opacity-100">
+                    Explore Collection <ArrowRight size={12} />
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
 
-      {!showAll && (
-        <div className="container mt-14 text-center">
-          <Link
-            href="/bathware"
-            className="inline-flex items-center gap-3 border border-primary-dark px-8 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-dark transition-colors hover:bg-primary-dark hover:text-white"
-          >
-            View All Categories
-          </Link>
+      <div className="container mt-10 flex items-center justify-center gap-5 sm:mt-12">
+        <button
+          type="button"
+          onClick={() => scrollToIndex(activeIndex - 1)}
+          disabled={activeIndex === 0}
+          aria-label="Previous catalogue"
+          className="hidden shrink-0 rounded-full border border-border p-2.5 text-primary-dark transition-colors hover:border-gold hover:text-gold disabled:pointer-events-none disabled:opacity-30 sm:block"
+        >
+          <ChevronLeft size={18} strokeWidth={1.5} />
+        </button>
+
+        <div className="flex items-center gap-2">
+          {displayCategories.map((cat, index) => (
+            <button
+              key={cat.id}
+              type="button"
+              onClick={() => scrollToIndex(index)}
+              aria-label={`Go to ${cat.shortLabel}`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                index === activeIndex ? "w-8 bg-gold" : "w-1.5 bg-primary-dark/15 hover:bg-primary-dark/30"
+              }`}
+            />
+          ))}
         </div>
-      )}
+
+        <button
+          type="button"
+          onClick={() => scrollToIndex(activeIndex + 1)}
+          disabled={activeIndex === displayCategories.length - 1}
+          aria-label="Next catalogue"
+          className="hidden shrink-0 rounded-full border border-border p-2.5 text-primary-dark transition-colors hover:border-gold hover:text-gold disabled:pointer-events-none disabled:opacity-30 sm:block"
+        >
+          <ChevronRight size={18} strokeWidth={1.5} />
+        </button>
+      </div>
+
+      {!showHeading && viewAllCta && <div className="container mt-10 text-center">{viewAllCta}</div>}
     </section>
   );
 }

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 const MOBILE_BREAKPOINT = 767;
 
@@ -285,19 +286,21 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="max-w-xl"
+            className="max-w-2xl"
           >
-            <span className="mb-4 block text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-gold">
+            <span className="mb-5 flex items-center gap-3 text-[0.7rem] font-medium uppercase tracking-[0.34em] text-gold">
+              <span className="h-px w-8 bg-gold/60" aria-hidden="true" />
               {current.label}
             </span>
-            <h1 className="text-4xl font-light leading-[1.1] text-white sm:text-5xl lg:text-6xl">
+            <h1 className="text-[2.75rem] font-light leading-[1.05] tracking-[-0.02em] text-white sm:text-6xl lg:text-[4.5rem]">
               {current.tagline}
             </h1>
             <Link
               href={current.href}
-              className="mt-8 inline-flex items-center gap-3 border border-white px-8 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-surface hover:text-primary-dark"
+              className="group mt-10 inline-flex items-center gap-4 border border-white/70 px-9 py-4 text-[0.7rem] font-medium uppercase tracking-[0.32em] text-white transition-all duration-300 hover:border-white hover:bg-white hover:text-primary-dark"
             >
               {current.cta}
+              <ArrowRight size={14} className="transition-transform duration-300 ease-out group-hover:translate-x-1" />
             </Link>
           </motion.div>
         </AnimatePresence>

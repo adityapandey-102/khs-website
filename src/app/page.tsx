@@ -17,7 +17,12 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <CategoryGrid showHeading={false} sectionClassName="pt-8 pb-16 sm:pt-10 sm:pb-24" />
+      <CategoryGrid
+        label="Curated Selection"
+        title="Our Signature Collections"
+        description="A refined edit of our most-loved bathware categories, each chosen for lasting quality and everyday luxury."
+        sectionClassName="py-20 sm:py-8"
+      />
       <BrandCarousel />
       <BrandPromoPopup />
       {/* <AboutSection /> */}
